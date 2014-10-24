@@ -1,4 +1,4 @@
 The_School_Project
 ==================
 
-That school project
+School project for grade 5 students made by grade 12 students for our final project in Computer Science.
