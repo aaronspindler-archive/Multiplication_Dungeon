@@ -16,6 +16,8 @@ public class SchoolProjectForm extends javax.swing.JFrame {
      */
     public SchoolProjectForm() {
         initComponents();
+        this.setSize(910, 710);
+        this.setResizable(false);
     }
 
     /**
@@ -27,11 +29,19 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dimLab = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+
+        dimLab.setText("jLabel1");
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -53,11 +63,17 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dimLab)
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dimLab)
+                .addContainerGap(255, Short.MAX_VALUE))
         );
 
         pack();
@@ -66,6 +82,10 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        dimLab.setText(this.getWidth() + " - "+ this.getHeight());
+    }//GEN-LAST:event_formComponentResized
 
     /**
      * @param args the command line arguments
@@ -104,6 +124,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dimLab;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuBar menuBar;
