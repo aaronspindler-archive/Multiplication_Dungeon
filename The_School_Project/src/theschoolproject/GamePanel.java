@@ -23,6 +23,13 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         g.setColor(new Color(150, 75, 0));
         g.fillRect(0, 0, 910, 710);
+        
+        for (int w = 1; w < 17; w++) {
+            for (int h = 1; h < 12; h++) {
+                g.setColor(new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255)));
+                g.fillRect(w*50, h*50, 50, 50);
+            }
+        }
     }
 
     public GamePanel(LayoutManager layout) {
