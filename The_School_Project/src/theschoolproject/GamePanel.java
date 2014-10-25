@@ -5,7 +5,6 @@
  */
 package theschoolproject;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.util.Random;
@@ -14,20 +13,27 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
     Random r = new Random();
-
+    FloorTile[][] ft = new FloorTile[17][13];
+    
     public GamePanel() {
+          for (int w = 0; w < 17; w++) {
+            for (int h = 0; h < 13; h++) {
+                if(w == 0 || w == 16 || h == 0 || h == 12){
+                    ft[w][h] = new FloorTile(1);
+                }else{
+                    ft[w][h] = new FloorTile(0);
+                }
+            }
+        }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(new Color(150, 75, 0));
-        g.fillRect(0, 0, 910, 710);
-        
-        for (int w = 1; w < 17; w++) {
-            for (int h = 1; h < 12; h++) {
-                g.setColor(new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255)));
-                g.fillRect(w*50, h*50, 50, 50);
+        super.paintComponent(g);     
+        for (int w = 0; w < 17; w++) {
+            for (int h = 0; h < 13; h++) {
+              g.setColor(ft[w][h].getColor());
+              g.fillRect(w*50, h*50, 50, 50);
             }
         }
     }
