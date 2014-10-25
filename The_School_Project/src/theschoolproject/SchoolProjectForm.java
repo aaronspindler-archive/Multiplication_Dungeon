@@ -13,7 +13,6 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private void initComponents() {
 
         gamePanel1 = new theschoolproject.GamePanel();
-        dimLab = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -27,25 +26,15 @@ public class SchoolProjectForm extends javax.swing.JFrame {
             }
         });
 
-        gamePanel1.setPreferredSize(new java.awt.Dimension(910, 710));
-
-        dimLab.setText("jLabel1");
-
         javax.swing.GroupLayout gamePanel1Layout = new javax.swing.GroupLayout(gamePanel1);
         gamePanel1.setLayout(gamePanel1Layout);
         gamePanel1Layout.setHorizontalGroup(
             gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gamePanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(dimLab)
-                .addContainerGap(866, Short.MAX_VALUE))
+            .addGap(0, 903, Short.MAX_VALUE)
         );
         gamePanel1Layout.setVerticalGroup(
             gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gamePanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(dimLab)
-                .addContainerGap(685, Short.MAX_VALUE))
+            .addGap(0, 697, Short.MAX_VALUE)
         );
 
         fileMenu.setMnemonic('f');
@@ -69,14 +58,16 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(gamePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(gamePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(gamePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(gamePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -87,7 +78,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        dimLab.setText(this.getWidth() + " - " + this.getHeight());
+
     }//GEN-LAST:event_formComponentResized
 
     public static void main(String args[]) {
@@ -124,7 +115,6 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel dimLab;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private theschoolproject.GamePanel gamePanel1;
