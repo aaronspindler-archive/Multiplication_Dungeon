@@ -16,11 +16,12 @@ public class GamePanel extends JPanel {
     Random r = new Random();
     FloorTile[][] ft = new FloorTile[17][15];
     boolean mainMenu = true;
-    boolean gameScreen = false;
+    boolean gameScreen = true;
     Keyboard keys = new Keyboard();
 
     public GamePanel() {
         this.addKeyListener(keys);
+        
         for (int w = 0; w < 17; w++) {
             for (int h = 0; h < 15; h++) {
                 if (w == 0 || w == 16 || h == 0 || h == 12) {
