@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
     Random r = new Random();
-    FloorTile[][] ft = new FloorTile[17][13];
+    FloorTile[][] ft = new FloorTile[17][15];
     
     public GamePanel() {
           for (int w = 0; w < 17; w++) {
-            for (int h = 0; h < 13; h++) {
+            for (int h = 0; h < 15; h++) {
                 if(w == 0 || w == 16 || h == 0 || h == 12){
                     ft[w][h] = new FloorTile(1);
                 }else{
@@ -31,7 +31,7 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);     
         for (int w = 0; w < 17; w++) {
-            for (int h = 0; h < 13; h++) {
+            for (int h = 0; h < 15; h++) {
               g.setColor(ft[w][h].getColor());
               g.fillRect(w*50, h*50, 50, 50);
             }
