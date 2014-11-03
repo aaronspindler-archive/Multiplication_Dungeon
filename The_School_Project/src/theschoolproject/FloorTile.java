@@ -18,7 +18,7 @@ public class FloorTile {
         switch (TILE_ID) {
             case 1:
                 return true;
-            case 2: 
+            case 2:
                 return false;
             default:
                 return false;
@@ -29,10 +29,10 @@ public class FloorTile {
         Color c = Color.MAGENTA;
         switch (TILE_ID) {
             case 1:
-                c = new Color(65,43,3);
+                c = new Color(65, 43, 3);
                 break;
             case 2:
-                c = new Color(130,86,6);
+                c = new Color(130, 86, 6);
         }
         return c;
     }
