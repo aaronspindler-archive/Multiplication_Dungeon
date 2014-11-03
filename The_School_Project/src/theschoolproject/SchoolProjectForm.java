@@ -5,7 +5,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     public SchoolProjectForm() {
         initComponents();
         this.setSize(855, 700);
-        this.setResizable(false);
+        this.setResizable(true);
     }
 
     @SuppressWarnings("unchecked")

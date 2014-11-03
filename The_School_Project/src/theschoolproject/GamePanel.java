@@ -10,18 +10,23 @@ import java.awt.LayoutManager;
 import java.util.Random;
 import javax.swing.JPanel;
 import theschoolproject.Input.Keyboard;
+import theschoolproject.Input.Mouse;
 
 public class GamePanel extends JPanel {
 
+    
+    
     Random r = new Random();
     FloorTile[][] ft = new FloorTile[17][15];
     boolean mainMenu = true;
     boolean gameScreen = true;
     Keyboard keys = new Keyboard();
+    Mouse mouse = new Mouse();
 
     public GamePanel() {
         this.addKeyListener(keys);
-        
+        this.addMouseListener(mouse);
+        this.addMouseMotionListener(mouse);
         for (int w = 0; w < 17; w++) {
             for (int h = 0; h < 15; h++) {
                 if (w == 0 || w == 16 || h == 0 || h == 12) {
@@ -47,6 +52,12 @@ public class GamePanel extends JPanel {
                     g.fillRect(w * 50, h * 50, 50, 50);
                 }
             }
+            for(int i = 0; i < mouse.Xcoords.size(); i++){
+                int x = (int)mouse.Xcoords.get(i);
+                int y = (int)mouse.Ycoords.get(i);
+                g.drawLine(x, y, x, y);
+            }
+            
         }
 
     }
