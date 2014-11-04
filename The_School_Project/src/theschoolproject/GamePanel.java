@@ -65,4 +65,17 @@ public class GamePanel extends JPanel {
     public GamePanel(LayoutManager layout) {
         super(layout);
     }
+    
+    public class ListenerThread implements Runnable{
+        
+        private boolean listening = true;   //listener is always listening
+        
+        @Override
+        public void run() {
+            while (listening){
+                
+            }
+        }
+        
+    }
 }
