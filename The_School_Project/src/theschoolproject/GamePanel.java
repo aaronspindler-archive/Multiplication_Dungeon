@@ -20,11 +20,14 @@ public class GamePanel extends JPanel {
     boolean gameScreen = true;
     Keyboard keys = new Keyboard();
     Mouse mouse = new Mouse();
+    ListenerThread lt = new ListenerThread();
+    Thread th = new Thread(lt);
 
     public GamePanel() {
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
+        th.start();
         for (int w = 0; w < 17; w++) {
             for (int h = 0; h < 15; h++) {
                 if (w == 0 || w == 16 || h == 0 || h == 12) {
@@ -68,7 +71,7 @@ public class GamePanel extends JPanel {
     
     public class ListenerThread implements Runnable{
         
-        private boolean listening = true;   //listener is always listening
+        boolean listening = true;   //listener is always listening
         
         @Override
         public void run() {
