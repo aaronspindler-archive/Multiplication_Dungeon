@@ -12,7 +12,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        gamePanel = new theschoolproject.GamePanel();
+        gamePanel1 = new theschoolproject.GamePanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -27,19 +27,19 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
-        gamePanel.setLayout(gamePanelLayout);
-        gamePanelLayout.setHorizontalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout gamePanel1Layout = new javax.swing.GroupLayout(gamePanel1);
+        gamePanel1.setLayout(gamePanel1Layout);
+        gamePanel1Layout.setHorizontalGroup(
+            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 850, Short.MAX_VALUE)
         );
-        gamePanelLayout.setVerticalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        gamePanel1Layout.setVerticalGroup(
+            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 650, Short.MAX_VALUE)
         );
 
-        getContentPane().add(gamePanel);
-        gamePanel.setBounds(0, 0, 850, 650);
+        getContentPane().add(gamePanel1);
+        gamePanel1.setBounds(0, 0, 850, 650);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -104,7 +104,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private theschoolproject.GamePanel gamePanel;
+    private theschoolproject.GamePanel gamePanel1;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
