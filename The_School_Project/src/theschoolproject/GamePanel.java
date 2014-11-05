@@ -13,9 +13,7 @@ import theschoolproject.Input.Keyboard;
 import theschoolproject.Input.Mouse;
 
 public class GamePanel extends JPanel {
-
-    
-    
+   
     Random r = new Random();
     FloorTile[][] ft = new FloorTile[17][15];
     boolean mainMenu = true;
@@ -52,10 +50,12 @@ public class GamePanel extends JPanel {
                     g.fillRect(w * 50, h * 50, 50, 50);
                 }
             }
-            for(int i = 0; i < mouse.Xcoords.size(); i++){
+            for(int i = 0; i < mouse.Xcoords.size()-1; i++){
                 int x = (int)mouse.Xcoords.get(i);
                 int y = (int)mouse.Ycoords.get(i);
-                g.drawLine(x, y, x, y);
+                int x1 = (int)mouse.Xcoords.get(i+1);
+                int y1 = (int)mouse.Ycoords.get(i+1);
+                g.drawLine(x, y, x1, y1);
             }
             
         }
@@ -73,7 +73,7 @@ public class GamePanel extends JPanel {
         @Override
         public void run() {
             while (listening){
-                
+                repaint();
             }
         }
         
