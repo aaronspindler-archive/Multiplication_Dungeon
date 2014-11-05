@@ -40,6 +40,8 @@ public class Mouse implements MouseListener,MouseMotionListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
+        Xcoords = new ArrayList<>();
+        Ycoords = new ArrayList<>();
         pressed= true;
     }
 
