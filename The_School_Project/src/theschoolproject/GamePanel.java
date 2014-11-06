@@ -60,6 +60,12 @@ public class GamePanel extends JPanel {
                 int y1 = (int)mouse.Ycoords.get(i+1);
                 g.drawLine(x, y, x1, y1);
             }
+            g.drawLine(mouse.x1, mouse.y1, mouse.x2, mouse.y2);
+            if (mouse.x2-mouse.x1 > mouse.y2-mouse.y1){
+                g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1+mouse.y2-mouse.y1);
+            } else {
+                g.drawLine(mouse.x1, mouse.y1, mouse.x1+mouse.x2-mouse.x1, mouse.x1);
+            }
             
         }
 
