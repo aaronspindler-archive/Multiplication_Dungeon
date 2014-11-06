@@ -7,13 +7,14 @@ package theschoolproject;
 
 import java.awt.Graphics;
 import java.awt.LayoutManager;
+import static java.lang.Math.abs;
 import java.util.Random;
 import javax.swing.JPanel;
 import theschoolproject.Input.Keyboard;
 import theschoolproject.Input.Mouse;
 
 public class GamePanel extends JPanel {
-   
+
     Random r = new Random();
     FloorTile[][] ft = new FloorTile[17][15];
     boolean mainMenu = true;
@@ -53,20 +54,45 @@ public class GamePanel extends JPanel {
                     g.fillRect(w * 50, h * 50, 50, 50);
                 }
             }
-            for(int i = 0; i < mouse.Xcoords.size()-1; i++){
-                int x = (int)mouse.Xcoords.get(i);
-                int y = (int)mouse.Ycoords.get(i);
-                int x1 = (int)mouse.Xcoords.get(i+1);
-                int y1 = (int)mouse.Ycoords.get(i+1);
+            for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
+                int x = (int) mouse.Xcoords.get(i);
+                int y = (int) mouse.Ycoords.get(i);
+                int x1 = (int) mouse.Xcoords.get(i + 1);
+                int y1 = (int) mouse.Ycoords.get(i + 1);
                 g.drawLine(x, y, x1, y1);
             }
             g.drawLine(mouse.x1, mouse.y1, mouse.x2, mouse.y2);
-            if (mouse.x2-mouse.x1 > mouse.y2-mouse.y1){
-                g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1+mouse.y2-mouse.y1);
-            } else {
-                g.drawLine(mouse.x1, mouse.y1, mouse.x1+mouse.x2-mouse.x1, mouse.x1);
-            }
-            
+            int dx = mouse.x2 - mouse.x1;
+            int dy = mouse.y2 - mouse.y1;
+
+            if (dx > 0) {    //bottom half
+                if (dy > 0) {
+                    if (abs(dx) < abs(dy)) {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                    } else {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                    }
+                } else {
+                    if (abs(dx) < abs(dy)) {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                    } else {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                    }
+                }
+            } else //top half
+                    if (dy > 0) {
+                    if (abs(dx) < abs(dy)) {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                    } else {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                    }
+                } else {
+                    if (abs(dx) < abs(dy)) {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                    } else {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                    }
+                }
         }
 
     }
@@ -74,17 +100,17 @@ public class GamePanel extends JPanel {
     public GamePanel(LayoutManager layout) {
         super(layout);
     }
-    
-    public class ListenerThread implements Runnable{
-        
+
+    public class ListenerThread implements Runnable {
+
         boolean listening = true;   //listener is always listening
-        
+
         @Override
         public void run() {
-            while (listening){
+            while (listening) {
                 repaint();
             }
         }
-        
+
     }
 }
