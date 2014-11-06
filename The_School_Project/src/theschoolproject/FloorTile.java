@@ -28,12 +28,8 @@ public class FloorTile {
                 return false;
         }
     }
-
-    public Color getColor(){
-        return c;
-    }
     
-    public Color setColor() {
+    public Color getColor() {
         
         switch (TILE_ID) {
             case 1:
