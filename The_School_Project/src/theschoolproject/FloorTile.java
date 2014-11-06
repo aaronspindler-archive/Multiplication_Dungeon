@@ -26,7 +26,7 @@ public class FloorTile {
     }
 
     public Color getColor() {
-        Color c = Color.MAGENTA;
+        Color c = Color.GRAY;
         switch (TILE_ID) {
             case 1:
                 c = new Color(65, 43, 3);
