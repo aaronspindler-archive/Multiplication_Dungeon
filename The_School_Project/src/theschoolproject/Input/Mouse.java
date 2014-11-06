@@ -14,35 +14,44 @@ import java.util.ArrayList;
  *
  * @author root
  */
-public class Mouse implements MouseListener,MouseMotionListener{
+public class Mouse implements MouseListener, MouseMotionListener {
 
     int xLoc;
     int yLoc;
     boolean pressed = false;
     public ArrayList Xcoords = new ArrayList<>();
     public ArrayList Ycoords = new ArrayList<>();
-    
-    
-    public boolean isMousePressed(){
+
+    public int y2, y1, x2, x1; //starting and ending points of mousedrag action
+
+    public boolean isMousePressed() {
         return pressed;
     }
-    
-    public int getX(){
+
+    public int getX() {
         return xLoc;
     }
-    
-    public int getY(){
+
+    public int getY() {
         return yLoc;
     }
-    
+
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+        x1 = e.getX();
+        y1 = e.getY();
+        x2 = e.getX();
+        y2 = e.getY();
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
         Xcoords = new ArrayList<>();
         Ycoords = new ArrayList<>();
-        pressed= true;
+        x1 = e.getX();
+        y1 = e.getY();
+        pressed = true;
+
     }
 
     @Override
@@ -51,22 +60,25 @@ public class Mouse implements MouseListener,MouseMotionListener{
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         Xcoords.add(e.getX());
         Ycoords.add(e.getY());
+        x2 = e.getX();
+        y2 = e.getY();
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) { 
+    public void mouseMoved(MouseEvent e) {
         xLoc = e.getX();
         yLoc = e.getY();
     }
-    
-}
 
+}
