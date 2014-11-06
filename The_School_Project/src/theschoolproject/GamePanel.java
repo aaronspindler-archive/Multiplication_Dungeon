@@ -9,7 +9,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
 import static java.lang.Math.abs;
+import static java.lang.Thread.sleep;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import theschoolproject.Input.Keyboard;
 import theschoolproject.Input.Mouse;
@@ -22,6 +25,7 @@ public class GamePanel extends JPanel {
     boolean gameScreen = true;
     Keyboard keys = new Keyboard();
     Mouse mouse = new Mouse();
+    
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
 
@@ -123,6 +127,11 @@ public class GamePanel extends JPanel {
         public void run() {
             while (listening) {
                 repaint();
+                try {
+                    sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
