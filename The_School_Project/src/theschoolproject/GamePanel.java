@@ -67,7 +67,7 @@ public class GamePanel extends JPanel {
             int dy = mouse.y2 - mouse.y1;
 
             g.setColor(Color.red);
-            if (dx > 0) {    //bottom half
+            if (dx > 0) {    //R
                 if (dy > 0) {
                     if (abs(dx) < abs(dy)) {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
@@ -87,7 +87,7 @@ public class GamePanel extends JPanel {
                     }
                     
                 }
-            } else //top half
+            } else //L
                     if (dy > 0) {
                     if (abs(dx) < abs(dy)) {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
