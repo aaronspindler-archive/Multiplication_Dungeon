@@ -5,6 +5,7 @@
  */
 package theschoolproject;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
 import static java.lang.Math.abs;
@@ -65,33 +66,46 @@ public class GamePanel extends JPanel {
             int dx = mouse.x2 - mouse.x1;
             int dy = mouse.y2 - mouse.y1;
 
+            g.setColor(Color.red);
             if (dx > 0) {    //bottom half
                 if (dy > 0) {
                     if (abs(dx) < abs(dy)) {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                        g.drawString("quad_3_D", 50, 50);
                     } else {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                        g.drawString("quad_3_R", 50, 50);
                     }
+                    
                 } else {
                     if (abs(dx) < abs(dy)) {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                        g.drawString("quad_0_U", 50, 50);
                     } else {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                        g.drawString("quad_0_R", 50, 50);
                     }
+                    
                 }
             } else //top half
                     if (dy > 0) {
                     if (abs(dx) < abs(dy)) {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                        g.drawString("quad_2_D", 50, 50);
                     } else {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                        g.drawString("quad_2_L", 50, 50);
                     }
+                    
                 } else {
                     if (abs(dx) < abs(dy)) {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                        g.drawString("quad_1_U", 50, 50);
                     } else {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                        g.drawString("quad_1_L", 50, 50);
                     }
+                    
                 }
         }
 
