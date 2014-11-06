@@ -1,6 +1,7 @@
 package theschoolproject;
 
 import java.awt.Color;
+import java.util.Random;
 
 /**
  *
@@ -9,9 +10,12 @@ import java.awt.Color;
 public class FloorTile {
 
     int TILE_ID = -1;
+    Random rand = new Random();
+    Color c;
 
     public FloorTile(int id) {
         this.TILE_ID = id;
+        c = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
     }
 
     public boolean isSolid() {
@@ -25,8 +29,12 @@ public class FloorTile {
         }
     }
 
-    public Color getColor() {
-        Color c = Color.GRAY;
+    public Color getColor(){
+        return c;
+    }
+    
+    public Color setColor() {
+        
         switch (TILE_ID) {
             case 1:
                 c = new Color(65, 43, 3);

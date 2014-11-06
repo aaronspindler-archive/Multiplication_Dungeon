@@ -55,8 +55,8 @@ public class GamePanel extends JPanel {
         if (gameScreen) {
             for (int w = 0; w < 17; w++) {
                 for (int h = 0; h < 15; h++) {
-                    g.setColor(ft[w][h].getColor());
-                    g.fillRect(w * 50, h * 50, 50, 50);
+                    g.setColor(ft[w][h].setColor());
+                    g.fill3DRect(w * 50, h * 50, 50, 50, true);
                 }
             }
             for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
@@ -128,7 +128,7 @@ public class GamePanel extends JPanel {
             while (listening) {
                 repaint();
                 try {
-                    sleep(10);
+                    sleep(5);   //This is to save resources on repaint
                 } catch (InterruptedException ex) {
                     Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
