@@ -21,10 +21,11 @@ public class GamePanel extends JPanel {
 
     Random r = new Random();
     FloorTile[][] ft = new FloorTile[17][15];
-    boolean mainMenu = true;
+    boolean mainMenu = false;
     boolean gameScreen = true;
     Keyboard keys = new Keyboard();
     Mouse mouse = new Mouse();
+    Player pl = new Player();
     
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
@@ -50,12 +51,14 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (mainMenu) {
+            g.setColor(Color.GRAY);
+            g.drawString("MAIN MENU", 50, 50);
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
         if (gameScreen) {
             for (int w = 0; w < 17; w++) {
                 for (int h = 0; h < 15; h++) {
-                    g.setColor(ft[w][h].setColor());
+                    g.setColor(ft[w][h].getColor());
                     g.fill3DRect(w * 50, h * 50, 50, 50, true);
                 }
             }
