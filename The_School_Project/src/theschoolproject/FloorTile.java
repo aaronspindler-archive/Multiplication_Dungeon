@@ -15,7 +15,8 @@ public class FloorTile {
 
     public FloorTile(int id) {
         this.TILE_ID = id;
-        c = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+//        c = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+        c = Color.GRAY;
     }
 
     public boolean isSolid() {

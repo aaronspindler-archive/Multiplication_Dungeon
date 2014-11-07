@@ -18,29 +18,38 @@ import javax.imageio.ImageIO;
  * @author root
  */
 public class Player {
-    
+
     int xLoc = 0;
     int yLoc = 0;
     int orientation; //0 - North, 1 - East, 2 - South, 3 - West
     int score = 0;
     int lives = 3;
-    
-    int rows = 4;
-    int columns = 3;
-    BufferedImage spritesheet;
-    BufferedImage[] sprites = new BufferedImage[rows * columns];
-        
-    public Player(){
+
+    int rows = 3;
+    int columns = 2;
+    int height = 32;
+    int width = 32;
+    BufferedImage spriteSheet;
+    BufferedImage[] sprites;
+
+    public Player() {
         try {
-            this.spritesheet = ImageIO.read(new File("playersprite.png"));
+            this.spriteSheet = ImageIO.read(new File("src/resources/playersprite.png"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
+        sprites = new BufferedImage[rows * columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                sprites[(i * columns) + j] = spriteSheet.getSubimage(i * width, j * height, width, height);
+            }
+        }
+        this.xLoc = 50;
+        this.yLoc = 50;
     }
-    
-    public void setLocation(){
-        
+
+    public void setLocation() {
+
     }
-    
+
 }

@@ -115,6 +115,7 @@ public class GamePanel extends JPanel {
                     
                 }
         }
+        g.drawImage(pl.sprites[pl.orientation], 64, 64, this);
 
     }
 
