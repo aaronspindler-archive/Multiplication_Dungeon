@@ -1,5 +1,8 @@
 package theschoolproject;
 
+import java.awt.Desktop;
+import java.net.URL;
+
 public class SchoolProjectForm extends javax.swing.JFrame {
 
     public SchoolProjectForm() {
@@ -120,7 +123,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }//GEN-LAST:event_aboutbtnActionPerformed
 
     private void documentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentationBtnActionPerformed
-        // TODO add your handling code here:
+        UsefulSnippets.openWebpage("https://github.com/xNovax/The_School_Project/wiki");
     }//GEN-LAST:event_documentationBtnActionPerformed
 
     private void aboutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutPanelMouseClicked
