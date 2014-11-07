@@ -5,13 +5,10 @@
  */
 package theschoolproject;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+//import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -34,8 +31,10 @@ public class Player {
 
     public Player() {
         try {
-            this.spriteSheet = ImageIO.read(new File("src/resources/playersprite.png"));
-        } catch (IOException ex) {
+            ImageIcon img = new ImageIcon(this.getClass().getResource("/src/resources/playersprite.png"));
+            //this.spriteSheet = ImageIO.read(new File("src/resources/playersprite.png"));
+            this.spriteSheet = (BufferedImage)img.getImage();
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         sprites = new BufferedImage[rows * columns];
