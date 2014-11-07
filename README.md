@@ -9,5 +9,6 @@ TODO:
 - [ ] Sound
 - [ ] Controls
 - [ ] GUI/menu
+- [ ] Multiplication Equation Generation
 - [ ] Savestates (we will use JSON)
 - [ ] Documentation
