@@ -11,6 +11,15 @@ public class Keyboard implements KeyListener {
         if (s.equals("up")) {
             return keys[KeyEvent.VK_UP];
         }
+        if (s.equals("down")) {
+            return keys[KeyEvent.VK_DOWN];
+        }
+        if (s.equals("left")) {
+            return keys[KeyEvent.VK_LEFT];
+        }
+        if (s.equals("right")) {
+            return keys[KeyEvent.VK_RIGHT];
+        }
         return false;
     }
 

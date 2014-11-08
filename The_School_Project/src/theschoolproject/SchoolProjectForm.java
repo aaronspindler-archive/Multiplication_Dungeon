@@ -96,7 +96,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentResized
 
     private void aboutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutbtnActionPerformed
-//        aboutPanel.setVisible(true);
+
     }//GEN-LAST:event_aboutbtnActionPerformed
 
     private void documentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentationBtnActionPerformed

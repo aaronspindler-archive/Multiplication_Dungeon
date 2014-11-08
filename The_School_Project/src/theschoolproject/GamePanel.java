@@ -8,6 +8,7 @@ package theschoolproject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
 import static java.lang.Thread.sleep;
@@ -144,6 +145,23 @@ public class GamePanel extends JPanel {
         }
         if(gameScreen){
             pl.tick();
+            pl.isMoving = false;
+            if (keys.isKeyDown("up")){
+                pl.orientation = 0;
+                pl.isMoving = true;
+            }
+            if (keys.isKeyDown("left")){
+                pl.orientation = 3;
+                pl.isMoving = true;
+            }
+            if (keys.isKeyDown("down")){
+                pl.orientation = 2;
+                pl.isMoving = true;
+            }
+            if (keys.isKeyDown("right")){
+                pl.orientation = 1;
+                pl.isMoving = true;
+            }
         }
     }
 
