@@ -12,10 +12,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        gamePanel = new theschoolproject.GamePanel();
-        aboutPanel = new javax.swing.JPanel();
-        title = new javax.swing.JLabel();
-        teamNames = new javax.swing.JLabel();
+        gamePanel1 = new theschoolproject.GamePanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -33,40 +30,19 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        aboutPanel.setVisible(false);
-        aboutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                aboutPanelMouseClicked(evt);
-            }
-        });
-        aboutPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        title.setText("DungeonCrawler v0.1a");
-        aboutPanel.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, 20));
-
-        teamNames.setForeground(new java.awt.Color(27, 59, 102));
-        teamNames.setText("<html>Ben Barrett<br>Clarke Ariss<br>Matt Pizzinato<br>Chris Sparks<br>Arthur Leung<br>Tyler Baird<br>Aaron Spindler</html>");
-        aboutPanel.add(teamNames, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 109, 110));
-
-        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
-        gamePanel.setLayout(gamePanelLayout);
-        gamePanelLayout.setHorizontalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gamePanelLayout.createSequentialGroup()
-                .addGap(301, 301, 301)
-                .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(299, Short.MAX_VALUE))
+        javax.swing.GroupLayout gamePanel1Layout = new javax.swing.GroupLayout(gamePanel1);
+        gamePanel1.setLayout(gamePanel1Layout);
+        gamePanel1Layout.setHorizontalGroup(
+            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
         );
-        gamePanelLayout.setVerticalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gamePanelLayout.createSequentialGroup()
-                .addGap(250, 250, 250)
-                .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+        gamePanel1Layout.setVerticalGroup(
+            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 650, Short.MAX_VALUE)
         );
 
-        getContentPane().add(gamePanel);
-        gamePanel.setBounds(0, 0, 850, 650);
+        getContentPane().add(gamePanel1);
+        gamePanel1.setBounds(0, 0, 850, 650);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -116,16 +92,12 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentResized
 
     private void aboutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutbtnActionPerformed
-        aboutPanel.setVisible(true);
+//        aboutPanel.setVisible(true);
     }//GEN-LAST:event_aboutbtnActionPerformed
 
     private void documentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentationBtnActionPerformed
         UsefulSnippets.openWebpage("https://github.com/xNovax/The_School_Project/wiki");
     }//GEN-LAST:event_documentationBtnActionPerformed
-
-    private void aboutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutPanelMouseClicked
-        aboutPanel.setVisible(false);
-    }//GEN-LAST:event_aboutPanelMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -161,16 +133,13 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel aboutPanel;
     private javax.swing.JMenuItem aboutbtn;
     private javax.swing.JMenuItem documentationBtn;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private theschoolproject.GamePanel gamePanel;
+    private theschoolproject.GamePanel gamePanel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JLabel teamNames;
-    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 
 }

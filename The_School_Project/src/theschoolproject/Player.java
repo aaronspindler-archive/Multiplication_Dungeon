@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 //import javax.imageio.ImageIO;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -27,21 +28,23 @@ public class Player {
     int columns = 2;
     int height = 32;
     int width = 32;
-    BufferedImage spriteSheet;
+    BufferedImage spriteSheetB;
     BufferedImage[] sprites;
+    ImageIcon spriteSheet;
 
     public Player() {
         try {
-            //ImageIcon img = new ImageIcon(this.getClass().getResource("/src/resources/playersprite.png"));
-            this.spriteSheet = ImageIO.read(new File("src/resources/playersprite.png"));
-            //this.spriteSheet = (BufferedImage)img.getImage();
+            spriteSheet = new ImageIcon(this.getClass().getResource("/resources/playersprite.png"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         sprites = new BufferedImage[rows * columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                sprites[(i * columns) + j] = spriteSheet.getSubimage(i * width, j * height, width, height);
+                spriteSheetB = new BufferedImage(spriteSheet.getIconWidth(), spriteSheet.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+                Graphics sG = spriteSheetB.getGraphics();
+                sG.drawImage(spriteSheet.getImage(), 0, 0, null);
+                sprites[(i * columns) + j] = spriteSheetB.getSubimage(i * width, j * height, width, height);
             }
         }
         this.xLoc = 50;
