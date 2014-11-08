@@ -8,12 +8,22 @@ import java.util.Random;
 
 public class UsefulSnippets {
 
+    /*
+        Opens a webpage (Commented since Aaron doesn't know how to.)
+    */
     public static void openWebpage(String urlString) {
         try {
             Desktop.getDesktop().browse(new URL(urlString).toURI());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    /*
+        Generates a boring number that is in the given range.  
+    */
+    public static int generateRandomNumber(int range){
+        return (int)(Math.random() * range);
     }
     
     /*
