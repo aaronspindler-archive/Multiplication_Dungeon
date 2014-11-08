@@ -23,11 +23,13 @@ public class Player {
     int orientation; //0 - North, 1 - East, 2 - South, 3 - West
     int score = 0;
     int lives = 3;
+    int spd = 0;
+    boolean isMoving = false;
 
     int rows = 3;
     int columns = 2;
-    int height = 32;
-    int width = 32;
+    int height = 64;
+    int width = 64;
     BufferedImage spriteSheetB;
     BufferedImage[] sprites;
     ImageIcon spriteSheet;
@@ -50,25 +52,42 @@ public class Player {
         this.xLoc = 50;
         this.yLoc = 50;
     }
-    
-    public void draw(Graphics g){
-          g.drawImage(sprites[orientation], xLoc, yLoc, null);
+
+    public void draw(Graphics g) {
+        g.drawImage(sprites[orientation], xLoc, yLoc, null);
     }
 
-    public void tick(){
-    
+    public void tick() {
+        if (isMoving && spd < 3) {
+            spd++;
+        }
+
+        if (!isMoving && spd > 0) {
+            spd--;
+        }
+        
+        switch (orientation){
+            case 0: yLoc = yLoc - spd;
+                break;
+            case 1: xLoc = xLoc + spd;
+                break;
+            case 2: yLoc = yLoc + spd;
+                break;
+            case 3: xLoc = xLoc - spd;
+                break;
+        }
     }
-    
+
     public void setLocation(int x, int y) {
         this.xLoc = x;
         this.yLoc = y;
     }
 
-    public int getX(){
+    public int getX() {
         return xLoc;
     }
-    
-    public int getY(){
+
+    public int getY() {
         return yLoc;
     }
 }

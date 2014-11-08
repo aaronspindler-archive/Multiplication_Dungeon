@@ -8,6 +8,7 @@ package theschoolproject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
 import static java.lang.Thread.sleep;
