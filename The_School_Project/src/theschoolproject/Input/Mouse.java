@@ -35,6 +35,10 @@ public class Mouse implements MouseListener, MouseMotionListener {
     public int getY() {
         return yLoc;
     }
+    
+    public void unPress(){
+        pressed=false;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {

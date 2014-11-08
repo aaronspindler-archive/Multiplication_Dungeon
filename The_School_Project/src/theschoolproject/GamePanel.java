@@ -36,9 +36,12 @@ public class GamePanel extends JPanel {
     //=========================
     BufferedImage menuScreen;
     BufferedImage menuTitle;
+    BufferedImage play_NoGlow;
+    BufferedImage play_Glow;
     int AnimationTimer = 0;
     int ImageScroll = 0;
-    
+    boolean glow = false;
+
     public GamePanel() {
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
@@ -56,15 +59,22 @@ public class GamePanel extends JPanel {
         this.setFocusable(true);
         menuScreen = UsefulSnippets.loadImage("/resources/JustBG.png");
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
+        play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
+        play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (mainMenu) {
-            g.drawImage(menuScreen, 0 - ImageScroll, 0, 850,650,null);
-            g.drawImage(menuScreen, 850 - ImageScroll, 0, 850,650,null);
+            g.drawImage(menuScreen, 0 - ImageScroll, 0, 850, 650, null);
+            g.drawImage(menuScreen, 850 - ImageScroll, 0, 850, 650, null);
             g.drawImage(menuTitle, 0, 0, null);
+            if (!glow) {
+                g.drawImage(play_NoGlow, 0, 0, null);
+            } else {
+                g.drawImage(play_Glow, 0, 0, null);
+            }
         }
         if (gameScreen) {
             for (int w = 0; w < 17; w++) {
@@ -131,19 +141,43 @@ public class GamePanel extends JPanel {
     }
 
     public void tick() {
-        if(mainMenu){
-            if(AnimationTimer > 5){
+        if (mainMenu) {
+            if (AnimationTimer > 5) {
                 ImageScroll++;
-                if(ImageScroll >= 850){
+                if (ImageScroll >= 850) {
                     ImageScroll = 0;
                 }
                 AnimationTimer = 0;
-            }else{
-                AnimationTimer ++;
+            } else {
+                AnimationTimer++;
+            }
+
+            if ((mouse.getX() > 350 && mouse.getX() < 505) && (mouse.getY() > 335 && mouse.getY() < 395)) {
+                glow = true;
+                if (mouse.isMousePressed()) {
+                    switchTo("game");
+                    mouse.unPress();
+                }
+            } else {
+                glow = false;
             }
         }
-        if(gameScreen){
+        if (gameScreen) {
             pl.tick();
+        }
+    }
+
+    /*
+     Switchs the gamemode to the desired gamemode
+     */
+    public void switchTo(String mode) {
+        if (mode.equals("menu")) {
+            this.mainMenu = true;
+            this.gameScreen = false;
+        }
+        if (mode.equals("game")) {
+            this.mainMenu = false;
+            this.gameScreen = true;
         }
     }
 
