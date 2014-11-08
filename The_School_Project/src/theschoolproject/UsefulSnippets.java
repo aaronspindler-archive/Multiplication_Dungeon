@@ -56,6 +56,9 @@ public class UsefulSnippets {
         return output;
     }
     
+    /*
+        Loads an Image from the path specified (Lets you not have try-catch blocks in the middle of your code)
+    */
     public static BufferedImage loadImage(String FilePath){
         BufferedImage img = null;
         try {
