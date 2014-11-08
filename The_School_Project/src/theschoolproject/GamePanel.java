@@ -21,15 +21,27 @@ import theschoolproject.Input.Mouse;
 public class GamePanel extends JPanel {
 
     Random r = new Random();
-    FloorTile[][] ft = new FloorTile[17][15];
-    boolean mainMenu = true;
-    boolean gameScreen = false;
-    Keyboard keys = new Keyboard();
-    Mouse mouse = new Mouse();
-    Player pl = new Player();
-
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
+    FloorTile[][] ft = new FloorTile[17][15];
+    
+     //=========================
+    //   Game State Variables
+    //=========================
+    boolean mainMenu = true;
+    boolean gameScreen = false;
+    boolean battle = false;
+    
+     //=========================
+    //      Input Variables
+    //=========================
+    Keyboard keys = new Keyboard();
+    Mouse mouse = new Mouse();
+    
+     //=========================
+    //    Player Variables
+    //=========================
+    Player pl = new Player();
 
     //=========================
     //      Menu Variables
@@ -174,10 +186,17 @@ public class GamePanel extends JPanel {
         if (mode.equals("menu")) {
             this.mainMenu = true;
             this.gameScreen = false;
+            this.battle = false;
         }
         if (mode.equals("game")) {
             this.mainMenu = false;
             this.gameScreen = true;
+            this.battle = false;
+        }
+        if(mode.equals("battle")){
+            this.mainMenu = false;
+            this.gameScreen = false;
+            this.battle = true;
         }
     }
 
