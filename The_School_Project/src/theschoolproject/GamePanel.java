@@ -24,21 +24,21 @@ public class GamePanel extends JPanel {
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
     FloorTile[][] ft = new FloorTile[17][15];
-    
-     //=========================
+
+    //=========================
     //   Game State Variables
     //=========================
     boolean mainMenu = true;
     boolean gameScreen = false;
     boolean battle = false;
-    
-     //=========================
+
+    //=========================
     //      Input Variables
     //=========================
     Keyboard keys = new Keyboard();
     Mouse mouse = new Mouse();
-    
-     //=========================
+
+    //=========================
     //    Player Variables
     //=========================
     Player pl = new Player();
@@ -176,6 +176,24 @@ public class GamePanel extends JPanel {
         }
         if (gameScreen) {
             pl.tick();
+            pl.isMoving = false;
+            if (keys.isKeyDown("up")) {
+                pl.orientation = 0;
+                pl.isMoving = true;
+            }
+            if (keys.isKeyDown("left")) {
+                pl.orientation = 3;
+                pl.isMoving = true;
+            }
+            if (keys.isKeyDown("down")) {
+                pl.orientation = 2;
+                pl.isMoving = true;
+            }
+            if (keys.isKeyDown("right")) {
+                pl.orientation = 1;
+                pl.isMoving = true;
+            }
+
         }
     }
 
@@ -193,7 +211,7 @@ public class GamePanel extends JPanel {
             this.gameScreen = true;
             this.battle = false;
         }
-        if(mode.equals("battle")){
+        if (mode.equals("battle")) {
             this.mainMenu = false;
             this.gameScreen = false;
             this.battle = true;
@@ -202,6 +220,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel(LayoutManager layout) {
         super(layout);
+
     }
 
     public class ListenerThread implements Runnable {
