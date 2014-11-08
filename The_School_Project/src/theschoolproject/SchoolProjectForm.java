@@ -1,8 +1,5 @@
 package theschoolproject;
 
-import java.awt.Desktop;
-import java.net.URL;
-
 public class SchoolProjectForm extends javax.swing.JFrame {
 
     public SchoolProjectForm() {

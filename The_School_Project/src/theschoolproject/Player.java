@@ -5,10 +5,11 @@
  */
 package theschoolproject;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 //import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -31,9 +32,9 @@ public class Player {
 
     public Player() {
         try {
-            ImageIcon img = new ImageIcon(this.getClass().getResource("/src/resources/playersprite.png"));
-            //this.spriteSheet = ImageIO.read(new File("src/resources/playersprite.png"));
-            this.spriteSheet = (BufferedImage)img.getImage();
+            //ImageIcon img = new ImageIcon(this.getClass().getResource("/src/resources/playersprite.png"));
+            this.spriteSheet = ImageIO.read(new File("src/resources/playersprite.png"));
+            //this.spriteSheet = (BufferedImage)img.getImage();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -46,9 +47,25 @@ public class Player {
         this.xLoc = 50;
         this.yLoc = 50;
     }
-
-    public void setLocation() {
-
+    
+    public void draw(Graphics g){
+          g.drawImage(sprites[orientation], xLoc, yLoc, null);
     }
 
+    public void tick(){
+    
+    }
+    
+    public void setLocation(int x, int y) {
+        this.xLoc = x;
+        this.yLoc = y;
+    }
+
+    public int getX(){
+        return xLoc;
+    }
+    
+    public int getY(){
+        return yLoc;
+    }
 }

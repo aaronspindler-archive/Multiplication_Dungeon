@@ -115,8 +115,11 @@ public class GamePanel extends JPanel {
                     
                 }
         }
-        g.drawImage(pl.sprites[pl.orientation], 64, 64, this);
-
+        pl.draw(g);  
+    }
+    
+    public void tick(){
+        pl.tick();
     }
 
     public GamePanel(LayoutManager layout) {
@@ -130,6 +133,7 @@ public class GamePanel extends JPanel {
         @Override
         public void run() {
             while (listening) {
+                tick();
                 repaint();
                 try {
                     sleep(5);   //This is to save resources on repaint
