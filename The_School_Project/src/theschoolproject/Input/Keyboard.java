@@ -20,6 +20,18 @@ public class Keyboard implements KeyListener {
         if (s.equals("right")) {
             return keys[KeyEvent.VK_RIGHT];
         }
+        if (s.equals("w")) {
+            return keys[KeyEvent.VK_W];
+        }
+        if (s.equals("a")) {
+            return keys[KeyEvent.VK_A];
+        }
+        if (s.equals("s")) {
+            return keys[KeyEvent.VK_S];
+        }
+        if (s.equals("d")) {
+            return keys[KeyEvent.VK_D];
+        }
         return false;
     }
 

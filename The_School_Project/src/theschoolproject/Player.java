@@ -19,12 +19,12 @@ import theschoolproject.Input.Keyboard;
  */
 public class Player {
 
-    int xLoc = 0;
-    int yLoc = 0;
+    double xLoc = 0;
+    double yLoc = 0;
     int orientation; //0 - North, 1 - East, 2 - South, 3 - West
     int score = 0;
     int lives = 3;
-    int spd = 0;
+    double spd = 0;
     boolean isMoving = false;
 
     int rows = 3;
@@ -58,62 +58,70 @@ public class Player {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(sprites[orientation], xLoc, yLoc, null);
+        g.drawImage(sprites[orientation], (int) xLoc, (int) yLoc, null);
     }
 
     public void tick() {
         isMoving = false;
-        if (keys.isKeyDown("up")) {
+        if (keys.isKeyDown("up") || keys.isKeyDown("w")) {
             orientation = 0;
             isMoving = true;
         }
-        if (keys.isKeyDown("left")) {
+        if (keys.isKeyDown("left") || keys.isKeyDown("a")) {
             orientation = 3;
             isMoving = true;
         }
-        if (keys.isKeyDown("down")) {
+        if (keys.isKeyDown("down") || keys.isKeyDown("s")) {
             orientation = 2;
             isMoving = true;
         }
-        if (keys.isKeyDown("right")) {
+        if (keys.isKeyDown("right") || keys.isKeyDown("d")) {
             orientation = 1;
             isMoving = true;
         }
 
         if (isMoving && spd < 3) {
-            spd++;
+            spd = spd + 0.5;
         }
 
         if (!isMoving && spd > 0) {
-            spd--;
+            spd = spd - 0.5;
         }
 
         switch (orientation) {
             case 0:
-                setLocation(this.getX(), this.getY() - spd);
+                if (this.yLoc > 50) {
+                    setLocation(this.getX(), this.getY() - spd);
+                }
                 break;
             case 1:
-                setLocation(this.getX() + spd, this.getY());
+                if (this.xLoc < 750) {
+                    setLocation(this.getX() + spd, this.getY());
+                }
                 break;
             case 2:
-                setLocation(this.getX(), this.getY() + spd);
+                if (this.yLoc < 550) {
+                    setLocation(this.getX(), this.getY() + spd);
+                }
                 break;
             case 3:
-                setLocation(this.getX() - spd, this.getY());
+                if (this.xLoc > 50) {
+                    setLocation(this.getX() - spd, this.getY());
+                }
                 break;
         }
     }
 
-    public void setLocation(int x, int y) {
+    public void setLocation(double x, double y) {
         this.xLoc = x;
         this.yLoc = y;
     }
 
-    public int getX() {
+    public double getX() {
         return xLoc;
     }
 
-    public int getY() {
+    public double getY() {
         return yLoc;
     }
 }
