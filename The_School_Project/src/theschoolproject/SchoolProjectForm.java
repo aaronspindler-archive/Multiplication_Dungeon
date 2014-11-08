@@ -7,7 +7,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     public SchoolProjectForm() {
         initComponents();
         this.setSize(855, 700);
-        this.setResizable(true);
+        this.setResizable(false);
         this.setTitle("The name of the game");
     }
     

@@ -8,6 +8,7 @@ package theschoolproject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
+import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
 import static java.lang.Thread.sleep;
 import java.util.Random;
@@ -21,14 +22,16 @@ public class GamePanel extends JPanel {
 
     Random r = new Random();
     FloorTile[][] ft = new FloorTile[17][15];
-    boolean mainMenu = false;
-    boolean gameScreen = true;
+    boolean mainMenu = true;
+    boolean gameScreen = false;
     Keyboard keys = new Keyboard();
     Mouse mouse = new Mouse();
     Player pl = new Player();
-    
+
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
+
+    BufferedImage menuScreen;
 
     public GamePanel() {
         this.addKeyListener(keys);
@@ -45,15 +48,14 @@ public class GamePanel extends JPanel {
             }
         }
         this.setFocusable(true);
+        menuScreen = UsefulSnippets.loadImage("/resources/MainMenu.png");
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (mainMenu) {
-            g.setColor(Color.GRAY);
-            g.drawString("MAIN MENU", 50, 50);
-            g.fillRect(0, 0, this.getWidth(), this.getHeight());
+            g.drawImage(menuScreen, 0, 0, 850,650,null);
         }
         if (gameScreen) {
             for (int w = 0; w < 17; w++) {
@@ -83,7 +85,7 @@ public class GamePanel extends JPanel {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                         g.drawString("quad_3_R", 50, 50);
                     }
-                    
+
                 } else {
                     if (abs(dx) < abs(dy)) {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
@@ -92,33 +94,34 @@ public class GamePanel extends JPanel {
                         g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                         g.drawString("quad_0_R", 50, 50);
                     }
-                    
+
                 }
             } else //L
-                    if (dy > 0) {
-                    if (abs(dx) < abs(dy)) {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                        g.drawString("quad_2_D", 50, 50);
-                    } else {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                        g.drawString("quad_2_L", 50, 50);
-                    }
-                    
+            if (dy > 0) {
+                if (abs(dx) < abs(dy)) {
+                    g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                    g.drawString("quad_2_D", 50, 50);
                 } else {
-                    if (abs(dx) < abs(dy)) {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                        g.drawString("quad_1_U", 50, 50);
-                    } else {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                        g.drawString("quad_1_L", 50, 50);
-                    }
-                    
+                    g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                    g.drawString("quad_2_L", 50, 50);
                 }
+
+            } else {
+                if (abs(dx) < abs(dy)) {
+                    g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                    g.drawString("quad_1_U", 50, 50);
+                } else {
+                    g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                    g.drawString("quad_1_L", 50, 50);
+                }
+
+            }
+            pl.draw(g);
         }
-        pl.draw(g);  
+
     }
-    
-    public void tick(){
+
+    public void tick() {
         pl.tick();
     }
 

@@ -1,10 +1,15 @@
 package theschoolproject;
 
 import java.awt.Desktop;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 public class UsefulSnippets {
 
@@ -20,7 +25,8 @@ public class UsefulSnippets {
     }
     
     /*
-        Generates a boring number that is in the given range.  
+        Generates a boring number that is in the given range starting at 
+        1 and going to range - 1.  
     */
     public static int generateRandomNumber(int range){
         return (int)(Math.random() * range);
@@ -48,5 +54,15 @@ public class UsefulSnippets {
         }
         
         return output;
+    }
+    
+    public static BufferedImage loadImage(String FilePath){
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(UsefulSnippets.class.getResource(FilePath));
+        } catch (IOException ex) {
+            Logger.getLogger(UsefulSnippets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return img;
     }
 }
