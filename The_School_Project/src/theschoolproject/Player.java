@@ -34,7 +34,7 @@ public class Player {
     BufferedImage spriteSheetB;
     BufferedImage[] sprites;
     ImageIcon spriteSheet;
-    
+
     Keyboard keys;
 
     public Player(Keyboard k) {
@@ -90,16 +90,16 @@ public class Player {
 
         switch (orientation) {
             case 0:
-                yLoc = yLoc - spd;
+                setLocation(this.getX(), this.getY() - spd);
                 break;
             case 1:
-                xLoc = xLoc + spd;
+                setLocation(this.getX() + spd, this.getY());
                 break;
             case 2:
-                yLoc = yLoc + spd;
+                setLocation(this.getX(), this.getY() + spd);
                 break;
             case 3:
-                xLoc = xLoc - spd;
+                setLocation(this.getX() - spd, this.getY());
                 break;
         }
     }
