@@ -31,8 +31,14 @@ public class GamePanel extends JPanel {
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
 
+    //=========================
+    //      Menu Variables
+    //=========================
     BufferedImage menuScreen;
-
+    BufferedImage menuTitle;
+    int AnimationTimer = 0;
+    int ImageScroll = 0;
+    
     public GamePanel() {
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
@@ -48,14 +54,17 @@ public class GamePanel extends JPanel {
             }
         }
         this.setFocusable(true);
-        menuScreen = UsefulSnippets.loadImage("/resources/MainMenu.png");
+        menuScreen = UsefulSnippets.loadImage("/resources/JustBG.png");
+        menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (mainMenu) {
-            g.drawImage(menuScreen, 0, 0, 850,650,null);
+            g.drawImage(menuScreen, 0 - ImageScroll, 0, 850,650,null);
+            g.drawImage(menuScreen, 850 - ImageScroll, 0, 850,650,null);
+            g.drawImage(menuTitle, 0, 0, null);
         }
         if (gameScreen) {
             for (int w = 0; w < 17; w++) {
@@ -122,7 +131,20 @@ public class GamePanel extends JPanel {
     }
 
     public void tick() {
-        pl.tick();
+        if(mainMenu){
+            if(AnimationTimer > 5){
+                ImageScroll++;
+                if(ImageScroll >= 850){
+                    ImageScroll = 0;
+                }
+                AnimationTimer = 0;
+            }else{
+                AnimationTimer ++;
+            }
+        }
+        if(gameScreen){
+            pl.tick();
+        }
     }
 
     public GamePanel(LayoutManager layout) {
