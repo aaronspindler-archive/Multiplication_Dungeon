@@ -8,7 +8,6 @@ package theschoolproject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
 import static java.lang.Thread.sleep;
@@ -42,7 +41,7 @@ public class GamePanel extends JPanel {
     //=========================
     //    Player Variables
     //=========================
-    Player pl = new Player();
+    Player pl;
 
     //=========================
     //      Menu Variables
@@ -59,6 +58,7 @@ public class GamePanel extends JPanel {
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
+        pl = new Player(keys);
         th.start();
         for (int w = 0; w < 17; w++) {
             for (int h = 0; h < 15; h++) {
@@ -176,25 +176,7 @@ public class GamePanel extends JPanel {
             }
         }
         if (gameScreen) {
-            pl.tick();
-            pl.isMoving = false;
-            if (keys.isKeyDown("up")) {
-                pl.orientation = 0;
-                pl.isMoving = true;
-            }
-            if (keys.isKeyDown("left")) {
-                pl.orientation = 3;
-                pl.isMoving = true;
-            }
-            if (keys.isKeyDown("down")) {
-                pl.orientation = 2;
-                pl.isMoving = true;
-            }
-            if (keys.isKeyDown("right")) {
-                pl.orientation = 1;
-                pl.isMoving = true;
-            }
-
+            pl.tick();    
         }
     }
 

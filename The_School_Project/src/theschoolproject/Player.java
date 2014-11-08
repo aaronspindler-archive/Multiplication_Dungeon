@@ -11,6 +11,7 @@ import java.io.File;
 //import javax.imageio.ImageIO;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import theschoolproject.Input.Keyboard;
 
 /**
  *
@@ -33,8 +34,11 @@ public class Player {
     BufferedImage spriteSheetB;
     BufferedImage[] sprites;
     ImageIcon spriteSheet;
+    
+    Keyboard keys;
 
-    public Player() {
+    public Player(Keyboard k) {
+        keys = k;
         try {
             spriteSheet = new ImageIcon(this.getClass().getResource("/resources/playersprite.png"));
         } catch (Exception ex) {
@@ -58,6 +62,24 @@ public class Player {
     }
 
     public void tick() {
+        isMoving = false;
+        if (keys.isKeyDown("up")) {
+            orientation = 0;
+            isMoving = true;
+        }
+        if (keys.isKeyDown("left")) {
+            orientation = 3;
+            isMoving = true;
+        }
+        if (keys.isKeyDown("down")) {
+            orientation = 2;
+            isMoving = true;
+        }
+        if (keys.isKeyDown("right")) {
+            orientation = 1;
+            isMoving = true;
+        }
+
         if (isMoving && spd < 3) {
             spd++;
         }
@@ -65,15 +87,19 @@ public class Player {
         if (!isMoving && spd > 0) {
             spd--;
         }
-        
-        switch (orientation){
-            case 0: yLoc = yLoc - spd;
+
+        switch (orientation) {
+            case 0:
+                yLoc = yLoc - spd;
                 break;
-            case 1: xLoc = xLoc + spd;
+            case 1:
+                xLoc = xLoc + spd;
                 break;
-            case 2: yLoc = yLoc + spd;
+            case 2:
+                yLoc = yLoc + spd;
                 break;
-            case 3: xLoc = xLoc - spd;
+            case 3:
+                xLoc = xLoc - spd;
                 break;
         }
     }
