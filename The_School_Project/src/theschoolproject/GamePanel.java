@@ -110,7 +110,7 @@ public class GamePanel extends JPanel {
             g.setColor(Color.red);
             
             mouse.x1 = (int) pl.xLoc + 32;
-            mouse.y1 = (int) pl.yLoc + 32;
+            mouse.y1 = (int) pl.yLoc + 3;
 
             if (dx > 0) {    //R
                 if (dy > 0) {
