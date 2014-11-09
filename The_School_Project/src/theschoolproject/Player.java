@@ -92,6 +92,7 @@ public class Player {
 
         if (!isMoving && spd > 0) {
             spd = spd - 0.5;
+            animCycle = 1;
         }
         
         if (animCycle > 2){
