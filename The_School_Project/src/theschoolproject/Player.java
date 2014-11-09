@@ -22,17 +22,19 @@ public class Player {
     double xLoc = 0;
     double yLoc = 0;
     int orientation; //0 - North, 1 - East, 2 - South, 3 - West
+    int[] animSeq = {0, 1, 2, 1};
     int score = 0;
     int lives = 3;
     double spd = 0;
     boolean isMoving = false;
 
-    int rows = 3;
-    int columns = 2;
+    int rows = 4;
+    int columns = 3;
     int height = 64;
     int width = 64;
+    int animCycle = 0;
     BufferedImage spriteSheetB;
-    BufferedImage[] sprites;
+    BufferedImage[][] sprites;
     ImageIcon spriteSheet;
 
     Keyboard keys;
@@ -40,17 +42,17 @@ public class Player {
     public Player(Keyboard k) {
         keys = k;
         try {
-            spriteSheet = new ImageIcon(this.getClass().getResource("/resources/playersprite.png"));
+            spriteSheet = new ImageIcon(this.getClass().getResource("/resources/pl_sprite.png"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        sprites = new BufferedImage[rows * columns];
+        sprites = new BufferedImage[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 spriteSheetB = new BufferedImage(spriteSheet.getIconWidth(), spriteSheet.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
                 Graphics sG = spriteSheetB.getGraphics();
                 sG.drawImage(spriteSheet.getImage(), 0, 0, null);
-                sprites[(i * columns) + j] = spriteSheetB.getSubimage(i * width, j * height, width, height);
+                sprites[i][j] = spriteSheetB.getSubimage(j * width, i * height, width, height);
             }
         }
         this.xLoc = 50;
@@ -58,7 +60,7 @@ public class Player {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(sprites[orientation], (int) xLoc, (int) yLoc, null);
+        g.drawImage(sprites[orientation][animSeq[animCycle]], (int) xLoc, (int) yLoc, null);
     }
 
     public void tick() {
@@ -66,18 +68,22 @@ public class Player {
         if (keys.isKeyDown("up") || keys.isKeyDown("w")) {
             orientation = 0;
             isMoving = true;
+            animCycle++;
         }
         if (keys.isKeyDown("left") || keys.isKeyDown("a")) {
             orientation = 3;
             isMoving = true;
+            animCycle++;
         }
         if (keys.isKeyDown("down") || keys.isKeyDown("s")) {
             orientation = 2;
             isMoving = true;
+            animCycle++;
         }
         if (keys.isKeyDown("right") || keys.isKeyDown("d")) {
             orientation = 1;
             isMoving = true;
+            animCycle++;
         }
 
         if (isMoving && spd < 3) {
@@ -87,7 +93,11 @@ public class Player {
         if (!isMoving && spd > 0) {
             spd = spd - 0.5;
         }
-
+        
+        if (animCycle > 2){
+            animCycle = 0;
+        }
+        
         switch (orientation) {
             case 0:
                 if (this.yLoc > 50) {

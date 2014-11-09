@@ -8,7 +8,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         initComponents();
         this.setSize(855, 700);
         this.setResizable(false);
-        this.setTitle("Multiplication-Dungeon");
+        this.setTitle("Multiplication-Dungeon ");
     }
     
 
