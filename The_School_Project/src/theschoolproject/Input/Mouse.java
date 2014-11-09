@@ -42,8 +42,6 @@ public class Mouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        x1 = e.getX();
-        y1 = e.getY();
         x2 = e.getX();
         y2 = e.getY();
     }
@@ -52,8 +50,6 @@ public class Mouse implements MouseListener, MouseMotionListener {
     public void mousePressed(MouseEvent e) {
         Xcoords = new ArrayList<>();
         Ycoords = new ArrayList<>();
-        x1 = e.getX();
-        y1 = e.getY();
         pressed = true;
 
     }

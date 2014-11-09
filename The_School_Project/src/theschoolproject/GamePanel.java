@@ -108,6 +108,10 @@ public class GamePanel extends JPanel {
             int dy = mouse.y2 - mouse.y1;
 
             g.setColor(Color.red);
+            
+            mouse.x1 = (int) pl.xLoc + 32;
+            mouse.y1 = (int) pl.yLoc + 32;
+
             if (dx > 0) {    //R
                 if (dy > 0) {
                     if (abs(dx) < abs(dy)) {
@@ -176,7 +180,7 @@ public class GamePanel extends JPanel {
             }
         }
         if (gameScreen) {
-            pl.tick();    
+            pl.tick();
         }
     }
 
