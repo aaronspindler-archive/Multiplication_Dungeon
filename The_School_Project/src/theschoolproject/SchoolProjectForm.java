@@ -13,7 +13,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     public SchoolProjectForm() {
         initComponents();
         try {
-            properties.load(new FileInputStream("/resources/settings.properties"));
+            properties.load(new FileInputStream("src/resources/settings.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
