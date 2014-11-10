@@ -8,7 +8,7 @@ import java.util.Properties;
  */
 public class AboutForm extends javax.swing.JFrame {
 
-    Properties props = UsefulSnippets.getResources();
+    Properties props = UsefulSnippets.getProperties();
 
     public AboutForm() {
         initComponents();

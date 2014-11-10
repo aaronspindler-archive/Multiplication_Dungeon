@@ -71,7 +71,7 @@ public class UsefulSnippets {
         return img;
     }
 
-    public static Properties getResources() {
+    public static Properties getProperties() {
         Properties prop = new Properties();
         try {
             prop.load(new FileInputStream("src/resources/settings.properties"));

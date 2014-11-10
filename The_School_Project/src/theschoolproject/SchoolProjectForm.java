@@ -1,14 +1,12 @@
 package theschoolproject;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 import javax.swing.UIManager;
 
 public class SchoolProjectForm extends javax.swing.JFrame {
 
     //Variables
-    Properties properties = UsefulSnippets.getResources();
+    Properties properties = UsefulSnippets.getProperties();
 
     public SchoolProjectForm() {
         initComponents();
