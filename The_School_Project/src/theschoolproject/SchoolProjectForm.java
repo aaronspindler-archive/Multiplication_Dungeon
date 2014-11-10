@@ -1,21 +1,32 @@
 package theschoolproject;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import javax.swing.UIManager;
 
 public class SchoolProjectForm extends javax.swing.JFrame {
 
+    //Global Variables
+    Properties properties = new Properties();
+
     public SchoolProjectForm() {
         initComponents();
+        try {
+            properties.load(new FileInputStream("/resources/settings.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.setSize(855, 700);
         this.setResizable(false);
-        this.setTitle("Multiplication-Dungeon");
+        this.setTitle(properties.getProperty("Game_Name"));
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSpinner1 = new javax.swing.JSpinner();
         gamePanel1 = new theschoolproject.GamePanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -96,7 +107,8 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentResized
 
     private void aboutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutbtnActionPerformed
-
+        AboutForm af = new AboutForm();
+        af.show(true);
     }//GEN-LAST:event_aboutbtnActionPerformed
 
     private void documentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentationBtnActionPerformed
@@ -138,6 +150,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private theschoolproject.GamePanel gamePanel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
