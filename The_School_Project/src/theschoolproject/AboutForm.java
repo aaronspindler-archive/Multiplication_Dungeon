@@ -1,15 +1,18 @@
 package theschoolproject;
 
+import java.util.Properties;
+
 /**
  *
  * @author xNovax
  */
 public class AboutForm extends javax.swing.JFrame {
 
+    Properties props = UsefulSnippets.getResources();
+
     public AboutForm() {
         initComponents();
-        
-        this.setTitle("About");
+        this.setTitle("About | " + props.getProperty("Game_Name"));
     }
 
     @SuppressWarnings("unchecked")
@@ -19,8 +22,6 @@ public class AboutForm extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -53,7 +54,7 @@ public class AboutForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        System.exit(0);
+        this.hide();
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     public static void main(String args[]) {

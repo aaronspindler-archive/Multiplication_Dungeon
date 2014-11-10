@@ -7,19 +7,14 @@ import javax.swing.UIManager;
 
 public class SchoolProjectForm extends javax.swing.JFrame {
 
-    //Global Variables
-    Properties properties = new Properties();
+    //Variables
+    Properties properties = UsefulSnippets.getResources();
 
     public SchoolProjectForm() {
         initComponents();
-        try {
-            properties.load(new FileInputStream("src/resources/settings.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         this.setSize(855, 700);
         this.setResizable(false);
-        this.setTitle(properties.getProperty("Game_Name"));
+        this.setTitle("Home | " + properties.getProperty("Game_Name"));
     }
 
     @SuppressWarnings("unchecked")
