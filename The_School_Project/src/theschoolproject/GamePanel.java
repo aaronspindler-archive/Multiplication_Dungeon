@@ -21,7 +21,7 @@ import theschoolproject.Input.Mouse;
 
 public class GamePanel extends JPanel {
 
-    Random rand= new Random();
+    Random rand = new Random();
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
     FloorTile[][] ft = new FloorTile[17][15];
@@ -156,16 +156,17 @@ public class GamePanel extends JPanel {
                     g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                     g.drawString("quad_1_L", 50, 50);
                 }
-
             }
+            g.drawString("pl_pos: " + pl.xLoc + ", " + pl.yLoc, 50, 60);
+
             pl.draw(g);
-            for (int i = 0; i < numEnemies; i++){
+            for (int i = 0; i < numEnemies; i++) {
                 en_arry.get(i).draw(g);
                 g.setColor(Color.GREEN);
                 g.drawLine((int) en_arry.get(i).xLoc + 32, (int) en_arry.get(i).yLoc + 32,
                         (int) pl.xLoc + 32, (int) pl.yLoc + 32);
             }
-            g.drawString("pl_pos: " + pl.xLoc + ", " + pl.yLoc, 50, 60);
+
         }
 
     }
@@ -194,7 +195,7 @@ public class GamePanel extends JPanel {
         }
         if (gameScreen) {
             pl.tick();
-            for(int i = 0;i < en_arry.size(); i++){
+            for (int i = 0; i < en_arry.size(); i++) {
                 en_arry.get(i).tick();
             }
         }
