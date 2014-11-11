@@ -8,6 +8,7 @@ package theschoolproject;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Random;
 //import javax.imageio.ImageIO;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -17,16 +18,38 @@ import theschoolproject.Input.Keyboard;
  *
  * @author root
  */
-public class Player extends Entity{
+public class Entity {
 
+    double xLoc = 0;
+    double yLoc = 0;
+    int orientation = 2; //0 - North, 1 - East, 2 - South, 3 - West
+    int mode = 0; // 0 - random walk, 1 - player targeting
+    int[] animSeq = {0, 1, 2, 1};
+    double spd = 0;
+    boolean isMoving = false;
+
+    int rows = 4;
+    int columns = 3;
+    int height = 64;
+    int width = 64;
+    int animCycle = 1;
+    BufferedImage spriteSheetB;
+    BufferedImage[][] sprites;
+    String [] spritePaths = {"/resources/pl_sprite.png", "/resources/en1_sprite.png"};
+    Random rand = new Random();
+    
     Keyboard keys;
 
-    public Player(String sp, Keyboard k) {
-        super(sp);
-        keys = k;;
-
-        this.xLoc = 393;
-        this.yLoc = 281;
+    public Entity(String sp) {
+        sprites = new BufferedImage[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                spriteSheetB = UsefulSnippets.loadImage(sp);
+                sprites[i][j] = spriteSheetB.getSubimage(j * width, i * height, width, height);
+            }
+        }
+        this.xLoc = rand.nextInt(400)+50;
+        this.yLoc = rand.nextInt(300)+50;
     }
 
     public void draw(Graphics g) {
@@ -34,27 +57,7 @@ public class Player extends Entity{
     }
 
     public void tick() {
-        isMoving = false;
-        if (keys.isKeyDown("up") || keys.isKeyDown("w")) {
-            orientation = 0;
-            isMoving = true;
-            animCycle++;
-        }
-        if (keys.isKeyDown("left") || keys.isKeyDown("a")) {
-            orientation = 3;
-            isMoving = true;
-            animCycle++;
-        }
-        if (keys.isKeyDown("down") || keys.isKeyDown("s")) {
-            orientation = 2;
-            isMoving = true;
-            animCycle++;
-        }
-        if (keys.isKeyDown("right") || keys.isKeyDown("d")) {
-            orientation = 1;
-            isMoving = true;
-            animCycle++;
-        }
+        
 
         if (isMoving && spd < 3) {
             spd = spd + 0.5;

@@ -11,6 +11,7 @@ import java.awt.LayoutManager;
 import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,8 @@ public class GamePanel extends JPanel {
     //    Player Variables
     //=========================
     Player pl;
+    ArrayList<Entity> en_arry = new ArrayList();
+    int numEnemies = 2;
 
     //=========================
     //      Menu Variables
@@ -55,10 +58,13 @@ public class GamePanel extends JPanel {
     boolean glow = false;
 
     public GamePanel() {
+        for (int l = 0; l < numEnemies; l++) {
+            en_arry.add(new Enemy("/resources/en1_sprite.png"));
+        }
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
-        pl = new Player(keys);
+        pl = new Player("/resources/pl_sprite.png", keys);
         th.start();
         for (int w = 0; w < 17; w++) {
             for (int h = 0; h < 15; h++) {
@@ -108,7 +114,7 @@ public class GamePanel extends JPanel {
             int dy = mouse.y2 - mouse.y1;
 
             g.setColor(Color.red);
-            
+
             mouse.x1 = (int) pl.xLoc + 32;
             mouse.y1 = (int) pl.yLoc + 32;
 
@@ -153,6 +159,10 @@ public class GamePanel extends JPanel {
 
             }
             pl.draw(g);
+            for (int i = 0; i < numEnemies; i++){
+                en_arry.get(i).draw(g);
+            }
+            g.drawString("pl_pos: " + pl.xLoc + ", " + pl.yLoc, 50, 60);
         }
 
     }
@@ -181,6 +191,9 @@ public class GamePanel extends JPanel {
         }
         if (gameScreen) {
             pl.tick();
+            for(int i = 0;i < en_arry.size(); i++){
+                en_arry.get(i).tick();
+            }
         }
     }
 
