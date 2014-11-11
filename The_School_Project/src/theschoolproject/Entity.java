@@ -7,12 +7,9 @@ package theschoolproject;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Random;
-//import javax.imageio.ImageIO;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import theschoolproject.Input.Keyboard;
+import java.awt.Rectangle;
 
 /**
  *
@@ -23,7 +20,6 @@ public class Entity {
     double xLoc = 0;
     double yLoc = 0;
     int orientation = 2; //0 - North, 1 - East, 2 - South, 3 - West
-    int mode = 0; // 0 - random walk, 1 - player targeting
     int[] animSeq = {0, 1, 2, 1};
     double spd = 0;
     boolean isMoving = false;
@@ -35,9 +31,9 @@ public class Entity {
     int animCycle = 1;
     BufferedImage spriteSheetB;
     BufferedImage[][] sprites;
-    String [] spritePaths = {"/resources/pl_sprite.png", "/resources/en1_sprite.png"};
+    String[] spritePaths = {"/resources/pl_sprite.png", "/resources/en1_sprite.png"};
     Random rand = new Random();
-    
+
     Keyboard keys;
 
     public Entity(String sp) {
@@ -48,16 +44,19 @@ public class Entity {
                 sprites[i][j] = spriteSheetB.getSubimage(j * width, i * height, width, height);
             }
         }
-        this.xLoc = rand.nextInt(400)+50;
-        this.yLoc = rand.nextInt(300)+50;
+        this.xLoc = rand.nextInt(400) + 50;
+        this.yLoc = rand.nextInt(300) + 50;
     }
 
     public void draw(Graphics g) {
         g.drawImage(sprites[orientation][animSeq[animCycle]], (int) xLoc, (int) yLoc, null);
     }
 
+    public Rectangle getBounds() {
+        return new Rectangle((int) this.xLoc, (int) this.yLoc, (int) width, (int) height);
+    }
+
     public void tick() {
-        
 
         if (isMoving && spd < 3) {
             spd = spd + 0.5;
@@ -67,11 +66,11 @@ public class Entity {
             spd = spd - 0.5;
             animCycle = 1;
         }
-        
-        if (animCycle > 2){
+
+        if (animCycle > 2) {
             animCycle = 0;
         }
-        
+
         switch (orientation) {
             case 0:
                 if (this.yLoc > 50) {

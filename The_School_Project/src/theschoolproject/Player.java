@@ -6,11 +6,6 @@
 package theschoolproject;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-//import javax.imageio.ImageIO;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import theschoolproject.Input.Keyboard;
 
 /**
@@ -23,14 +18,10 @@ public class Player extends Entity{
 
     public Player(String sp, Keyboard k) {
         super(sp);
-        keys = k;;
+        keys = k;
 
         this.xLoc = 393;
         this.yLoc = 281;
-    }
-
-    public void draw(Graphics g) {
-        g.drawImage(sprites[orientation][animSeq[animCycle]], (int) xLoc, (int) yLoc, null);
     }
 
     public void tick() {
@@ -91,18 +82,5 @@ public class Player extends Entity{
                 }
                 break;
         }
-    }
-
-    public void setLocation(double x, double y) {
-        this.xLoc = x;
-        this.yLoc = y;
-    }
-
-    public double getX() {
-        return xLoc;
-    }
-
-    public double getY() {
-        return yLoc;
     }
 }
