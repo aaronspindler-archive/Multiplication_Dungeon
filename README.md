@@ -9,6 +9,6 @@ TODO:
 - [ ] Sound - Chris
 - [ ] Controls - Arthur
 - [ ] GUI/menu - Matt
-- [ ] Multiplication Equation Generation - Matt (start)
+- [ ] Multiplication Equation Generation - 
 - [ ] Savestates (we will use JSON) - ?
 - [ ] Documentation - Aaron
