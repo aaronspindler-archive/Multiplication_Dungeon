@@ -21,7 +21,7 @@ import theschoolproject.Input.Mouse;
 
 public class GamePanel extends JPanel {
 
-    Random r = new Random();
+    Random rand= new Random();
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
     FloorTile[][] ft = new FloorTile[17][15];
@@ -161,6 +161,9 @@ public class GamePanel extends JPanel {
             pl.draw(g);
             for (int i = 0; i < numEnemies; i++){
                 en_arry.get(i).draw(g);
+                g.setColor(Color.GREEN);
+                g.drawLine((int) en_arry.get(i).xLoc + 32, (int) en_arry.get(i).yLoc + 32,
+                        (int) pl.xLoc + 32, (int) pl.yLoc + 32);
             }
             g.drawString("pl_pos: " + pl.xLoc + ", " + pl.yLoc, 50, 60);
         }
