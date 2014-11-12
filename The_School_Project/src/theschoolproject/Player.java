@@ -62,7 +62,7 @@ public class Player extends Entity{
         
         switch (orientation) {
             case 0:
-                if (this.yLoc > 50) {
+                if (this.yLoc > 30) {
                     setLocation(this.getX(), this.getY() - spd);
                 }
                 break;
@@ -72,7 +72,7 @@ public class Player extends Entity{
                 }
                 break;
             case 2:
-                if (this.yLoc < 550) {
+                if (this.yLoc < 530) {
                     setLocation(this.getX(), this.getY() + spd);
                 }
                 break;

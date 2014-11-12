@@ -1,5 +1,6 @@
 package theschoolproject; //THis will be the dungeon room, 16x11 = 176 tiles
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -10,10 +11,12 @@ public class Room {
 
     int[] tiles = new int[width * height];
     FloorTile[] tileArry = new FloorTile[width * height];
+    GamePanel mainPanel;
 
     BufferedImage lvl;
 
-    public Room(String LevelImage) {
+    public Room(GamePanel gp, String LevelImage) {
+        mainPanel = gp;
         for (int i = 0; i < tileArry.length; i++) {
             tileArry[i] = new FloorTile(1);
         }
@@ -43,6 +46,8 @@ public class Room {
             for (int j = 0; j < lvl.getHeight(); j++) {
                 g.setColor(tileArry[i + j * width].getColor());
                 g.fill3DRect(i * 50, j * 50, 50, 50, true);
+                g.setColor(Color.yellow);
+                g.fill3DRect((mainPanel.pl.tileLocX-1)*50, (mainPanel.pl.tileLocY-1)*50, 50, 50, true);
             }
         }
     }

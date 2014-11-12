@@ -19,6 +19,11 @@ public class Entity {
 
     double xLoc = 0;
     double yLoc = 0;
+    double xLocLegs = this.xLoc + 32;
+    double yLocLegs = this.yLoc + 64;
+    
+    int tileLocX;
+    int tileLocY;
     int orientation = 2; //0 - North, 1 - East, 2 - South, 3 - West
     int[] animSeq = {0, 1, 2, 1};
     double spd = 0;
@@ -73,7 +78,7 @@ public class Entity {
 
         switch (orientation) {
             case 0:
-                if (this.yLoc > 50) {
+                if (this.yLoc > 30) {
                     setLocation(this.getX(), this.getY() - spd);
                 }
                 break;
@@ -83,7 +88,7 @@ public class Entity {
                 }
                 break;
             case 2:
-                if (this.yLoc < 550) {
+                if (this.yLoc < 530) {
                     setLocation(this.getX(), this.getY() + spd);
                 }
                 break;
@@ -98,6 +103,10 @@ public class Entity {
     public void setLocation(double x, double y) {
         this.xLoc = x;
         this.yLoc = y;
+        xLocLegs = this.xLoc + 32;
+        yLocLegs = this.yLoc + 64;
+        tileLocX = (int) Math.round((xLocLegs)/50);
+        tileLocY = (int) Math.round((yLocLegs)/50);
     }
 
     public double getX() {
