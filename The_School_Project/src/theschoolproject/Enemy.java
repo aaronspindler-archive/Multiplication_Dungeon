@@ -30,7 +30,7 @@ public class Enemy extends Entity {
                 } else {
                     animCycle++;
                     pathDist--;
-                    if (isMoving && spd < 3) {
+                    if (isMoving && spd < 1) {
                         spd = spd + 0.5;
                     }
 

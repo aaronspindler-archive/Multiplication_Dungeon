@@ -44,7 +44,12 @@ public class GamePanel extends JPanel {
     //=========================
     Player pl;
     ArrayList<Entity> en_arry = new ArrayList();
-    int numEnemies = 2;
+    int numEnemies = 5;
+
+    //=========================
+    //    Question Variables
+    //=========================
+    QuestionTimer qt;
 
     //=========================
     //      Menu Variables
@@ -159,16 +164,17 @@ public class GamePanel extends JPanel {
             }
             g.drawString("pl_pos: " + pl.xLoc + ", " + pl.yLoc, 50, 60);
 
-            pl.draw(g);
             for (int i = 0; i < numEnemies; i++) {
                 en_arry.get(i).draw(g);
                 g.setColor(Color.GREEN);
                 g.drawLine((int) en_arry.get(i).xLoc + 32, (int) en_arry.get(i).yLoc + 32,
                         (int) pl.xLoc + 32, (int) pl.yLoc + 32);
             }
-
+            pl.draw(g);
         }
-
+        if (battle) {
+            qt.draw(g);
+        }
     }
 
     public void tick() {
@@ -198,6 +204,10 @@ public class GamePanel extends JPanel {
             for (int i = 0; i < en_arry.size(); i++) {
                 en_arry.get(i).tick();
             }
+        }
+
+        if (battle) {
+            qt.tick();
         }
     }
 

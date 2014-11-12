@@ -5,6 +5,8 @@
  */
 package theschoolproject;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author root
@@ -13,5 +15,13 @@ public class QuestionTimer {
 
     public QuestionTimer() {
 
+    }
+    
+    public void tick(){
+    
+    }
+    
+    public void draw(Graphics g){
+    
     }
 }
