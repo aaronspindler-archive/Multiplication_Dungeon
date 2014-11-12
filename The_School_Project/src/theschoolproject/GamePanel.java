@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ public class GamePanel extends JPanel {
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
     FloorTile[][] ft = new FloorTile[17][15];
+    Properties properties = UsefulSnippets.getProperties();
 
     //=========================
     //   Game State Variables
@@ -61,7 +63,7 @@ public class GamePanel extends JPanel {
     int AnimationTimer = 0;
     int ImageScroll = 0;
     boolean glow = false;
-    
+
     //=========================
     //      Room Variables
     //=========================
@@ -109,15 +111,15 @@ public class GamePanel extends JPanel {
         }
         if (gameScreen) {
             /*
-            for (int w = 0; w < 17; w++) {
-                for (int h = 0; h < 15; h++) {
-                    g.setColor(ft[w][h].getColor());
-                    g.fill3DRect(w * 50, h * 50, 50, 50, true);
-                }
-            }
-            */
+             for (int w = 0; w < 17; w++) {
+             for (int h = 0; h < 15; h++) {
+             g.setColor(ft[w][h].getColor());
+             g.fill3DRect(w * 50, h * 50, 50, 50, true);
+             }
+             }
+             */
             rooms[CurrentRoom].draw(g);
-            
+
             for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
                 int x = (int) mouse.Xcoords.get(i);
                 int y = (int) mouse.Ycoords.get(i);
@@ -137,49 +139,69 @@ public class GamePanel extends JPanel {
             if (dx > 0) {    //R
                 if (dy > 0) {
                     if (abs(dx) < abs(dy)) {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                        g.drawString("quad_3_D", 50, 50);
+                        if (properties.getProperty("debug_mode").equals("true")) {
+                            g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                            g.drawString("quad_3_D", 50, 50);
+                        }
                     } else {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                        g.drawString("quad_3_R", 50, 50);
+                        if (properties.getProperty("debug_mode").equals("true")) {
+                            g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                            g.drawString("quad_3_R", 50, 50);
+                        }
                     }
 
                 } else {
                     if (abs(dx) < abs(dy)) {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                        g.drawString("quad_0_U", 50, 50);
+                        if (properties.getProperty("debug_mode").equals("true")) {
+                            g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                            g.drawString("quad_0_U", 50, 50);
+                        }
                     } else {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                        g.drawString("quad_0_R", 50, 50);
+                        if (properties.getProperty("debug_mode").equals("true")) {
+                            g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                            g.drawString("quad_0_R", 50, 50);
+                        }
                     }
 
                 }
             } else //L
             if (dy > 0) {
                 if (abs(dx) < abs(dy)) {
-                    g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                    g.drawString("quad_2_D", 50, 50);
+                    if (properties.getProperty("debug_mode").equals("true")) {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                        g.drawString("quad_2_D", 50, 50);
+                    }
                 } else {
-                    g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                    g.drawString("quad_2_L", 50, 50);
+                    if (properties.getProperty("debug_mode").equals("true")) {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                        g.drawString("quad_2_L", 50, 50);
+                    }
                 }
 
             } else {
                 if (abs(dx) < abs(dy)) {
-                    g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                    g.drawString("quad_1_U", 50, 50);
+                    if (properties.getProperty("debug_mode").equals("true")) {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                        g.drawString("quad_1_U", 50, 50);
+                    }
                 } else {
-                    g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                    g.drawString("quad_1_L", 50, 50);
+                    if (properties.getProperty("debug_mode").equals("true")) {
+                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                        g.drawString("quad_1_L", 50, 50);
+                    }
                 }
             }
-            g.drawString("pl_pos: " + pl.xLoc + ", " + pl.yLoc, 50, 60);
+            if (properties.getProperty("debug_mode").equals("true")) {
+                g.drawString("pl_pos: " + pl.xLoc + ", " + pl.yLoc, 50, 60);
+            }
 
             for (int i = 0; i < numEnemies; i++) {
                 en_arry.get(i).draw(g);
                 g.setColor(Color.GREEN);
-                g.drawLine((int) en_arry.get(i).xLoc + 32, (int) en_arry.get(i).yLoc + 32,
-                        (int) pl.xLoc + 32, (int) pl.yLoc + 32);
+                if (properties.getProperty("debug_mode").equals("true")) {
+                    g.drawLine((int) en_arry.get(i).xLoc + 32, (int) en_arry.get(i).yLoc + 32,
+                            (int) pl.xLoc + 32, (int) pl.yLoc + 32);
+                }
             }
             pl.draw(g);
         }
