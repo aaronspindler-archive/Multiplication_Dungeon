@@ -8,7 +8,8 @@ public class Room {
     int width = 17;
     int height = 13;
 
-    FloorTile[] tileArry = new FloorTile[17 * 13];
+    int[] tiles = new int[width * height];
+    FloorTile[] tileArry = new FloorTile[width * height];
 
     BufferedImage lvl;
 
@@ -21,21 +22,17 @@ public class Room {
     }
 
     public final void loadLevel() {
+        lvl.getRGB(0, 0, width, height, tiles, 0, width);
         for (int i = 0; i < lvl.getWidth(); i++) {
             for (int j = 0; j < lvl.getHeight(); j++) {
-                int color = lvl.getRGB(i, j);
-
-                if (color == -16777216) {
-                    tileArry[i + j * width].setTile(2);
-                } 
-                else if(color == -11325696){
-                    tileArry[i + j * width].setTile(3);
-                    
-                }else if(color == -1){
+                if (tiles[i + j * width] == 0xFFFFFFFF) {
                     tileArry[i + j * width].setTile(1);
-                }else{
-                    System.out.println(color);
-                    tileArry[i + j * width].setTile(0);
+                }
+                if (tiles[i + j * width] == 0xFF000000) {
+                    tileArry[i + j * width].setTile(2);
+                }
+                if (tiles[i + j * width] == 0xFF532f00) {
+                    tileArry[i + j * width].setTile(3);
                 }
             }
         }
