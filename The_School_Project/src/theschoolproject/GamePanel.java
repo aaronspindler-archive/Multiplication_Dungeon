@@ -70,12 +70,12 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
         for (int l = 0; l < numEnemies; l++) {
-            en_arry.add(new Enemy("/resources/en1_sprite.png"));
+            en_arry.add(new Enemy(this, "/resources/en1_sprite.png"));
         }
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
-        pl = new Player("/resources/pl_sprite.png", keys);
+        pl = new Player(this, "/resources/pl_sprite.png", keys);
         th.start();
         for (int w = 0; w < 17; w++) {
             for (int h = 0; h < 15; h++) {

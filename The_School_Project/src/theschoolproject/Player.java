@@ -16,8 +16,8 @@ public class Player extends Entity{
 
     Keyboard keys;
 
-    public Player(String sp, Keyboard k) {
-        super(sp);
+    public Player(GamePanel gp, String sp, Keyboard k) {
+        super(gp, sp);
         keys = k;
 
         this.xLoc = 393;

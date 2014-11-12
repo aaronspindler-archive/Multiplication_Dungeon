@@ -15,8 +15,8 @@ public class Enemy extends Entity {
     int type = 0; // value ranges from 0-5, increasing in strength/ difficulty
     int pathDist = 0;
 
-    public Enemy(String sp) {
-        super(sp);
+    public Enemy(GamePanel gp, String sp) {
+        super(gp, sp);
         this.isMoving = true;
     }
 

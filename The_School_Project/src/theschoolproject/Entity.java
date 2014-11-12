@@ -36,7 +36,7 @@ public class Entity {
 
     Keyboard keys;
 
-    public Entity(String sp) {
+    public Entity(GamePanel gp, String sp) {
         sprites = new BufferedImage[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
