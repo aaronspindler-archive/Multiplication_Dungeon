@@ -12,7 +12,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         initComponents();
         this.setSize(855, 700);
         this.setResizable(false);
-        this.setTitle("Home | " + properties.getProperty("Game_Name"));
+        this.setTitle(properties.getProperty("Game_Name"));
     }
 
     @SuppressWarnings("unchecked")
