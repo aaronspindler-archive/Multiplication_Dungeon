@@ -93,7 +93,7 @@ public class GamePanel extends JPanel {
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
         play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
         play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
-        rooms[0] = new Room(this, "/resources/Levels/Level_01.png");
+        rooms[0] = new Room(this, "/resources/Levels/Level_02.png");
     }
 
     @Override
