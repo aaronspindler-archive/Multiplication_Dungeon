@@ -12,7 +12,7 @@ import theschoolproject.Input.Keyboard;
  *
  * @author root
  */
-public class Player extends Entity{
+public class Player extends Entity {
 
     Keyboard keys;
 
@@ -25,6 +25,7 @@ public class Player extends Entity{
     }
 
     public void tick() {
+        quadTree();
         isMoving = false;
         if (keys.isKeyDown("up") || keys.isKeyDown("w")) {
             orientation = 0;
@@ -55,29 +56,29 @@ public class Player extends Entity{
             spd = spd - 0.5;
             animCycle = 1;
         }
-        
-        if (animCycle > 2){
+
+        if (animCycle > 2) {
             animCycle = 0;
         }
         
         switch (orientation) {
             case 0:
-                if (this.yLoc > 30) {
+                if (!uBlock) {
                     setLocation(this.getX(), this.getY() - spd);
                 }
                 break;
             case 1:
-                if (this.xLoc < 750) {
+                if (!rBlock) {
                     setLocation(this.getX() + spd, this.getY());
                 }
                 break;
             case 2:
-                if (this.yLoc < 530) {
+                if (!dBlock) {
                     setLocation(this.getX(), this.getY() + spd);
                 }
                 break;
             case 3:
-                if (this.xLoc > 50) {
+                if (!lBlock) {
                     setLocation(this.getX() - spd, this.getY());
                 }
                 break;

@@ -47,7 +47,13 @@ public class Room {
                 g.setColor(tileArry[i + j * width].getColor());
                 g.fill3DRect(i * 50, j * 50, 50, 50, true);
                 g.setColor(Color.yellow);
-                g.fill3DRect((mainPanel.pl.tileLocX-1)*50, (mainPanel.pl.tileLocY-1)*50, 50, 50, true);
+                g.fill3DRect((mainPanel.pl.tileLocX)*50, (mainPanel.pl.tileLocY)*50, 50, 50, true);
+                
+                g.setColor(Color.green);
+                g.fill3DRect((mainPanel.pl.tileLocX+1)*50, (mainPanel.pl.tileLocY)*50, 50, 50, true);
+                g.fill3DRect((mainPanel.pl.tileLocX)*50, (mainPanel.pl.tileLocY+1)*50, 50, 50, true);
+                g.fill3DRect((mainPanel.pl.tileLocX-1)*50, (mainPanel.pl.tileLocY)*50, 50, 50, true);
+                g.fill3DRect((mainPanel.pl.tileLocX)*50, (mainPanel.pl.tileLocY-1)*50, 50, 50, true);
             }
         }
     }

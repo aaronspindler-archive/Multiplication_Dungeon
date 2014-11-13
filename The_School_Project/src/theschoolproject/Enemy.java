@@ -45,28 +45,28 @@ public class Enemy extends Entity {
 
                     switch (orientation) {
                         case 0:
-                            if (this.yLoc > 50) {
+                            if (!uBlock) {
                                 setLocation(this.getX(), this.getY() - spd);
                             } else {
                                 this.orientation = rand.nextInt(3);
                             }
                             break;
                         case 1:
-                            if (this.xLoc < 750) {
+                            if (!rBlock) {
                                 setLocation(this.getX() + spd, this.getY());
                             } else {
                                 this.orientation = rand.nextInt(3);
                             }
                             break;
                         case 2:
-                            if (this.yLoc < 550) {
+                            if (!dBlock) {
                                 setLocation(this.getX(), this.getY() + spd);
                             } else {
                                 this.orientation = rand.nextInt(3);
                             }
                             break;
                         case 3:
-                            if (this.xLoc > 50) {
+                            if (!lBlock) {
                                 setLocation(this.getX() - spd, this.getY());
                             } else {
                                 this.orientation = rand.nextInt(3);

@@ -17,11 +17,15 @@ import java.awt.Rectangle;
  */
 public class Entity {
 
-    double xLoc = 0;
-    double yLoc = 0;
+    GamePanel world;
+
+    double xLoc = 200;
+    double yLoc = 200;
     double xLocLegs = this.xLoc + 32;
     double yLocLegs = this.yLoc + 64;
-    
+
+    boolean uBlock, lBlock, dBlock, rBlock = false;
+
     int tileLocX;
     int tileLocY;
     int orientation = 2; //0 - North, 1 - East, 2 - South, 3 - West
@@ -42,6 +46,7 @@ public class Entity {
     Keyboard keys;
 
     public Entity(GamePanel gp, String sp) {
+        world = gp;
         sprites = new BufferedImage[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -57,11 +62,35 @@ public class Entity {
         g.drawImage(sprites[orientation][animSeq[animCycle]], (int) xLoc, (int) yLoc, null);
     }
 
+    public void quadTree() {
+        System.out.println("" + uBlock + rBlock + dBlock + lBlock);
+        if ((this.tileLocX != 0) && (this.tileLocY != 0)) {
+            uBlock = false;
+            rBlock = false;
+            dBlock = false;
+            lBlock = false;
+            if (world.rooms[0].tileArry[(this.tileLocX + 1) * this.tileLocY].TILE_ID == 1) {
+                this.rBlock = true;
+            }
+            if (world.rooms[0].tileArry[(this.tileLocX - 1) * this.tileLocY].TILE_ID == 1) {
+                this.lBlock = true;
+            }
+            if (world.rooms[0].tileArry[this.tileLocX * (this.tileLocY + 1)].TILE_ID == 1) {
+                this.dBlock = true;
+            }
+            if (world.rooms[0].tileArry[this.tileLocX * (this.tileLocY - 1)].TILE_ID == 1) {
+                this.uBlock = true;
+            }
+        }
+    }
+
     public Rectangle getBounds() {
         return new Rectangle((int) this.xLoc, (int) this.yLoc, (int) width, (int) height);
     }
 
     public void tick() {
+
+        quadTree();
 
         if (isMoving && spd < 3) {
             spd = spd + 0.5;
@@ -78,24 +107,26 @@ public class Entity {
 
         switch (orientation) {
             case 0:
-                if (this.yLoc > 30) {
+                if (!uBlock) {
                     setLocation(this.getX(), this.getY() - spd);
                 }
                 break;
             case 1:
-                if (this.xLoc < 750) {
+                if (!rBlock) {
                     setLocation(this.getX() + spd, this.getY());
                 }
                 break;
             case 2:
-                if (this.yLoc < 530) {
+                if (!dBlock) {
                     setLocation(this.getX(), this.getY() + spd);
                 }
                 break;
             case 3:
-                if (this.xLoc > 50) {
+                if (!lBlock) {
                     setLocation(this.getX() - spd, this.getY());
                 }
+                tileLocX = (int) (xLocLegs) / 50;
+                tileLocY = (int) (yLocLegs) / 50;
                 break;
         }
     }
@@ -105,8 +136,8 @@ public class Entity {
         this.yLoc = y;
         xLocLegs = this.xLoc + 32;
         yLocLegs = this.yLoc + 64;
-        tileLocX = (int) Math.round((xLocLegs)/50);
-        tileLocY = (int) Math.round((yLocLegs)/50);
+        tileLocX = (int) (xLocLegs) / 50;
+        tileLocY = (int) (yLocLegs) / 50;
     }
 
     public double getX() {
