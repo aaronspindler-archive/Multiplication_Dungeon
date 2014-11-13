@@ -69,16 +69,16 @@ public class Entity {
             rBlock = false;
             dBlock = false;
             lBlock = false;
-            if (world.rooms[0].tileArry[(this.tileLocX + 1) * this.tileLocY].TILE_ID == 1) {
+            if (world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].TILE_ID == 1) {
                 this.rBlock = true;
             }
-            if (world.rooms[0].tileArry[(this.tileLocX - 1) * this.tileLocY].TILE_ID == 1) {
+            if (world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].TILE_ID == 1) {
                 this.lBlock = true;
             }
-            if (world.rooms[0].tileArry[this.tileLocX * (this.tileLocY + 1)].TILE_ID == 1) {
+            if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].TILE_ID == 1) {
                 this.dBlock = true;
             }
-            if (world.rooms[0].tileArry[this.tileLocX * (this.tileLocY - 1)].TILE_ID == 1) {
+            if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].TILE_ID == 1) {
                 this.uBlock = true;
             }
         }
