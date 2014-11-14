@@ -30,7 +30,7 @@ public class Entity {
     int dTr = 99;
     int dTd = 99;
     int dTl = 99; //Distance from the player's feet to the closest edge of a solid block (Distance to Up etc...)
-    
+
     int collMinDist = 10;
 
     int tileLocX;
@@ -82,22 +82,26 @@ public class Entity {
             dTd = 99;
             dTl = 99;
 
-            if (world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].isSolid()) {
+            if ((world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].isSolid())
+                    || (world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].isDoor())) {
                 this.rBlock = true;
                 dTr = ((50 * (this.tileLocX + 1))) - (int) this.xLocFeet;
             }   //Right
 
-            if (world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].isSolid()) {
+            if ((world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].isSolid())
+                    || (world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].isDoor())) {
                 this.lBlock = true;
                 dTl = ((int) this.xLocFeet - (50 * (this.tileLocX)));
             }   //Left
 
-            if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].isSolid()) {
+            if ((world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].isSolid())
+                    || (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].isDoor())) {
                 this.dBlock = true;
                 dTd = ((50 * (this.tileLocY + 1))) - (int) this.yLocFeet;
             }   //Up
 
-            if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].isSolid()) {
+            if ((world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].isSolid())
+                    || (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].isDoor())) {
                 this.uBlock = true;
                 dTu = ((int) this.yLocFeet - (50 * (this.tileLocY)));
             }   //Down
