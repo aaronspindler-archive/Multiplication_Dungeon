@@ -1,5 +1,6 @@
 package theschoolproject;
 
+import flexjson.JSONSerializer;
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
@@ -79,5 +80,11 @@ public class UsefulSnippets {
             e.printStackTrace();
         }
         return prop;
+    }
+    
+    public void testJson()
+    {
+        JSONSerializer serializer = new JSONSerializer();
+        serializer.serialize("TEST");
     }
 }
