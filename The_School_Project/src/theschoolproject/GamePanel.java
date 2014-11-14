@@ -67,6 +67,7 @@ public class GamePanel extends JPanel {
     //=========================
     //      Room Variables
     //=========================
+    
     Room[] rooms = new Room[64];
     int CurrentRoom = 0;
 

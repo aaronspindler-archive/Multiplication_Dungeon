@@ -19,16 +19,23 @@ public class Entity {
 
     GamePanel world;
 
-    double xLoc = 200;
-    double yLoc = 200;
-    double xLocLegs = this.xLoc + 32;
-    double yLocLegs = this.yLoc + 64;
+    double xLoc = 0;
+    double yLoc = 0;
+    double xLocFeet = this.xLoc + 32;
+    double yLocFeet = this.yLoc + 64;
 
-    boolean uBlock, lBlock, dBlock, rBlock = false;
+    boolean uBlock, rBlock, dBlock, lBlock = false; //Whether or not adjacent block is solid
+
+    int dTu = 99;
+    int dTr = 99;
+    int dTd = 99;
+    int dTl = 99; //Distance from the player's feet to the closest edge of a solid block (Distance to Up etc...)
+    
+    int collMinDist = 10;
 
     int tileLocX;
     int tileLocY;
-    int orientation = 2; //0 - North, 1 - East, 2 - South, 3 - West
+    int orientation = 2; //0 - North/Up, 1 - East/Right, 2 - South, 3/Down - West/Left
     int[] animSeq = {0, 1, 2, 1};
     double spd = 0;
     boolean isMoving = false;
@@ -62,25 +69,38 @@ public class Entity {
         g.drawImage(sprites[orientation][animSeq[animCycle]], (int) xLoc, (int) yLoc, null);
     }
 
-    public void quadTree() {
-        System.out.println("" + uBlock + rBlock + dBlock + lBlock);
+    public void checkCollision() {
+//        System.out.println(" " + dTu + " " + dTd + " " + dTr + " " + dTl);
         if ((this.tileLocX != 0) && (this.tileLocY != 0)) {
             uBlock = false;
             rBlock = false;
             dBlock = false;
             lBlock = false;
-            if (world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].TILE_ID == 1) {
+
+            dTu = 99;
+            dTr = 99;
+            dTd = 99;
+            dTl = 99;
+
+            if (world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].isSolid()) {
                 this.rBlock = true;
-            }
-            if (world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].TILE_ID == 1) {
+                dTr = ((50 * (this.tileLocX + 1))) - (int) this.xLocFeet;
+            }   //Right
+
+            if (world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].isSolid()) {
                 this.lBlock = true;
-            }
-            if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].TILE_ID == 1) {
+                dTl = ((int) this.xLocFeet - (50 * (this.tileLocX)));
+            }   //Left
+
+            if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].isSolid()) {
                 this.dBlock = true;
-            }
-            if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].TILE_ID == 1) {
+                dTd = ((50 * (this.tileLocY + 1))) - (int) this.yLocFeet;
+            }   //Up
+
+            if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].isSolid()) {
                 this.uBlock = true;
-            }
+                dTu = ((int) this.yLocFeet - (50 * (this.tileLocY)));
+            }   //Down
         }
     }
 
@@ -90,7 +110,7 @@ public class Entity {
 
     public void tick() {
 
-        quadTree();
+        checkCollision();
 
         if (isMoving && spd < 3) {
             spd = spd + 0.5;
@@ -107,37 +127,38 @@ public class Entity {
 
         switch (orientation) {
             case 0:
-                if (!uBlock) {
+                if (!uBlock && dTu > 3) {
                     setLocation(this.getX(), this.getY() - spd);
                 }
                 break;
             case 1:
-                if (!rBlock) {
+                if (!rBlock && dTr > 3) {
                     setLocation(this.getX() + spd, this.getY());
                 }
                 break;
             case 2:
-                if (!dBlock) {
+                if (!dBlock && dTd > 3) {
                     setLocation(this.getX(), this.getY() + spd);
                 }
                 break;
             case 3:
-                if (!lBlock) {
+                if (!lBlock && dTl > 3) {
                     setLocation(this.getX() - spd, this.getY());
                 }
-                tileLocX = (int) (xLocLegs) / 50;
-                tileLocY = (int) (yLocLegs) / 50;
                 break;
+
         }
+        tileLocX = (int) (xLocFeet) / 50;
+        tileLocY = (int) (yLocFeet) / 50;
     }
 
     public void setLocation(double x, double y) {
         this.xLoc = x;
         this.yLoc = y;
-        xLocLegs = this.xLoc + 32;
-        yLocLegs = this.yLoc + 64;
-        tileLocX = (int) (xLocLegs) / 50;
-        tileLocY = (int) (yLocLegs) / 50;
+        xLocFeet = this.xLoc + 32;
+        yLocFeet = this.yLoc + 64;
+        tileLocX = (int) (xLocFeet) / 50;
+        tileLocY = (int) (yLocFeet) / 50;
     }
 
     public double getX() {

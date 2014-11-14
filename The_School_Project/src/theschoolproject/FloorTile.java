@@ -42,6 +42,21 @@ public class FloorTile {
         }
     }
 
+    public boolean isDoor() {
+        switch (TILE_ID) {
+            case 0:
+                return false;
+            case 1:
+                return false;
+            case 2:
+                return false;
+            case 3:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public Color getColor() {
 
         switch (TILE_ID) {

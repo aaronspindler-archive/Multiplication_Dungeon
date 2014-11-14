@@ -22,6 +22,7 @@ public class Enemy extends Entity {
 
     @Override
     public void tick() {
+        checkCollision();
         switch (mode) {
             case 0:
                 if (pathDist <= 0) {
