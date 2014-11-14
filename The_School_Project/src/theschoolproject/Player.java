@@ -25,7 +25,7 @@ public class Player extends Entity {
     }
 
     public void tick() {
-        quadTree();
+        checkCollision();
         isMoving = false;
         if (keys.isKeyDown("up") || keys.isKeyDown("w")) {
             orientation = 0;
@@ -63,22 +63,22 @@ public class Player extends Entity {
         
         switch (orientation) {
             case 0:
-                if (!uBlock) {
+                if (!uBlock || dTu > collMinDist) {
                     setLocation(this.getX(), this.getY() - spd);
                 }
                 break;
             case 1:
-                if (!rBlock) {
+                if (!rBlock || dTr > collMinDist) {
                     setLocation(this.getX() + spd, this.getY());
                 }
                 break;
             case 2:
-                if (!dBlock) {
+                if (!dBlock || dTd > collMinDist) {
                     setLocation(this.getX(), this.getY() + spd);
                 }
                 break;
             case 3:
-                if (!lBlock) {
+                if (!lBlock || dTl > collMinDist) {
                     setLocation(this.getX() - spd, this.getY());
                 }
                 break;
