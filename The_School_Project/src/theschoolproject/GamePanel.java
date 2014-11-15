@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 import theschoolproject.Input.Keyboard;
 import theschoolproject.Input.Mouse;
+import theschoolproject.Objects.GuiButton;
 
 public class GamePanel extends JPanel {
 
@@ -63,12 +64,11 @@ public class GamePanel extends JPanel {
     BufferedImage play_Glow;
     int AnimationTimer = 0;
     int ImageScroll = 0;
-    boolean glow = false;
+    ArrayList<GuiButton> buttons = new ArrayList();
 
     //=========================
     //      Room Variables
     //=========================
-    
     Room[] rooms = new Room[64];
     int CurrentRoom = 0;
 
@@ -95,21 +95,20 @@ public class GamePanel extends JPanel {
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
         play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
         play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
-        rooms[0] = new Room(this, "/resources/Levels/Level_02.png");
+        rooms[0] = new Room(this, "/resources/Levels/Level_02.png"); 
+        buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
     }
 
     @Override
     protected void paintComponent(Graphics g1) {
         super.paintComponent(g1);
-        Graphics2D g = (Graphics2D)g1;
+        Graphics2D g = (Graphics2D) g1;
         if (mainMenu) {
             g.drawImage(menuScreen, 0 - ImageScroll, 0, 850, 650, null);
             g.drawImage(menuScreen, 850 - ImageScroll, 0, 850, 650, null);
             g.drawImage(menuTitle, 0, 0, null);
-            if (!glow) {
-                g.drawImage(play_NoGlow, 0, 0, null);
-            } else {
-                g.drawImage(play_Glow, 0, 0, null);
+            for (int i = 0; i < buttons.size(); i++) {
+                buttons.get(i).draw(g1);
             }
         }
         if (gameScreen) {
@@ -225,14 +224,8 @@ public class GamePanel extends JPanel {
                 AnimationTimer++;
             }
 
-            if ((mouse.getX() > 350 && mouse.getX() < 505) && (mouse.getY() > 335 && mouse.getY() < 395)) {
-                glow = true;
-                if (mouse.isMousePressed()) {
-                    switchTo("game");
-                    mouse.unPress();
-                }
-            } else {
-                glow = false;
+            for (int i = 0; i < buttons.size(); i++) {
+                buttons.get(i).tick();
             }
         }
         if (gameScreen) {
@@ -266,6 +259,14 @@ public class GamePanel extends JPanel {
             this.gameScreen = false;
             this.battle = true;
         }
+    }
+
+    public Keyboard getKeyboard() {
+        return keys;
+    }
+
+    public Mouse getMouse() {
+        return mouse;
     }
 
     public GamePanel(LayoutManager layout) {
