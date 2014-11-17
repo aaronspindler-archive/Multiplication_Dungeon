@@ -15,6 +15,7 @@ import theschoolproject.Input.Keyboard;
 public class Player extends Entity {
 
     Keyboard keys;
+    int distToMove;
 
     public Player(GamePanel gp, String sp, Keyboard k) {
         super(gp, sp);

@@ -39,7 +39,7 @@ public class GamePanel extends JPanel {
     //      Input Variables
     //=========================
     Keyboard keys = new Keyboard();
-    Mouse mouse = new Mouse();
+    Mouse mouse = new Mouse(this);
 
     //=========================
     //    Player Variables
@@ -67,7 +67,6 @@ public class GamePanel extends JPanel {
     //=========================
     //      Room Variables
     //=========================
-    
     Room[] rooms = new Room[64];
     int CurrentRoom = 0;
 
@@ -128,26 +127,69 @@ public class GamePanel extends JPanel {
                 int y1 = (int) mouse.Ycoords.get(i + 1);
                 g.drawLine(x, y, x1, y1);
             }
-            g.drawLine(mouse.x1, mouse.y1, mouse.x2, mouse.y2);
-            int dx = mouse.x2 - mouse.x1;
-            int dy = mouse.y2 - mouse.y1;
 
             g.setColor(Color.red);
 
             mouse.x1 = (int) pl.xLoc + 32;
             mouse.y1 = (int) pl.yLoc + 32;
+            if (mouse.isMousePressed()) {
+                g.setColor(Color.WHITE);
 
-            if (dx > 0) {    //R
+                int dx = mouse.x2 - mouse.x1;
+                int dy = mouse.y2 - mouse.y1;
+                g.drawLine(mouse.x1, mouse.y1, mouse.x2, mouse.y2);
+                if (dx > 0) {    //R
+                    if (dy > 0) {
+                        if (abs(dx) < abs(dy)) {
+                            if (properties.getProperty("debug_mode").equals("true")) {
+                                g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                                g.drawString("quad_3_D", 50, 50);
+                                pl.distToMove = mouse.y1 + dy;
+                                pl.orientation = 2;
+                            }
+                        } else {
+                            if (properties.getProperty("debug_mode").equals("true")) {
+                                g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                                g.drawString("quad_3_R", 50, 50);
+                                pl.distToMove = mouse.x1 + dx;
+                                pl.orientation = 1;
+                            }
+                        }
+
+                    } else {
+                        if (abs(dx) < abs(dy)) {
+                            if (properties.getProperty("debug_mode").equals("true")) {
+                                g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+                                g.drawString("quad_0_U", 50, 50);
+                                pl.distToMove = mouse.y1 + dy;
+                                pl.orientation = 0;
+
+                            }
+                        } else {
+                            if (properties.getProperty("debug_mode").equals("true")) {
+                                g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+                                g.drawString("quad_0_R", 50, 50);
+                                pl.distToMove = mouse.x1 + dx;
+                                pl.orientation = 1;
+                            }
+                        }
+
+                    }
+                } else //L
                 if (dy > 0) {
                     if (abs(dx) < abs(dy)) {
                         if (properties.getProperty("debug_mode").equals("true")) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                            g.drawString("quad_3_D", 50, 50);
+                            g.drawString("quad_2_D", 50, 50);
+                            pl.distToMove = mouse.y1 + dy;
+                            pl.orientation = 2;
                         }
                     } else {
                         if (properties.getProperty("debug_mode").equals("true")) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                            g.drawString("quad_3_R", 50, 50);
+                            g.drawString("quad_2_L", 50, 50);
+                            pl.distToMove = mouse.x1 + dx;
+                            pl.orientation = 3;
                         }
                     }
 
@@ -155,40 +197,17 @@ public class GamePanel extends JPanel {
                     if (abs(dx) < abs(dy)) {
                         if (properties.getProperty("debug_mode").equals("true")) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                            g.drawString("quad_0_U", 50, 50);
+                            g.drawString("quad_1_U", 50, 50);
+                            pl.distToMove = mouse.y1 + dy;
+                            pl.orientation = 0;
                         }
                     } else {
                         if (properties.getProperty("debug_mode").equals("true")) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                            g.drawString("quad_0_R", 50, 50);
+                            g.drawString("quad_1_L", 50, 50);
+                            pl.distToMove = mouse.x1 + dx;
+                            pl.orientation = 3;
                         }
-                    }
-
-                }
-            } else //L
-            if (dy > 0) {
-                if (abs(dx) < abs(dy)) {
-                    if (properties.getProperty("debug_mode").equals("true")) {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                        g.drawString("quad_2_D", 50, 50);
-                    }
-                } else {
-                    if (properties.getProperty("debug_mode").equals("true")) {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                        g.drawString("quad_2_L", 50, 50);
-                    }
-                }
-
-            } else {
-                if (abs(dx) < abs(dy)) {
-                    if (properties.getProperty("debug_mode").equals("true")) {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
-                        g.drawString("quad_1_U", 50, 50);
-                    }
-                } else {
-                    if (properties.getProperty("debug_mode").equals("true")) {
-                        g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
-                        g.drawString("quad_1_L", 50, 50);
                     }
                 }
             }
