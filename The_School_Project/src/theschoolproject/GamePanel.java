@@ -33,9 +33,10 @@ public class GamePanel extends JPanel {
     //=========================
     //   Game State Variables
     //=========================
-    boolean mainMenu = true;
-    boolean gameScreen = false;
-    boolean battle = false;
+    public boolean mainMenu = true;
+    public boolean gameScreen = false;
+    public boolean battle = false;
+    public boolean frozen = false;
 
     //=========================
     //      Input Variables
@@ -79,6 +80,7 @@ public class GamePanel extends JPanel {
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
+        this.qt = new QuestionTimer();
         pl = new Player(this, "/resources/pl_sprite.png", keys);
         th.start();
         for (int w = 0; w < 17; w++) {
@@ -95,7 +97,7 @@ public class GamePanel extends JPanel {
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
         play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
         play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
-        rooms[0] = new Room(this, "/resources/Levels/Level_02.png"); 
+        rooms[0] = new Room(this, "/resources/Levels/Level_02.png");
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
     }
 
@@ -226,6 +228,12 @@ public class GamePanel extends JPanel {
                 }
             }
             pl.draw(g);
+            for (int a = 0; a < en_arry.size(); a++) {
+                if (pl.getBounds().intersects(en_arry.get(a).getBounds())) {
+                    battle = true;
+                    frozen = true;
+                }
+            }
         }
         if (battle) {
             qt.draw(g);
@@ -248,7 +256,7 @@ public class GamePanel extends JPanel {
                 buttons.get(i).tick();
             }
         }
-        if (gameScreen) {
+        if (gameScreen && !frozen) {
             pl.tick();
             for (int i = 0; i < en_arry.size(); i++) {
                 en_arry.get(i).tick();

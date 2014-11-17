@@ -24,7 +24,7 @@ public class Player extends Entity {
         this.xLoc = 393;
         this.yLoc = 281;
     }
-
+    
     public void tick() {
         checkCollision();
         isMoving = false;
@@ -61,7 +61,7 @@ public class Player extends Entity {
         if (animCycle > 2) {
             animCycle = 0;
         }
-        
+
         switch (orientation) {
             case 0:
                 if (!uBlock || dTu > collMinDist) {
