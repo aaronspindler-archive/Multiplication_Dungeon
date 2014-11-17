@@ -5,7 +5,7 @@
  */
 package theschoolproject;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 import theschoolproject.Input.Keyboard;
@@ -65,7 +65,7 @@ public class Entity {
         this.yLoc = rand.nextInt(300) + 50;
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g) {
         g.drawImage(sprites[orientation][animSeq[animCycle]], (int) xLoc, (int) yLoc, null);
     }
 
