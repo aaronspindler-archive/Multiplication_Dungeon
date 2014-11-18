@@ -23,6 +23,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         gamePanel1 = new theschoolproject.GamePanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        saveStateBtn = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         documentationBtn = new javax.swing.JMenuItem();
@@ -54,6 +55,14 @@ public class SchoolProjectForm extends javax.swing.JFrame {
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
+
+        saveStateBtn.setText("Save State");
+        saveStateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveStateBtnActionPerformed(evt);
+            }
+        });
+        fileMenu.add(saveStateBtn);
 
         exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Exit");
@@ -107,6 +116,10 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         UsefulSnippets.openWebpage("https://github.com/xNovax/The_School_Project/wiki");
     }//GEN-LAST:event_documentationBtnActionPerformed
 
+    private void saveStateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStateBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveStateBtnActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -144,6 +157,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem saveStateBtn;
     // End of variables declaration//GEN-END:variables
 
 }

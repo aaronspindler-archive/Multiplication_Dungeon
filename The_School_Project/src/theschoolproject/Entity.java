@@ -109,7 +109,7 @@ public class Entity {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle((int) this.xLoc, (int) this.yLoc, (int) width, (int) height);
+        return new Rectangle((int) this.xLoc+10, (int) this.yLoc+10, (int) width-20, (int) height-20);
     }
 
     public void tick() {

@@ -15,7 +15,8 @@ import theschoolproject.Input.Keyboard;
 public class Player extends Entity {
 
     Keyboard keys;
-    int distToMove;
+    int distToMove = 0;
+    int graceTimer = 0;
 
     public Player(GamePanel gp, String sp, Keyboard k) {
         super(gp, sp);
@@ -24,9 +25,16 @@ public class Player extends Entity {
         this.xLoc = 393;
         this.yLoc = 281;
     }
-    
+
     public void tick() {
         checkCollision();
+        if (distToMove > 0) {
+            distToMove--;
+        }
+        if (graceTimer > 0) {
+            graceTimer--;
+        }
+
         isMoving = false;
         if (keys.isKeyDown("up") || keys.isKeyDown("w")) {
             orientation = 0;

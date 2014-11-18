@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import theschoolproject.Input.Keyboard;
 import theschoolproject.Input.Mouse;
 import theschoolproject.Objects.GuiButton;
+import flexjson.JSONSerializer;
 
 public class GamePanel extends JPanel {
 
@@ -29,7 +30,8 @@ public class GamePanel extends JPanel {
     Thread th = new Thread(lt);
     FloorTile[][] ft = new FloorTile[17][15];
     Properties properties = UsefulSnippets.getProperties();
-
+    JSONSerializer saveState = new JSONSerializer();
+    
     //=========================
     //   Game State Variables
     //=========================
@@ -114,14 +116,7 @@ public class GamePanel extends JPanel {
             }
         }
         if (gameScreen) {
-            /*
-             for (int w = 0; w < 17; w++) {
-             for (int h = 0; h < 15; h++) {
-             g.setColor(ft[w][h].getColor());
-             g.fill3DRect(w * 50, h * 50, 50, 50, true);
-             }
-             }
-             */
+
             rooms[CurrentRoom].draw(g);
 
             for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
@@ -229,7 +224,7 @@ public class GamePanel extends JPanel {
             }
             pl.draw(g);
             for (int a = 0; a < en_arry.size(); a++) {
-                if (pl.getBounds().intersects(en_arry.get(a).getBounds())) {
+                if ((pl.getBounds().intersects(en_arry.get(a).getBounds()))&&(pl.graceTimer < 1)) {
                     battle = true;
                     frozen = true;
                 }
@@ -237,6 +232,7 @@ public class GamePanel extends JPanel {
         }
         if (battle) {
             qt.draw(g);
+            pl.graceTimer = 1000;
         }
     }
 
