@@ -5,7 +5,6 @@
  */
 package theschoolproject;
 
-import java.awt.Graphics;
 import theschoolproject.Input.Keyboard;
 
 /**
@@ -17,6 +16,7 @@ public class Player extends Entity {
     Keyboard keys;
     int distToMove = 0;
     int graceTimer = 0;
+    boolean autoMove = false;
 
     public Player(GamePanel gp, String sp, Keyboard k) {
         super(gp, sp);
@@ -27,34 +27,28 @@ public class Player extends Entity {
     }
 
     public void tick() {
+        isMoving = false;
         checkCollision();
-        if (distToMove > 0) {
+        if (distToMove > 3) {
             distToMove--;
+            spd = 2;
+            move(orientation);
         }
         if (graceTimer > 0) {
             graceTimer--;
         }
 
-        isMoving = false;
         if (keys.isKeyDown("up") || keys.isKeyDown("w")) {
-            orientation = 0;
-            isMoving = true;
-            animCycle++;
-        }
-        if (keys.isKeyDown("left") || keys.isKeyDown("a")) {
-            orientation = 3;
-            isMoving = true;
-            animCycle++;
-        }
-        if (keys.isKeyDown("down") || keys.isKeyDown("s")) {
-            orientation = 2;
-            isMoving = true;
-            animCycle++;
+            move(0);
         }
         if (keys.isKeyDown("right") || keys.isKeyDown("d")) {
-            orientation = 1;
-            isMoving = true;
-            animCycle++;
+            move(1);
+        }
+        if (keys.isKeyDown("down") || keys.isKeyDown("s")) {
+            move(2);
+        }
+        if (keys.isKeyDown("left") || keys.isKeyDown("a")) {
+            move(3);
         }
 
         if (isMoving && spd < 3) {
@@ -92,5 +86,11 @@ public class Player extends Entity {
                 }
                 break;
         }
+    }
+
+    public void move(int dir) {
+        orientation = dir;
+        isMoving = true;
+        animCycle++;
     }
 }

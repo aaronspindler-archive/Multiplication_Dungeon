@@ -145,16 +145,18 @@ public class GamePanel extends JPanel {
                             if (properties.getProperty("debug_mode").equals("true")) {
                                 g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                                 g.drawString("quad_3_D", 50, 50);
-                                pl.distToMove = mouse.y1 + dy;
-                                pl.orientation = 2;
                             }
+                            pl.distToMove = abs(dy);
+                            pl.orientation = 2;
+
                         } else {
                             if (properties.getProperty("debug_mode").equals("true")) {
                                 g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                                 g.drawString("quad_3_R", 50, 50);
-                                pl.distToMove = mouse.x1 + dx;
-                                pl.orientation = 1;
                             }
+                            pl.distToMove = abs(dx);
+                            pl.orientation = 1;
+
                         }
 
                     } else {
@@ -162,17 +164,18 @@ public class GamePanel extends JPanel {
                             if (properties.getProperty("debug_mode").equals("true")) {
                                 g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                                 g.drawString("quad_0_U", 50, 50);
-                                pl.distToMove = mouse.y1 + dy;
-                                pl.orientation = 0;
-
                             }
+                            pl.distToMove = abs(dy);
+                            pl.orientation = 0;
+
                         } else {
                             if (properties.getProperty("debug_mode").equals("true")) {
                                 g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                                 g.drawString("quad_0_R", 50, 50);
-                                pl.distToMove = mouse.x1 + dx;
-                                pl.orientation = 1;
                             }
+                            pl.distToMove = abs(dx);
+                            pl.orientation = 1;
+
                         }
 
                     }
@@ -182,16 +185,18 @@ public class GamePanel extends JPanel {
                         if (properties.getProperty("debug_mode").equals("true")) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                             g.drawString("quad_2_D", 50, 50);
-                            pl.distToMove = mouse.y1 + dy;
-                            pl.orientation = 2;
                         }
+                        pl.distToMove = abs(dy);
+                        pl.orientation = 2;
+
                     } else {
                         if (properties.getProperty("debug_mode").equals("true")) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                             g.drawString("quad_2_L", 50, 50);
-                            pl.distToMove = mouse.x1 + dx;
-                            pl.orientation = 3;
                         }
+                        pl.distToMove = abs(dx);
+                        pl.orientation = 3;
+
                     }
 
                 } else {
@@ -199,16 +204,18 @@ public class GamePanel extends JPanel {
                         if (properties.getProperty("debug_mode").equals("true")) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                             g.drawString("quad_1_U", 50, 50);
-                            pl.distToMove = mouse.y1 + dy;
-                            pl.orientation = 0;
                         }
+                        pl.distToMove = abs(dy);
+                        pl.orientation = 0;
+
                     } else {
                         if (properties.getProperty("debug_mode").equals("true")) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                             g.drawString("quad_1_L", 50, 50);
-                            pl.distToMove = mouse.x1 + dx;
-                            pl.orientation = 3;
                         }
+                        pl.distToMove = abs(dx);
+                        pl.orientation = 3;
+
                     }
                 }
             }
@@ -290,8 +297,8 @@ public class GamePanel extends JPanel {
     public void saveState() {
         jsonSer.serialize(this);
     }
-    
-    public void loadState(){
+
+    public void loadState() {
 
     }
 
@@ -305,7 +312,6 @@ public class GamePanel extends JPanel {
 
     public GamePanel(LayoutManager layout) {
         super(layout);
-
     }
 
     public class ListenerThread implements Runnable {
