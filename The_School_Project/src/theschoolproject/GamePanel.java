@@ -22,6 +22,7 @@ import theschoolproject.Input.Keyboard;
 import theschoolproject.Input.Mouse;
 import theschoolproject.Objects.GuiButton;
 import flexjson.JSONSerializer;
+import flexjson.JSONDeserializer;
 
 public class GamePanel extends JPanel {
 
@@ -30,8 +31,9 @@ public class GamePanel extends JPanel {
     Thread th = new Thread(lt);
     FloorTile[][] ft = new FloorTile[17][15];
     Properties properties = UsefulSnippets.getProperties();
-    JSONSerializer saveState = new JSONSerializer();
-    
+    JSONSerializer jsonSer = new JSONSerializer();
+    JSONDeserializer jsonDes = new JSONDeserializer();
+
     //=========================
     //   Game State Variables
     //=========================
@@ -224,7 +226,7 @@ public class GamePanel extends JPanel {
             }
             pl.draw(g);
             for (int a = 0; a < en_arry.size(); a++) {
-                if ((pl.getBounds().intersects(en_arry.get(a).getBounds()))&&(pl.graceTimer < 1)) {
+                if ((pl.getBounds().intersects(en_arry.get(a).getBounds())) && (pl.graceTimer < 1)) {
                     battle = true;
                     frozen = true;
                 }
@@ -283,6 +285,14 @@ public class GamePanel extends JPanel {
             this.gameScreen = false;
             this.battle = true;
         }
+    }
+
+    public void saveState() {
+        jsonSer.serialize(this);
+    }
+    
+    public void loadState(){
+
     }
 
     public Keyboard getKeyboard() {
