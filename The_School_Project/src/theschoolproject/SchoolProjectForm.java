@@ -2,11 +2,16 @@ package theschoolproject;
 
 import java.util.Properties;
 import javax.swing.UIManager;
+import flexjson.JSONSerializer;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 public class SchoolProjectForm extends javax.swing.JFrame {
 
     //Variables
     Properties properties = UsefulSnippets.getProperties();
+    JSONSerializer jSerial = new JSONSerializer();
 
     public SchoolProjectForm() {
         initComponents();
@@ -20,7 +25,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jSpinner1 = new javax.swing.JSpinner();
-        gamePanel1 = new theschoolproject.GamePanel();
+        gamePanel = new theschoolproject.GamePanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         saveStateBtn = new javax.swing.JMenuItem();
@@ -39,19 +44,19 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout gamePanel1Layout = new javax.swing.GroupLayout(gamePanel1);
-        gamePanel1.setLayout(gamePanel1Layout);
-        gamePanel1Layout.setHorizontalGroup(
-            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
+        gamePanel.setLayout(gamePanelLayout);
+        gamePanelLayout.setHorizontalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 850, Short.MAX_VALUE)
         );
-        gamePanel1Layout.setVerticalGroup(
-            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        gamePanelLayout.setVerticalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 650, Short.MAX_VALUE)
         );
 
-        getContentPane().add(gamePanel1);
-        gamePanel1.setBounds(0, 0, 850, 650);
+        getContentPane().add(gamePanel);
+        gamePanel.setBounds(0, 0, 850, 650);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -117,9 +122,22 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }//GEN-LAST:event_documentationBtnActionPerformed
 
     private void saveStateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStateBtnActionPerformed
-        // TODO add your handling code here:
+        saveState();
     }//GEN-LAST:event_saveStateBtnActionPerformed
 
+    public void saveState(){
+        String savedState = jSerial.deepSerialize(gamePanel);
+        try {
+            File f = new File("ss01.dat");
+            FileWriter fw = new FileWriter(f); 
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            bw.write(savedState);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -153,7 +171,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem documentationBtn;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private theschoolproject.GamePanel gamePanel1;
+    private theschoolproject.GamePanel gamePanel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JMenuBar menuBar;

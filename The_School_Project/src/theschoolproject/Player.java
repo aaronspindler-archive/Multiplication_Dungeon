@@ -26,6 +26,46 @@ public class Player extends Entity {
         this.yLoc = 281;
     }
 
+    @Override
+    public void checkCollision() {
+        try {
+//        System.out.println(" " + dTu + " " + dTd + " " + dTr + " " + dTl);
+            if ((this.tileLocX != 0) && (this.tileLocY != 0)) {
+                uBlock = false;
+                rBlock = false;
+                dBlock = false;
+                lBlock = false;
+
+                dTu = 99;
+                dTr = 99;
+                dTd = 99;
+                dTl = 99;
+
+                if (world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].isSolid()) {
+                    this.rBlock = true;
+                    dTr = ((50 * (this.tileLocX + 1))) - (int) this.xLocFeet;
+                }   //Right
+
+                if (world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].isSolid()) {
+                    this.lBlock = true;
+                    dTl = ((int) this.xLocFeet - (50 * (this.tileLocX)));
+                }   //Left
+
+                if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].isSolid()) {
+                    this.dBlock = true;
+                    dTd = ((50 * (this.tileLocY + 1))) - (int) this.yLocFeet;
+                }   //Up
+
+                if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].isSolid()) {
+                    this.uBlock = true;
+                    dTu = ((int) this.yLocFeet - (50 * (this.tileLocY)));
+                }   //Down
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void tick() {
         isMoving = false;
         checkCollision();

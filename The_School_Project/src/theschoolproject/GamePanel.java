@@ -29,7 +29,7 @@ public class GamePanel extends JPanel {
     Random rand = new Random();
     ListenerThread lt = new ListenerThread();
     Thread th = new Thread(lt);
-    FloorTile[][] ft = new FloorTile[17][15];
+    FloorTile[][] ft = new FloorTile[17][16];
     Properties properties = UsefulSnippets.getProperties();
     JSONSerializer jsonSer = new JSONSerializer();
     JSONDeserializer jsonDes = new JSONDeserializer();
