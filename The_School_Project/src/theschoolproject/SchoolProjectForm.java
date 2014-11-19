@@ -5,12 +5,14 @@ import flexjson.JSONSerializer;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import resources.SettingsProperties;
 
 public class SchoolProjectForm extends javax.swing.JFrame {
 
     //Variables
-    Properties properties = UsefulSnippets.getProperties();
+    
     JSONSerializer jSerial = new JSONSerializer();
+    SettingsProperties props = new SettingsProperties();
 
     public SchoolProjectForm() {
         initComponents();
