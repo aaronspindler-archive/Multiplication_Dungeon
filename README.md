@@ -12,3 +12,4 @@ TODO:
 - [ ] Multiplication Equation Generation - Tyler
 - [ ] Savestates (we will use JSON) - Aaron
 - [ ] Documentation - Aaron
+- [x] Installer / JRE 1.8 - Aaron
