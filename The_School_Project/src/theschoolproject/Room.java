@@ -3,6 +3,7 @@ package theschoolproject; //THis will be the dungeon room, 16x11 = 176 tiles
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import resources.SettingsProperties;
 
 public class Room {
     
@@ -12,6 +13,7 @@ public class Room {
     int[] tiles = new int[width * height];
     FloorTile[] tileArry = new FloorTile[width * height];
     GamePanel mainPanel;
+    SettingsProperties props = new SettingsProperties();
     
     BufferedImage lvl;
     
@@ -46,7 +48,7 @@ public class Room {
             for (int j = 0; j < lvl.getHeight(); j++) {
                 g.setColor(tileArry[i + j * width].getColor());
                 g.fill3DRect(i * 50, j * 50, 50, 50, true);
-                if (mainPanel.properties.getProperty("debug_mode").equals("true")) {
+                if (props.getDebugMode() == true) {
                     g.setColor(Color.yellow);
                     g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
                     g.setColor(new Color(0, 255, 0, 7));

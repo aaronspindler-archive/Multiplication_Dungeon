@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.Random;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -66,15 +67,5 @@ public class UsefulSnippets {
             Logger.getLogger(UsefulSnippets.class.getName()).log(Level.SEVERE, null, ex);
         }
         return img;
-    }
-
-    public static Properties getProperties() {
-        Properties prop = new Properties();
-        try {
-            prop.load(new FileInputStream("src/resources/settings.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return prop;
     }
 }

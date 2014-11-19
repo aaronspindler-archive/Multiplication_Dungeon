@@ -1,6 +1,5 @@
 package theschoolproject;
 
-import java.util.Properties;
 import javax.swing.UIManager;
 import flexjson.JSONSerializer;
 import java.io.BufferedWriter;
@@ -17,7 +16,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         initComponents();
         this.setSize(855, 700);
         this.setResizable(false);
-        this.setTitle(properties.getProperty("Game_Name"));
+        this.setTitle(props.getGameName());
     }
 
     @SuppressWarnings("unchecked")
