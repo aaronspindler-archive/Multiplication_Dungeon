@@ -7,6 +7,7 @@ package theschoolproject.Objects;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import resources.SettingsProperties;
 import theschoolproject.GamePanel;
 import theschoolproject.Input.Mouse;
 import theschoolproject.UsefulSnippets;
@@ -49,7 +50,10 @@ public class GuiButton {
     }
 
     public void tick() {
-        System.out.println(m.getX() + " || " + m.getY());
+        if (SettingsProperties.debugModeG == true) {
+            System.out.println(m.getX() + " || " + m.getY());
+        }
+
         if ((m.getX() > minX && m.getX() < maxX) && (m.getY() > minY && m.getY() < maxY)) {
             hover = true;
             if (m.isMousePressed()) {
@@ -68,7 +72,7 @@ public class GuiButton {
             } else {
                 g.drawImage(unPressed, minX, minY, null);
             }
-        }else{
+        } else {
             if (hover) {
                 g.drawImage(Pressed, 0, 0, null);
             } else {
