@@ -48,7 +48,7 @@ public class Room {
             for (int j = 0; j < lvl.getHeight(); j++) {
                 g.setColor(tileArry[i + j * width].getColor());
                 g.fill3DRect(i * 50, j * 50, 50, 50, true);
-                if (props.getDebugMode() == true) {
+                if (SettingsProperties.debugModeG == true) {
                     g.setColor(Color.yellow);
                     g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
                     g.setColor(new Color(0, 255, 0, 7));

@@ -12,13 +12,12 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     //Variables
     
     JSONSerializer jSerial = new JSONSerializer();
-    SettingsProperties props = new SettingsProperties();
 
     public SchoolProjectForm() {
         initComponents();
         this.setSize(855, 700);
         this.setResizable(false);
-        this.setTitle(props.getGameName());
+        this.setTitle(SettingsProperties.gameName);
     }
 
     @SuppressWarnings("unchecked")

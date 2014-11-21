@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package theschoolproject;
 
 import java.awt.Color;
@@ -33,7 +28,6 @@ public class GamePanel extends JPanel {
     FloorTile[][] ft = new FloorTile[17][16];
     JSONSerializer jsonSer = new JSONSerializer();
     JSONDeserializer jsonDes = new JSONDeserializer();
-    SettingsProperties props = new SettingsProperties();
 
     //=========================
     //   Game State Variables
@@ -143,7 +137,7 @@ public class GamePanel extends JPanel {
                 if (dx > 0) {    //R
                     if (dy > 0) {
                         if (abs(dx) < abs(dy)) {
-                            if (props.getDebugMode() == true) {
+                            if (SettingsProperties.debugModeG == true) {
                                 g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                                 g.drawString("quad_3_D", 50, 50);
                             }
@@ -151,7 +145,7 @@ public class GamePanel extends JPanel {
                             pl.orientation = 2;
 
                         } else {
-                            if (props.getDebugMode() == true) {
+                            if (SettingsProperties.debugModeG == true) {
                                 g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                                 g.drawString("quad_3_R", 50, 50);
                             }
@@ -162,7 +156,7 @@ public class GamePanel extends JPanel {
 
                     } else {
                         if (abs(dx) < abs(dy)) {
-                            if (props.getDebugMode() == true) {
+                            if (SettingsProperties.debugModeG == true) {
                                 g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                                 g.drawString("quad_0_U", 50, 50);
                             }
@@ -170,7 +164,7 @@ public class GamePanel extends JPanel {
                             pl.orientation = 0;
 
                         } else {
-                            if (props.getDebugMode() == true) {
+                            if (SettingsProperties.debugModeG == true) {
                                 g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                                 g.drawString("quad_0_R", 50, 50);
                             }
@@ -183,7 +177,7 @@ public class GamePanel extends JPanel {
                 } else //L
                 if (dy > 0) {
                     if (abs(dx) < abs(dy)) {
-                        if (props.getDebugMode() == true) {
+                        if (SettingsProperties.debugModeG == true) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                             g.drawString("quad_2_D", 50, 50);
                         }
@@ -191,7 +185,7 @@ public class GamePanel extends JPanel {
                         pl.orientation = 2;
 
                     } else {
-                        if (props.getDebugMode() == true) {
+                        if (SettingsProperties.debugModeG == true) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                             g.drawString("quad_2_L", 50, 50);
                         }
@@ -202,7 +196,7 @@ public class GamePanel extends JPanel {
 
                 } else {
                     if (abs(dx) < abs(dy)) {
-                        if (props.getDebugMode() == true) {
+                        if (SettingsProperties.debugModeG == true) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                             g.drawString("quad_1_U", 50, 50);
                         }
@@ -210,7 +204,7 @@ public class GamePanel extends JPanel {
                         pl.orientation = 0;
 
                     } else {
-                        if (props.getDebugMode() == true) {
+                        if (SettingsProperties.debugModeG == true) {
                             g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                             g.drawString("quad_1_L", 50, 50);
                         }
@@ -220,14 +214,14 @@ public class GamePanel extends JPanel {
                     }
                 }
             }
-            if (props.getDebugMode() == true) {
+            if (SettingsProperties.debugModeG == true) {
                 g.drawString("pl_pos: " + pl.xLoc + ", " + pl.yLoc, 50, 60);
             }
 
             for (int i = 0; i < numEnemies; i++) {
                 en_arry.get(i).draw(g);
                 g.setColor(Color.GREEN);
-                if (props.getDebugMode() == true) {
+                if (SettingsProperties.debugModeG == true) {
                     g.drawLine((int) en_arry.get(i).xLoc + 32, (int) en_arry.get(i).yLoc + 32,
                             (int) pl.xLoc + 32, (int) pl.yLoc + 32);
                 }

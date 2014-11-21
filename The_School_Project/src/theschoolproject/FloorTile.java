@@ -3,10 +3,6 @@ package theschoolproject;
 import java.awt.Color;
 import java.util.Random;
 
-/**
- *
- * @author Arthur
- */
 public class FloorTile {
 
     int TILE_ID = -1;
