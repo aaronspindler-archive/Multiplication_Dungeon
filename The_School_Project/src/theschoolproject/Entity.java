@@ -73,26 +73,26 @@ public class Entity {
             dTd = 99;
             dTl = 99;
 
-            if ((world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].isSolid())
-                    || (world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].isDoor())) {
+            if ((world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid())
+                    || (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isDoor())) {
                 this.rBlock = true;
                 dTr = ((50 * (this.tileLocX + 1))) - (int) this.xLocFeet;
             }   //Right
 
-            if ((world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].isSolid())
-                    || (world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].isDoor())) {
+            if ((world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid())
+                    || (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isDoor())) {
                 this.lBlock = true;
                 dTl = ((int) this.xLocFeet - (50 * (this.tileLocX)));
             }   //Left
 
-            if ((world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].isSolid())
-                    || (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].isDoor())) {
+            if ((world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid())
+                    || (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isDoor())) {
                 this.dBlock = true;
                 dTd = ((50 * (this.tileLocY + 1))) - (int) this.yLocFeet;
             }   //Up
 
-            if ((world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].isSolid())
-                    || (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].isDoor())) {
+            if ((world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid())
+                    || (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isDoor())) {
                 this.uBlock = true;
                 dTu = ((int) this.yLocFeet - (50 * (this.tileLocY)));
             }   //Down

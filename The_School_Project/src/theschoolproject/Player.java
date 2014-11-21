@@ -32,22 +32,22 @@ public class Player extends Entity {
                 dTd = 99;
                 dTl = 99;
 
-                if (world.rooms[0].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[0].width].isSolid()) {
+                if (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid()) {
                     this.rBlock = true;
                     dTr = ((50 * (this.tileLocX + 1))) - (int) this.xLocFeet;
                 }   //Right
 
-                if (world.rooms[0].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[0].width].isSolid()) {
+                if (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid()) {
                     this.lBlock = true;
                     dTl = ((int) this.xLocFeet - (50 * (this.tileLocX)));
                 }   //Left
 
-                if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[0].width].isSolid()) {
+                if (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid()) {
                     this.dBlock = true;
                     dTd = ((50 * (this.tileLocY + 1))) - (int) this.yLocFeet;
                 }   //Up
 
-                if (world.rooms[0].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[0].width].isSolid()) {
+                if (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid()) {
                     this.uBlock = true;
                     dTu = ((int) this.yLocFeet - (50 * (this.tileLocY)));
                 }   //Down
@@ -62,6 +62,20 @@ public class Player extends Entity {
         if (this.yLoc < 535) {
             checkCollision();
         }
+
+        if (this.yLoc < 40) {
+            nextRoom(0);
+        }
+        if (this.yLoc > 575) {
+            nextRoom(2);
+        }
+        if (this.xLoc > 800) {
+            nextRoom(1);
+        }
+        if (this.xLoc < 40) {
+            nextRoom(3);
+        }
+
         if (distToMove > 3) {
             distToMove--;
             spd = 2;
@@ -125,5 +139,22 @@ public class Player extends Entity {
         orientation = dir;
         isMoving = true;
         animCycle++;
+    }
+
+    public void nextRoom(int i) {
+        switch (i) {
+            case 0:
+                world.currentRoomY--;
+                break;
+            case 1:
+                world.currentRoomX++;
+                break;
+            case 2:
+                world.currentRoomY++;
+                break;
+            case 3:
+                world.currentRoomX--;
+                break;
+        }
     }
 }

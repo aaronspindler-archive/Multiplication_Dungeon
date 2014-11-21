@@ -69,8 +69,9 @@ public class GamePanel extends JPanel {
     //=========================
     //      Room Variables
     //=========================
-    Room[] rooms = new Room[64];
-    int CurrentRoom = 0;
+    Room[][] rooms = new Room[10][10];
+    int currentRoomX = 0;
+    int currentRoomY = 0;
 
     public GamePanel() {
         for (int l = 0; l < numEnemies; l++) {
@@ -96,7 +97,7 @@ public class GamePanel extends JPanel {
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
         play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
         play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
-        rooms[0] = new Room(this, "/resources/Levels/Level_02.png");
+        rooms[0][0] = new Room(this, "/resources/Levels/Level_02.png");
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
     }
 
@@ -114,7 +115,7 @@ public class GamePanel extends JPanel {
         }
         if (gameScreen) {
 
-            rooms[CurrentRoom].draw(g);
+            rooms[currentRoomX][currentRoomY].draw(g);
 
             for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
                 int x = (int) mouse.Xcoords.get(i);

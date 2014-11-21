@@ -48,30 +48,30 @@ public class Room {
             for (int j = 0; j < lvl.getHeight(); j++) {
                 g.setColor(tileArry[i + j * width].getColor());
                 g.fill3DRect(i * 50, j * 50, 50, 50, true);
-                if (SettingsProperties.debugModeG == true) {
-                    g.setColor(Color.yellow);
-                    g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
-                    g.setColor(new Color(0, 255, 0, 7));
-                    g.fill3DRect((mainPanel.pl.tileLocX + 1) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
-                    g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY + 1) * 50, 50, 50, true);
-                    g.fill3DRect((mainPanel.pl.tileLocX - 1) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
-                    g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY - 1) * 50, 50, 50, true);
-                    
-                    g.setColor(new Color(255, 0, 0, 7));
-                    if (tileArry[(mainPanel.pl.tileLocX + 1) + (mainPanel.pl.tileLocY) * width].isSolid()) {
-                        g.fill3DRect((mainPanel.pl.tileLocX + 1) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
-                    }
-                    if (tileArry[(mainPanel.pl.tileLocX) + (mainPanel.pl.tileLocY + 1) * width].isSolid()) {
-                        g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY + 1) * 50, 50, 50, true);
-                    }
-                    if (tileArry[(mainPanel.pl.tileLocX - 1) + (mainPanel.pl.tileLocY) * width].isSolid()) {
-                        g.fill3DRect((mainPanel.pl.tileLocX - 1) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
-                    }
-                    if (tileArry[(mainPanel.pl.tileLocX) + (mainPanel.pl.tileLocY - 1) * width].isSolid()) {
-                        g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY - 1) * 50, 50, 50, true);
-                    }
-                    g.setColor(Color.white);
-                }
+//                if (SettingsProperties.debugModeG == true) {
+//                    g.setColor(Color.yellow);
+//                    g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
+//                    g.setColor(new Color(0, 255, 0, 7));
+//                    g.fill3DRect((mainPanel.pl.tileLocX + 1) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
+//                    g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY + 1) * 50, 50, 50, true);
+//                    g.fill3DRect((mainPanel.pl.tileLocX - 1) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
+//                    g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY - 1) * 50, 50, 50, true);
+//                    
+//                    g.setColor(new Color(255, 0, 0, 7));
+//                    if (tileArry[(mainPanel.pl.tileLocX + 1) + (mainPanel.pl.tileLocY) * width].isSolid()) {
+//                        g.fill3DRect((mainPanel.pl.tileLocX + 1) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
+//                    }
+//                    if (tileArry[(mainPanel.pl.tileLocX) + (mainPanel.pl.tileLocY + 1) * width].isSolid()) {
+//                        g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY + 1) * 50, 50, 50, true);
+//                    }
+//                    if (tileArry[(mainPanel.pl.tileLocX - 1) + (mainPanel.pl.tileLocY) * width].isSolid()) {
+//                        g.fill3DRect((mainPanel.pl.tileLocX - 1) * 50, (mainPanel.pl.tileLocY) * 50, 50, 50, true);
+//                    }
+//                    if (tileArry[(mainPanel.pl.tileLocX) + (mainPanel.pl.tileLocY - 1) * width].isSolid()) {
+//                        g.fill3DRect((mainPanel.pl.tileLocX) * 50, (mainPanel.pl.tileLocY - 1) * 50, 50, 50, true);
+//                    }
+//                    g.setColor(Color.white);
+//                }
             }
         }
     }
