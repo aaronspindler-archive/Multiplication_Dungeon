@@ -59,7 +59,7 @@ public class Player extends Entity {
 
     public void tick() {
         isMoving = false;
-        if (this.yLoc < 535 && this.yLoc > 40) {
+        if (this.yLocFeet < 600 && this.yLocFeet > 40) {
             checkCollision();
         }
 
