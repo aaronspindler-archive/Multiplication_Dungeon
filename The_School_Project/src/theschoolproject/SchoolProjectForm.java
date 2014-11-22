@@ -18,6 +18,8 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         this.setSize(855, 700);
         this.setResizable(false);
         this.setTitle(SettingsProperties.gameName);
+        productTextField.setVisible(false);
+        checkButton.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -26,6 +28,8 @@ public class SchoolProjectForm extends javax.swing.JFrame {
 
         jSpinner1 = new javax.swing.JSpinner();
         gamePanel = new theschoolproject.GamePanel();
+        productTextField = new javax.swing.JTextField();
+        checkButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         saveStateBtn = new javax.swing.JMenuItem();
@@ -44,15 +48,29 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
+        productTextField.setText("jTextField1");
+
+        checkButton.setText("Check!");
+
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
         gamePanelLayout.setHorizontalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gamePanelLayout.createSequentialGroup()
+                .addContainerGap(413, Short.MAX_VALUE)
+                .addComponent(productTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkButton)
+                .addGap(307, 307, 307))
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGroup(gamePanelLayout.createSequentialGroup()
+                .addGap(187, 187, 187)
+                .addGroup(gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(productTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkButton))
+                .addContainerGap(440, Short.MAX_VALUE))
         );
 
         getContentPane().add(gamePanel);
@@ -168,6 +186,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutbtn;
+    public static javax.swing.JButton checkButton;
     private javax.swing.JMenuItem documentationBtn;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
@@ -175,6 +194,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JMenuBar menuBar;
+    public static javax.swing.JTextField productTextField;
     private javax.swing.JMenuItem saveStateBtn;
     // End of variables declaration//GEN-END:variables
 
