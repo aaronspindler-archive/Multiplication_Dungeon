@@ -49,7 +49,7 @@ public class GuiButton {
     }
 
     public void tick() {
-        System.out.println(m.getX() + " || " + m.getY());
+//        System.out.println(m.getX() + " || " + m.getY());
         if ((m.getX() > minX && m.getX() < maxX) && (m.getY() > minY && m.getY() < maxY)) {
             hover = true;
             if (m.isMousePressed()) {

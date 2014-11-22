@@ -38,7 +38,6 @@ public class Entity {
     int animCycle = 1;
     BufferedImage spriteSheetB;
     BufferedImage[][] sprites;
-    String[] spritePaths = {"/resources/pl_sprite.png", "/resources/en1_sprite.png"};
     Random rand = new Random();
 
     Keyboard keys;

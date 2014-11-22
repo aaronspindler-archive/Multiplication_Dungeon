@@ -46,6 +46,7 @@ public class GamePanel extends JPanel {
     //=========================
     //    Player Variables
     //=========================
+    String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png"};
     Player pl;
     ArrayList<Entity> en_arry = new ArrayList();
     int numEnemies = 5;
@@ -72,10 +73,14 @@ public class GamePanel extends JPanel {
     Room[][] rooms = new Room[10][10];
     int currentRoomX = 0;
     int currentRoomY = 0;
+    int transitionProg = -1000;
+    int transitionDir = -1;
+    boolean transitioning = false;
 
     public GamePanel() {
         for (int l = 0; l < numEnemies; l++) {
-            en_arry.add(new Enemy(this, "/resources/en1_sprite.png"));
+            int spr = rand.nextInt(2);
+            en_arry.add(new Enemy(this, spritePaths[spr]));
         }
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
@@ -216,7 +221,7 @@ public class GamePanel extends JPanel {
                 }
             }
             if (SettingsProperties.debugModeG == true) {
-                g.drawString("pl_pos: " + pl.xLoc + ", " + pl.yLoc, 50, 60);
+                g.drawString("pl_pos: " + pl.xLocFeet + ", " + pl.yLocFeet, 50, 60);
             }
 
             for (int i = 0; i < numEnemies; i++) {
@@ -238,6 +243,12 @@ public class GamePanel extends JPanel {
         if (battle) {
             qt.draw(g);
             pl.graceTimer = 1000;
+        }
+              
+        if (transitioning){
+            g.setColor(Color.BLACK);
+            transitionProg = transitionProg + 10;
+            drawTransition(transitionDir, g);
         }
     }
 
@@ -266,6 +277,11 @@ public class GamePanel extends JPanel {
 
         if (battle) {
             qt.tick();
+        }
+        
+        if (transitionProg > 1000){
+            transitioning = false;
+            transitionProg = -1000;
         }
     }
 
@@ -308,6 +324,23 @@ public class GamePanel extends JPanel {
 
     public GamePanel(LayoutManager layout) {
         super(layout);
+    }
+
+    public void drawTransition(int i, Graphics g) {
+        switch (i) {
+            case 0:
+                g.fillRect(0, -transitionProg, 1000, 800);
+                break;
+            case 1:
+                g.fillRect(transitionProg, 0, 1000, 800);
+                break;
+            case 2:
+                g.fillRect(0, transitionProg, 1000, 800);
+                break;
+            case 3:
+                g.fillRect(-transitionProg, 0, 1000, 800);
+                break;
+        }
     }
 
     public class ListenerThread implements Runnable {

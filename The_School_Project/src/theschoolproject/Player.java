@@ -59,20 +59,20 @@ public class Player extends Entity {
 
     public void tick() {
         isMoving = false;
-        if (this.yLoc < 535) {
+        if (this.yLoc < 535 && this.yLoc > 40) {
             checkCollision();
         }
 
-        if (this.yLoc < 40) {
+        if (this.yLocFeet < 40 && world.currentRoomY > 0) {
             nextRoom(0);
         }
-        if (this.yLoc > 575) {
+        if (this.yLocFeet > 625 && world.currentRoomY < world.rooms.length) {
             nextRoom(2);
         }
-        if (this.xLoc > 800) {
+        if (this.xLocFeet > 825 && world.currentRoomX < world.rooms[0].length) {
             nextRoom(1);
         }
-        if (this.xLoc < 40) {
+        if (this.xLocFeet < 40 && world.currentRoomX > 0) {
             nextRoom(3);
         }
 
@@ -142,19 +142,22 @@ public class Player extends Entity {
     }
 
     public void nextRoom(int i) {
-        switch (i) {
-            case 0:
-                world.currentRoomY--;
-                break;
-            case 1:
-                world.currentRoomX++;
-                break;
-            case 2:
-                world.currentRoomY++;
-                break;
-            case 3:
-                world.currentRoomX--;
-                break;
-        }
+        world.transitioning = true;
+//        switch (i) {
+//            case 0:
+//                world.currentRoomY--;
+//                break;
+//            case 1:
+//                world.currentRoomX++;
+//                break;
+//            case 2:
+//                world.currentRoomY++;
+//                break;
+//            case 3:
+//                world.currentRoomX--;
+//                break;
+//
+//        }
+        world.transitionDir = i;
     }
 }
