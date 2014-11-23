@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +17,11 @@ import theschoolproject.Input.Mouse;
 import theschoolproject.Objects.GuiButton;
 import flexjson.JSONSerializer;
 import flexjson.JSONDeserializer;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
 import resources.SettingsProperties;
 
 public class GamePanel extends JPanel {
@@ -28,6 +32,7 @@ public class GamePanel extends JPanel {
     FloorTile[][] ft = new FloorTile[17][16];
     JSONSerializer jsonSer = new JSONSerializer();
     JSONDeserializer jsonDes = new JSONDeserializer();
+    Font font;
 
     //=========================
     //   Game State Variables
@@ -104,12 +109,14 @@ public class GamePanel extends JPanel {
         play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
         rooms[0][0] = new Room(this, "/resources/Levels/Level_02.png");
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
+        font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
     }
 
     @Override
     protected void paintComponent(Graphics g1) {
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
+        g.setFont(font);
         if (mainMenu) {
             g.drawImage(menuScreen, 0 - ImageScroll, 0, 850, 650, null);
             g.drawImage(menuScreen, 850 - ImageScroll, 0, 850, 650, null);
@@ -244,8 +251,8 @@ public class GamePanel extends JPanel {
             qt.draw(g);
             pl.graceTimer = 1000;
         }
-              
-        if (transitioning){
+
+        if (transitioning) {
             g.setColor(Color.BLACK);
             transitionProg = transitionProg + 10;
             drawTransition(transitionDir, g);
@@ -278,8 +285,8 @@ public class GamePanel extends JPanel {
         if (battle) {
             qt.tick();
         }
-        
-        if (transitionProg > 1000){
+
+        if (transitionProg > 1000) {
             transitioning = false;
             transitionProg = -1000;
         }

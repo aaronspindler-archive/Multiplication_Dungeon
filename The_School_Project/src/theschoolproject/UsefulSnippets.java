@@ -1,23 +1,21 @@
 package theschoolproject;
 
 import java.awt.Desktop;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Properties;
 import java.util.Random;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 public class UsefulSnippets {
 
-    
-    
     public static void openWebpage(String urlString) {
         try {
             Desktop.getDesktop().browse(new URL(urlString).toURI());
@@ -69,5 +67,16 @@ public class UsefulSnippets {
             Logger.getLogger(UsefulSnippets.class.getName()).log(Level.SEVERE, null, ex);
         }
         return img;
+    }
+
+    public static Font loadFont(String s) {
+        Font f = null;
+        try {
+            InputStream is = UsefulSnippets.class.getResourceAsStream(s);
+            f = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (IOException | FontFormatException ex) {
+            Logger.getLogger(UsefulSnippets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return f;
     }
 }
