@@ -10,31 +10,38 @@ public class QuestionTimer {
     Random gen = new Random();
     static int QUESTION_RANGE = 10;
     BufferedImage BG = UsefulSnippets.loadImage("/resources/QuestionBG.png");
+    BufferedImage Boxes = UsefulSnippets.loadImage("/resources/boxesGrey.png");
+    BufferedImage Numbers = UsefulSnippets.loadImage("/resources/numbers.png");
+    String equation;
     
     public QuestionTimer() {
-        
+        equation = makeEquation();
     }
 
     public void tick() {
 
     }
 
-    public String makeEquation() {
-        String equation = "";
+    public void startNewEquation(){
+        equation = makeEquation();
+    }
+    
+    public final String makeEquation() {
+        String eq = "";
         int multiplicand = gen.nextInt(QUESTION_RANGE) + 1;
         int multiplier = gen.nextInt(QUESTION_RANGE) + 1;
         int product = multiplicand * multiplier;
-        equation = (multiplicand + "x" + multiplier);
-        return equation;
+        eq = (multiplicand + "x" + multiplier);
+        return eq;
     }
 
-    public void draw(Graphics g) {
-        String equation = makeEquation();
-        g.setColor(Color.white);
+    public void draw(Graphics g) {       
         g.drawImage(BG, 200, 100, null);
+        g.drawImage(Boxes, 200, 100, null);
+        g.drawImage(Numbers, 200, 100, null);
         g.setColor(Color.black);
         g.drawString("Multiplication Question", 370, 121);
-        g.drawString("1x2 = ", 370, 201);
+        g.drawString(equation, 370, 201);
         
         //Don't use ratchet text boxes and buttons --> They can't use keyboard
         //It also looks god awful

@@ -235,7 +235,7 @@ public class GamePanel extends JPanel {
             pl.draw(g);
             for (int a = 0; a < en_arry.size(); a++) {
                 if ((pl.getBounds().intersects(en_arry.get(a).getBounds())) && (pl.graceTimer < 1)) {
-                    battle = true;
+                    this.switchTo("battle");
                     frozen = true;
                 }
             }
@@ -301,8 +301,9 @@ public class GamePanel extends JPanel {
         }
         if (mode.equals("battle")) {
             this.mainMenu = false;
-            this.gameScreen = false;
+            this.gameScreen = true;
             this.battle = true;
+            this.qt.startNewEquation();
         }
     }
 
