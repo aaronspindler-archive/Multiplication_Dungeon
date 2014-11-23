@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 
 public class UsefulSnippets {
 
+    
+    
     public static void openWebpage(String urlString) {
         try {
             Desktop.getDesktop().browse(new URL(urlString).toURI());
