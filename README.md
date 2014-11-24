@@ -6,8 +6,9 @@ School project for grade 5 students made by grade 12 students for our final proj
 TODO:
 - [ ] Graphics - Arthur / Matt
 - [ ] Level generation - Matt
+- [ ] Textures+Object sprites
 - [ ] Sound - Chris
-- [ ] Controls - Arthur
+- [x] Controls - Arthur
 - [ ] GUI/menu - Matt
 - [ ] Multiplication Equation Generation - Tyler
 - [ ] Savestates (we will use JSON) - Aaron
