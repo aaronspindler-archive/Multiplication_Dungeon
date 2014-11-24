@@ -116,7 +116,7 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g1) {
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
-        g.setFont(font);
+        //g.setFont(font);
         if (mainMenu) {
             g.drawImage(menuScreen, 0 - ImageScroll, 0, 850, 650, null);
             g.drawImage(menuScreen, 850 - ImageScroll, 0, 850, 650, null);
