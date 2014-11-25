@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class QuestionTimer {
+public class QuestionPanel {
 
     Random gen = new Random();
     static int QUESTION_RANGE = 10;
@@ -14,7 +14,7 @@ public class QuestionTimer {
     BufferedImage Numbers = UsefulSnippets.loadImage("/resources/numbers.png");
     String equation;
     
-    public QuestionTimer() {
+    public QuestionPanel() {
         equation = makeEquation();
     }
 

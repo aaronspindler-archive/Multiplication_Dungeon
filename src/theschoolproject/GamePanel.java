@@ -59,7 +59,7 @@ public class GamePanel extends JPanel {
     //=========================
     //    Question Variables
     //=========================
-    QuestionTimer qt;
+    QuestionPanel qt;
 
     //=========================
     //      Menu Variables
@@ -90,7 +90,7 @@ public class GamePanel extends JPanel {
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
-        this.qt = new QuestionTimer();
+        this.qt = new QuestionPanel();
         pl = new Player(this, "/resources/pl_sprite.png", keys);
         th.start();
         for (int w = 0; w < 17; w++) {
@@ -116,7 +116,8 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g1) {
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
-        //g.setFont(font);
+        font = font.deriveFont(24.0f);
+        g.setFont(font);
         if (mainMenu) {
             g.drawImage(menuScreen, 0 - ImageScroll, 0, 850, 650, null);
             g.drawImage(menuScreen, 850 - ImageScroll, 0, 850, 650, null);
