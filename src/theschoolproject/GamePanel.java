@@ -90,7 +90,7 @@ public class GamePanel extends JPanel {
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
-        this.qt = new QuestionPanel();
+        this.qt = new QuestionPanel(this);
         pl = new Player(this, "/resources/pl_sprite.png", keys);
         th.start();
         for (int w = 0; w < 17; w++) {
