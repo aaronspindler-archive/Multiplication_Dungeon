@@ -45,8 +45,8 @@ public class QuestionPanel {
         g.drawImage(Boxes, this.xLoc, this.yLoc, null);
         g.drawImage(Numbers, this.xLoc, this.yLoc, null);
         g.setColor(Color.black);
-        g.drawString("Multiplication Question", this.xLoc + 5, this.yLoc + 20);
-        g.drawString(equation, this.xLoc + 5, this.yLoc + 100);
+        g.drawString("Multiplication Question", this.xLoc + 10, this.yLoc + 30);
+        g.drawString(equation, this.xLoc + 200, this.yLoc + 100);
         
         //Don't use ratchet text boxes and buttons --> They can't use keyboard
         //It also looks god awful
