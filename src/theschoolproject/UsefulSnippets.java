@@ -25,14 +25,6 @@ public class UsefulSnippets {
     }
 
     /*
-     Generates a boring number that is in the given range starting at 
-     1 and going to range - 1.  
-     */
-    public static int generateRandomNumber(int range) {
-        return (int) (Math.random() * range);
-    }
-
-    /*
      Returns an Integer array of Values between the values in the range starting at 
      1 and going to range - 1. The Integer array's length is the amount of unique numbers you want
      */
