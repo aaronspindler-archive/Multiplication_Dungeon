@@ -18,11 +18,14 @@ import theschoolproject.Objects.GuiButton;
 import flexjson.JSONSerializer;
 import flexjson.JSONDeserializer;
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import resources.SettingsProperties;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 public class GamePanel extends JPanel {
 
@@ -83,6 +86,30 @@ public class GamePanel extends JPanel {
     boolean transitioning = false;
 
     public GamePanel() {
+        //Playing starting music
+        //When built it shows errors but the code works, do not remove it.
+        Thread sound;
+        sound = new Thread() {
+
+            public void run() {
+
+                AudioPlayer MGP = AudioPlayer.player;
+                AudioStream BGM;
+                AudioData MD;
+                ContinuousAudioDataStream loop = null;
+                for (;;) {
+                    try {
+                        BGM = new AudioStream((getClass().getResourceAsStream("/resources/Game_Opening_screen.wav")));//enter the sound directory and name here
+                        AudioPlayer.player.start(BGM);
+                        sleep(35000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        sound.start();
+
         for (int l = 0; l < numEnemies; l++) {
             int spr = rand.nextInt(2);
             en_arry.add(new Enemy(this, spritePaths[spr]));
@@ -137,7 +164,6 @@ public class GamePanel extends JPanel {
 //                int y1 = (int) mouse.Ycoords.get(i + 1);
 //                g.drawLine(x, y, x1, y1);
 //            }
-
             g.setColor(Color.red);
 
             mouse.x1 = (int) pl.xLoc + 32;
@@ -285,7 +311,7 @@ public class GamePanel extends JPanel {
 
         if (battle) {
             qt.tick();
-            
+
         }
 
         if (transitionProg > 800) {
