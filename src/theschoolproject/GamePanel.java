@@ -86,30 +86,6 @@ public class GamePanel extends JPanel {
     boolean transitioning = false;
 
     public GamePanel() {
-        //Playing starting music
-        //When built it shows errors but the code works, do not remove it.
-        Thread sound;
-        sound = new Thread() {
-
-            public void run() {
-
-                AudioPlayer MGP = AudioPlayer.player;
-                AudioStream BGM;
-                AudioData MD;
-                ContinuousAudioDataStream loop = null;
-                for (;;) {
-                    try {
-                        BGM = new AudioStream((getClass().getResourceAsStream("/resources/Game_Opening_screen.wav")));//enter the sound directory and name here
-                        AudioPlayer.player.start(BGM);
-                        sleep(35000);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        sound.start();
-
         for (int l = 0; l < numEnemies; l++) {
             int spr = rand.nextInt(2);
             en_arry.add(new Enemy(this, spritePaths[spr]));
@@ -137,6 +113,32 @@ public class GamePanel extends JPanel {
         rooms[0][0] = new Room(this, "/resources/Levels/Level_02.png");
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
+
+        if (SettingsProperties.programSound == true) {
+            //Playing starting music
+            //When built it shows errors but the code works, do not remove it.
+            Thread sound;
+            sound = new Thread() {
+
+                public void run() {
+
+                    AudioPlayer MGP = AudioPlayer.player;
+                    AudioStream BGM;
+                    AudioData MD;
+                    ContinuousAudioDataStream loop = null;
+                    for (;;) {
+                        try {
+                            BGM = new AudioStream((getClass().getResourceAsStream("/resources/Game_Opening_screen.wav")));//enter the sound directory and name here
+                            AudioPlayer.player.start(BGM);
+                            sleep(35000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+            sound.start();
+        }
     }
 
     @Override
