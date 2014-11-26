@@ -10,7 +10,7 @@ TODO:
 - [ ] Sound - Chris
 - [x] Controls - Arthur
 - [ ] GUI/menu - Matt
-- [ ] Multiplication Equation Generation - Tyler
+- [ ] Multiplication Equation Generation - Aaron ~~Tyler~~  
 - [ ] Savestates (we will use JSON) - Aaron
 - [ ] Documentation - Aaron
 - [x] Installer / JRE 1.8 - Aaron
