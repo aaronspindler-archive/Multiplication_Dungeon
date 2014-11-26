@@ -17,7 +17,7 @@ public class QuestionPanel {
     int xLoc = 200;
     int yLoc = 100;
     GamePanel world;
-    
+
     public QuestionPanel(GamePanel gp) {
         equation = makeEquation();
         world = gp;
@@ -27,10 +27,10 @@ public class QuestionPanel {
 
     }
 
-    public void startNewEquation(){
+    public void startNewEquation() {
         equation = makeEquation();
     }
-    
+
     public final String makeEquation() {
         String eq = "";
         int multiplicand = gen.nextInt(QUESTION_RANGE) + 1;
@@ -40,7 +40,7 @@ public class QuestionPanel {
         return eq;
     }
 
-    public void draw(Graphics g) {       
+    public void draw(Graphics g) {
         g.drawImage(BG, this.xLoc, this.yLoc, null);
         g.drawImage(Boxes, this.xLoc, this.yLoc, null);
         g.drawImage(Numbers, this.xLoc, this.yLoc, null);
