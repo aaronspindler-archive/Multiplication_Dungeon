@@ -47,10 +47,5 @@ public class QuestionPanel {
         g.setColor(Color.black);
         g.drawString("Multiplication Question", this.xLoc + 10, this.yLoc + 30);
         g.drawString(equation, this.xLoc + 200, this.yLoc + 100);
-        
-        //Don't use ratchet text boxes and buttons --> They can't use keyboard
-        //It also looks god awful
-        //SchoolProjectForm.checkButton.setVisible(true);
-        //SchoolProjectForm.productTextField.setVisible(true);
     }
 }
