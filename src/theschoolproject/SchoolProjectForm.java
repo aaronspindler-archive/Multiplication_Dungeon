@@ -119,6 +119,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
 
     private void documentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentationBtnActionPerformed
         UsefulSnippets.openWebpage("https://github.com/xNovax/The_School_Project/wiki");
+        System.out.println("Opened webpage");
     }//GEN-LAST:event_documentationBtnActionPerformed
 
     private void saveStateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStateBtnActionPerformed
