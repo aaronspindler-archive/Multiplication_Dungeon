@@ -288,7 +288,7 @@ public class GamePanel extends JPanel {
             
         }
 
-        if (transitionProg > 1000) {
+        if (transitionProg > 800) {
             transitioning = false;
             transitionProg = -1000;
             pl.graceTimer = 100;
