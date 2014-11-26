@@ -8,7 +8,7 @@ import java.util.Random;
 public class QuestionPanel {
 
     Random gen = new Random();
-    static int QUESTION_RANGE = 10;
+    static int QUESTION_RANGE = 15;
     BufferedImage BG = UsefulSnippets.loadImage("/resources/QuestionBG.png");
     BufferedImage Boxes = UsefulSnippets.loadImage("/resources/boxesGrey.png");
     BufferedImage Numbers = UsefulSnippets.loadImage("/resources/numbers.png");
