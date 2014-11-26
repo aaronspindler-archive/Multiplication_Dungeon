@@ -16,5 +16,5 @@ public class HUD {
     
     public HUD(GamePanel gp){
         world = gp;
-    }
+    }   
 }

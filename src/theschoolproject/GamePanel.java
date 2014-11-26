@@ -130,13 +130,13 @@ public class GamePanel extends JPanel {
 
             rooms[currentRoomX][currentRoomY].draw(g);
 
-            for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
-                int x = (int) mouse.Xcoords.get(i);
-                int y = (int) mouse.Ycoords.get(i);
-                int x1 = (int) mouse.Xcoords.get(i + 1);
-                int y1 = (int) mouse.Ycoords.get(i + 1);
-                g.drawLine(x, y, x1, y1);
-            }
+//            for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
+//                int x = (int) mouse.Xcoords.get(i);
+//                int y = (int) mouse.Ycoords.get(i);
+//                int x1 = (int) mouse.Xcoords.get(i + 1);
+//                int y1 = (int) mouse.Ycoords.get(i + 1);
+//                g.drawLine(x, y, x1, y1);
+//            }
 
             g.setColor(Color.red);
 
@@ -285,11 +285,13 @@ public class GamePanel extends JPanel {
 
         if (battle) {
             qt.tick();
+            
         }
 
         if (transitionProg > 1000) {
             transitioning = false;
             transitionProg = -1000;
+            pl.graceTimer = 100;
         }
     }
 

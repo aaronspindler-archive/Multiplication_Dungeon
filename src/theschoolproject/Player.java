@@ -5,6 +5,8 @@ import theschoolproject.Input.Keyboard;
 public class Player extends Entity {
 
     Keyboard keys;
+    int lives;
+    int score;
     int distToMove = 0;
     int graceTimer = 0;
     boolean autoMove = false;
