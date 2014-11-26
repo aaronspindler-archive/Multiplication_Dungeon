@@ -6,7 +6,7 @@ School project for grade 5 students made by grade 12 students for our final proj
 TODO:
 - [ ] Graphics - Arthur / Matt
 - [ ] Level generation - Matt
-- [ ] Textures+Object sprites
+- [ ] Textures/Object Sprites
 - [ ] Sound - Chris
 - [x] Controls - Arthur
 - [ ] GUI/menu - Matt
