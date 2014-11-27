@@ -51,7 +51,7 @@ public class GamePanel extends JPanel {
     //=========================
     //    Player Variables
     //=========================
-    String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png"};
+    String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png", "/resources/textures.png"};
     Player pl;
     ArrayList<Entity> en_arry = new ArrayList();
     int numEnemies = 5;
@@ -82,11 +82,27 @@ public class GamePanel extends JPanel {
     int transitionDir = -1;
     boolean transitioning = false;
 
+    
+    BufferedImage spriteSheetTex;
+    BufferedImage[][] spritesTex;
+    int texRows = 4;
+    int texCols = 10;
+    int texD = 50;
+
     public GamePanel() {
+        spritesTex = new BufferedImage[texRows][texCols];
+        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[2]);
+        for (int i = 0; i < texRows; i++) {
+            for (int j = 0; j < texCols; j++) {
+                spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
+           }
+        }
+        
         for (int l = 0; l < numEnemies; l++) {
             int spr = rand.nextInt(2);
             en_arry.add(new Enemy(this, spritePaths[spr]));
         }
+        
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);

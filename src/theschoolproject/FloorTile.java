@@ -12,6 +12,8 @@ public class FloorTile {
     //Tile 1 = Wall
     //Tile 2 = Floor
     //Tile 3 = Door
+    //Tile 4 = Water
+    //Tile 5 = Lava
 
     public FloorTile(int id) {
         this.TILE_ID = id;
@@ -33,6 +35,10 @@ public class FloorTile {
                 return false;
             case 3:
                 return false;
+            case 4:
+                return true;
+            case 5:
+                return true;
             default:
                 return false;
         }
@@ -40,12 +46,6 @@ public class FloorTile {
 
     public boolean isDoor() {
         switch (TILE_ID) {
-            case 0:
-                return false;
-            case 1:
-                return false;
-            case 2:
-                return false;
             case 3:
                 return true;
             default:
