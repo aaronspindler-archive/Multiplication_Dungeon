@@ -40,11 +40,9 @@ public class UsefulSnippets {
         }
 
         Collections.shuffle(al, new Random());
-
         for (int j = 0; j < output.length; j++) {
             output[j] = al.get(j);
         }
-
         return output;
     }
 
