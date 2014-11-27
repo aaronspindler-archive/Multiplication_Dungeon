@@ -18,9 +18,6 @@ import theschoolproject.Objects.GuiButton;
 import flexjson.JSONSerializer;
 import flexjson.JSONDeserializer;
 import java.awt.Font;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import resources.SettingsProperties;
 import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
@@ -117,6 +114,7 @@ public class GamePanel extends JPanel {
         if (SettingsProperties.programSound == true) {
             //Playing starting music
             //When built it shows errors but the code works, do not remove it.
+            //I lied remove it because this is one big error.
             Thread sound;
             sound = new Thread() {
 
