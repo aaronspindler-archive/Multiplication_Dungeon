@@ -90,10 +90,10 @@ public class GamePanel extends JPanel {
     int texD = 50;
 
     public GamePanel() {
-        spritesTex = new BufferedImage[texRows][texCols];
+        spritesTex = new BufferedImage[texCols][texRows];
         spriteSheetTex = UsefulSnippets.loadImage(spritePaths[2]);
-        for (int i = 0; i < texRows; i++) {
-            for (int j = 0; j < texCols; j++) {
+        for (int i = 0; i < texCols; i++) {
+            for (int j = 0; j < texRows; j++) {
                 spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
            }
         }
