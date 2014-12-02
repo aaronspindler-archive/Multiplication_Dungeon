@@ -14,7 +14,6 @@ public class Room {
     FloorTile[] tileArry = new FloorTile[width * height];
     GamePanel mainPanel;
     SettingsProperties props = new SettingsProperties();
-    
 
     BufferedImage lvl;
 
@@ -42,6 +41,15 @@ public class Room {
                 }
             }
         }
+        for (int i = 0; i < lvl.getWidth(); i++) {
+            for (int j = 0; j < lvl.getHeight(); j++) {
+                if (tiles[i + j * width] == 0xFFFFFFFF) {
+                    if (tileArry[i + j * width].TILE_ID == 4) {
+                        
+                    }
+                }
+            }
+        }
     }
 
     public void draw(Graphics g) {
@@ -53,12 +61,14 @@ public class Room {
                     case 0:
                         break;
                     case 1:
+                        g.drawImage(mainPanel.spritesTex[0][1], i * 50, j * 50, null);
+
                         break;
                     case 2:
                         g.drawImage(mainPanel.spritesTex[0][0], i * 50, j * 50, null);
                         break;
                     case 3:
-                        break;                             
+                        break;
                 }
 //                if (SettingsProperties.debugModeG == true) {
 //                    g.setColor(Color.yellow);

@@ -5,7 +5,14 @@ import java.util.Random;
 
 public class FloorTile {
 
+    int metaData = 0;
+    //Tile metadata:
+    //0 = none
+    //1 = water
+    //2 = lava
+
     int TILE_ID = -1;
+
     Random rand = new Random();
     Color c;
     //Tile 0 = Test
