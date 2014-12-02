@@ -15,8 +15,8 @@ public class Player extends Entity {
         super(gp, sp);
         keys = k;
 
-        this.xLoc = 393;
-        this.yLoc = 281;
+        this.xLoc = 100;
+        this.yLoc = 100;
     }
 
     @Override

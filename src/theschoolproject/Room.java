@@ -52,6 +52,7 @@ public class Room {
                 if (tileArry[i + j * width].TILE_ID == 1) {
                     if (tileArry[i + (j + 1) * width].TILE_ID == 4) {
                         tileArry[i + j * width].setMetadata(1);
+                        tileArry[i + j * width].metaDir = 0;
                     }
                     if (tileArry[i + (j - 1) * width].TILE_ID == 4) {
                         tileArry[i + j * width].setMetadata(1);

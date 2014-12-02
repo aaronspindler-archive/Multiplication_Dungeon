@@ -6,10 +6,25 @@ import java.util.Random;
 public class FloorTile {
 
     int metaData = 0;
+    int metaType = 0;
+    int metaDir = 0;
     //Tile metadata:
     //0 = none
     //1 = water
     //2 = lava
+    
+    //Tile metaType:
+    //0 = none
+    //1 = 1 side
+    //2 = 2 sides (corner)
+    //3 = 2 sides (opposite)
+    //4 = 3 side
+    
+    //Tile metaDir (rotation/ orientation, relative to spritesheet):
+    //0 = up
+    //1 = left
+    //2 = down
+    //3 = right
 
     int TILE_ID = -1;
 
@@ -20,7 +35,8 @@ public class FloorTile {
     //Tile 2 = Floor
     //Tile 3 = Door
     //Tile 4 = Water
-    //Tile 5 = Lava
+    //Tile 5 = Ice
+    //Tile 6 = Lava
 
     public FloorTile(int id) {
         this.TILE_ID = id;
@@ -45,7 +61,7 @@ public class FloorTile {
             case 4:
                 return true;
             case 5:
-                return true;
+                return false;
             default:
                 return false;
         }
@@ -58,6 +74,10 @@ public class FloorTile {
             default:
                 return false;
         }
+    }
+
+    public void setMetadata(int i) {
+        metaData = i;
     }
 
     public Color getColor() {
@@ -78,4 +98,5 @@ public class FloorTile {
         }
         return c;
     }
+
 }
