@@ -31,6 +31,7 @@ public class Room {
         lvl.getRGB(0, 0, width, height, tiles, 0, width);
         for (int i = 0; i < lvl.getWidth(); i++) {
             for (int j = 0; j < lvl.getHeight(); j++) {
+                
                 if (tiles[i + j * width] == 0xFFFFFFFF) {
                     tileArry[i + j * width].setTile(1);
                 }
@@ -43,14 +44,17 @@ public class Room {
                 if (tiles[i + j * width] == 0xFF0000ff) {
                     tileArry[i + j * width].setTile(4);
                 }
-                if (tiles[i + j * width] == 0xFF03A5FF) {
+                if (tiles[i + j * width] == 0xFF03a5ff) {
                     tileArry[i + j * width].setTile(5);
                 }
-                if (tiles[i + j * width] == 0xFF03a5ff){
+                if (tiles[i + j * width] == 0xFF03a5ef){
                     tileArry[i + j * width].setTile(6);
                 }
+                
             }
         }
+        
+        System.out.println(tileArry[5+5*width].TILE_ID);
         for (int i = 1; i < lvl.getWidth() - 1; i++) {
             for (int j = 1; j < lvl.getHeight() - 1; j++) {
                 if (tileArry[i + j * width].TILE_ID == 1) {
