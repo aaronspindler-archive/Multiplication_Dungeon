@@ -12,20 +12,18 @@ public class FloorTile {
     //0 = none
     //1 = water
     //2 = lava
-    
+
     //Tile metaType:
     //0 = none
     //1 = 1 side
     //2 = 2 sides (corner)
     //3 = 2 sides (opposite)
     //4 = 3 side
-    
     //Tile metaDir (rotation/ orientation, relative to spritesheet):
     //0 = up
     //1 = left
     //2 = down
     //3 = right
-
     int TILE_ID = -1;
 
     Random rand = new Random();
@@ -94,6 +92,12 @@ public class FloorTile {
                 break;
             case 3:
                 c = new Color(32, 21, 1);
+                break;
+            case 4:
+                c = new Color(32, 21, 1);
+                break;
+            case 5:
+                c = new Color(255, 21, 1);
                 break;
         }
         return c;
