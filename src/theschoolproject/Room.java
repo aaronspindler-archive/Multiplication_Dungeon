@@ -31,35 +31,38 @@ public class Room {
         lvl.getRGB(0, 0, width, height, tiles, 0, width);
         for (int i = 0; i < lvl.getWidth(); i++) {
             for (int j = 0; j < lvl.getHeight(); j++) {
-                
+
                 if (tiles[i + j * width] == 0xFFFFFFFF) {
-                    tileArry[i + j * width].setTile(1);
+                    tileArry[i + j * width].setTile(1); //Wall
                 }
                 if (tiles[i + j * width] == 0xFF000000) {
-                    tileArry[i + j * width].setTile(2);
+                    tileArry[i + j * width].setTile(2); //Floor
                 }
                 if (tiles[i + j * width] == 0xFF532F00) {
-                    tileArry[i + j * width].setTile(3);
+                    tileArry[i + j * width].setTile(3); //Door
                 }
                 if (tiles[i + j * width] == 0xFF0000ff) {
-                    tileArry[i + j * width].setTile(4);
+                    tileArry[i + j * width].setTile(9); //Water
                 }
                 if (tiles[i + j * width] == 0xFF03a5ff) {
-                    tileArry[i + j * width].setTile(5);
+                    tileArry[i + j * width].setTile(5); //Ice
                 }
-                if (tiles[i + j * width] == 0xFF03a5ef){
-                    tileArry[i + j * width].setTile(6);
+                if (tiles[i + j * width] == 0xFFfc1604) {
+                    tileArry[i + j * width].setTile(6); //Lava
                 }
-//                if (tiles[i + j * width] == 0xFF03a5ef){
-//                    tileArry[i + j * width].setTile(7);
-//                }
-//                if (tiles[i + j * width] == 0xFF03a5ef){
-//                    tileArry[i + j * width].setTile(8);
-//                }
+                if (tiles[i + j * width] == 0xFF073a08) {
+                    tileArry[i + j * width].setTile(7); //Moss
+                }
+                if (tiles[i + j * width] == 0xFF007f00) {
+                    tileArry[i + j * width].setTile(8); //Grass
+                }
+                if (tiles[i + j * width] == 0xFF6b3d00) {
+                    tileArry[i + j * width].setTile(9); //Rock
+                }
             }
         }
-        
-        System.out.println(tileArry[5+5*width].TILE_ID);
+
+        System.out.println(tileArry[5 + 5 * width].TILE_ID);
         for (int i = 1; i < lvl.getWidth() - 1; i++) {
             for (int j = 1; j < lvl.getHeight() - 1; j++) {
                 if (tileArry[i + j * width].TILE_ID == 1) {
@@ -85,7 +88,7 @@ public class Room {
     }
 
     public void draw(Graphics g) {
-        
+
         for (int i = 0; i < lvl.getWidth(); i++) {
             for (int j = 0; j < lvl.getHeight(); j++) {
                 g.setColor(tileArry[i + j * width].getColor());
@@ -100,10 +103,11 @@ public class Room {
                         g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][0], i * 50, j * 50, null);
                         break;
                     case 3:
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][5], i * 50, j * 50, null);
                         break;
                     case 4:
                         drawCycle++;
-                        if (drawCycle > 10){
+                        if (drawCycle > 10) {
                             tileArry[i + j * width].metaData = UsefulSnippets.generateRandomNumber(3);
                             drawCycle = 0;
                             g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][2], i * 50, j * 50, null);
@@ -114,6 +118,20 @@ public class Room {
                     case 5:
                         g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][3], i * 50, j * 50, null);
                         break;
+                    case 6:
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
+                        break;
+                    case 7:
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
+                        break;
+                    case 8:
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
+                        break;
+                    case 9:
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + (j-1) * width].metaData][2], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[1][5], i * 50, j * 50, null);
+                        break;
+
                 }
 //                if (SettingsProperties.debugModeG == true) {
 //                    g.setColor(Color.yellow);
