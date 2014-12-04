@@ -50,7 +50,12 @@ public class Room {
                 if (tiles[i + j * width] == 0xFF03a5ef){
                     tileArry[i + j * width].setTile(6);
                 }
-                
+//                if (tiles[i + j * width] == 0xFF03a5ef){
+//                    tileArry[i + j * width].setTile(7);
+//                }
+//                if (tiles[i + j * width] == 0xFF03a5ef){
+//                    tileArry[i + j * width].setTile(8);
+//                }
             }
         }
         
