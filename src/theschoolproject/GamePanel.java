@@ -123,7 +123,7 @@ public class GamePanel extends JPanel {
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
         play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
         play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
-        rooms[0][0] = new Room(this, "/resources/Levels/Level_05_2.png");
+        rooms[0][0] = new Room(this, "/resources/Levels/Level_06_2.png");
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
 
