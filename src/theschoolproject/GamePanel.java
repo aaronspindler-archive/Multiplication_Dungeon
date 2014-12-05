@@ -350,6 +350,7 @@ public class GamePanel extends JPanel {
             this.mainMenu = false;
             this.gameScreen = true;
             this.battle = false;
+            this.frozen = false;
         }
         if (mode.equals("battle")) {
             this.mainMenu = false;
