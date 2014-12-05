@@ -5,6 +5,7 @@ public class Enemy extends Entity {
     int mode = 0; // 0 - random walk, 1 - player targeting
     int type = 0; // value ranges from 0-5, increasing in strength/ difficulty
     int pathDist = 0;
+    int difficulty = 0;
 
     public Enemy(GamePanel gp, String sp) {
         super(gp, sp);

@@ -19,6 +19,7 @@ public class FloorTile {
     //2 = 2 sides (corner)
     //3 = 2 sides (opposite)
     //4 = 3 side
+    
     //Tile metaDir (rotation/ orientation, relative to spritesheet):
     //0 = up
     //1 = left

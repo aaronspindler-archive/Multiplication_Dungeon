@@ -21,7 +21,7 @@ public class QuestionPanel {
     int mY = -1;
     int delay = 0;
     int timer = 150;
-    int baseForNumber = 209;
+    int xButtonsOffset = 209;
     String currentNumber = "";
     boolean answerRight = false;
 
@@ -38,54 +38,59 @@ public class QuestionPanel {
         if (world.mouse.isMousePressed() && answerRight == false) {
             if ((numButton(209, 351, 40, 40, mX, mY) && delay == 0)) {
                 currentNumber = currentNumber + "1";
-                delay = 100;
+                delay = 50;
             }
-            if ((numButton(baseForNumber + 43, 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((numButton(xButtonsOffset + 43, 351, 40, 40, mX, mY) && delay == 0)) {
                 currentNumber = currentNumber + "2";
-                delay = 100;
+                delay = 50;
             }
-            if ((numButton(baseForNumber + (43 * 2), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((numButton(xButtonsOffset + (43 * 2), 351, 40, 40, mX, mY) && delay == 0)) {
                 currentNumber = currentNumber + "3";
-                delay = 100;
+                delay = 50;
             }
-            if ((numButton(baseForNumber + (43 * 3), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((numButton(xButtonsOffset + (43 * 3), 351, 40, 40, mX, mY) && delay == 0)) {
                 currentNumber = currentNumber + "4";
-                delay = 100;
+                delay = 50;
             }
-            if ((numButton(baseForNumber + (43 * 4), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((numButton(xButtonsOffset + (43 * 4), 351, 40, 40, mX, mY) && delay == 0)) {
                 currentNumber = currentNumber + "5";
-                delay = 100;
+                delay = 50;
             }
-            if ((numButton(baseForNumber + (43 * 5), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((numButton(xButtonsOffset + (43 * 5), 351, 40, 40, mX, mY) && delay == 0)) {
                 currentNumber = currentNumber + "6";
-                delay = 100;
+                delay = 50;
             }
-            if ((numButton(baseForNumber + (43 * 6), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((numButton(xButtonsOffset + (43 * 6), 351, 40, 40, mX, mY) && delay == 0)) {
                 currentNumber = currentNumber + "7";
-                delay = 100;
+                delay = 50;
             }
-            if ((numButton(baseForNumber + (43 * 7), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((numButton(xButtonsOffset + (43 * 7), 351, 40, 40, mX, mY) && delay == 0)) {
                 currentNumber = currentNumber + "8";
-                delay = 100;
+                delay = 50;
             }
-            if ((numButton(baseForNumber + (43 * 8), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((numButton(xButtonsOffset + (43 * 8), 351, 40, 40, mX, mY) && delay == 0)) {
                 currentNumber = currentNumber + "9";
-                delay = 100;
+                delay = 50;
             }
-            if ((numButton(baseForNumber + (43 * 9), 351, 40, 40, mX, mY) && delay == 0)) {
-//                currentNumber = currentNumber + "0";
-                currentNumber = currentNumber.substring(0, currentNumber.length()-1);
-                delay = 100;
+            if ((numButton(xButtonsOffset + (43 * 9), 351, 40, 40, mX, mY) && delay == 0)) {
+                currentNumber = currentNumber + "0";
+                delay = 50;
             }
-            if ((numButton(306, 293, 50, 50, mX, mY) && delay == 0)) {
-                currentNumber = currentNumber.substring(0, currentNumber.length()-1);
-                delay = 100;
+            if ((numButton(xButtonsOffset + 306, 293, 50, 50, mX, mY) && delay == 0)) {
+                if (currentNumber.length() > 1) {
+                    currentNumber = currentNumber.substring(0, currentNumber.length() - 1);
+                } else {
+                    currentNumber = "";
+                }
+                delay = 50;
             }
         }
         if (currentNumber != "" && Integer.parseInt(currentNumber) == product) {
             answerRight = true;
             if (timer == 0) {
                 world.switchTo("game");
+                world.en_arry.remove(world.en_index);
+                world.pl.score = world.pl.score + 200;
             } else {
                 timer--;
                 if (timer < 0) {
@@ -131,10 +136,11 @@ public class QuestionPanel {
         g.drawString(equation, this.xLoc + 200, this.yLoc + 100);
         if (answerRight) {
             g.setColor(Color.GREEN);
+            g.drawString("Correct!", this.xLoc + 100, this.yLoc + 200);
         } else {
             g.setColor(Color.BLACK);
         }
         g.drawString(currentNumber, this.xLoc + 220 - (currentNumber.length() * 3), this.yLoc + 150);
-        g.drawString("This now works try it!", this.xLoc + 100, this.yLoc + 200);
+//        g.drawString("This now works try it!", this.xLoc + 100, this.yLoc + 200);
     }
 }

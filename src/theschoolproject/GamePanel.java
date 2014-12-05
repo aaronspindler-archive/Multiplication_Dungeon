@@ -54,7 +54,9 @@ public class GamePanel extends JPanel {
     String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png", "/resources/textures.png"};
     Player pl;
     ArrayList<Entity> en_arry = new ArrayList();
+    HUD hud = new HUD(this); //heads up display
     int numEnemies = 5;
+    int en_index; //the enemy that the player has collided with
 
     //=========================
     //    Question Variables
@@ -160,12 +162,12 @@ public class GamePanel extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g1
-    ) {
+    protected void paintComponent(Graphics g1) {
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
-        font = font.deriveFont(24.0f);
+        font = font.deriveFont(26.0f);
         g.setFont(font);
+
         if (mainMenu) {
             g.drawImage(menuScreen, 0 - ImageScroll, 0, 850, 650, null);
             g.drawImage(menuScreen, 850 - ImageScroll, 0, 850, 650, null);
@@ -175,7 +177,6 @@ public class GamePanel extends JPanel {
             }
         }
         if (gameScreen) {
-
             rooms[currentRoomX][currentRoomY].draw(g);
 
 //            for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
@@ -274,12 +275,14 @@ public class GamePanel extends JPanel {
 
                     }
                 }
+            } else {
+                pl.distToMove = 0;
             }
             if (SettingsProperties.debugModeG == true) {
                 g.drawString("pl_pos: " + pl.xLocFeet + ", " + pl.yLocFeet, 50, 60);
             }
 
-            for (int i = 0; i < numEnemies; i++) {
+            for (int i = 0; i < en_arry.size(); i++) {
                 en_arry.get(i).draw(g);
                 g.setColor(Color.GREEN);
                 if (SettingsProperties.debugModeG == true) {
@@ -290,10 +293,12 @@ public class GamePanel extends JPanel {
             pl.draw(g);
             for (int a = 0; a < en_arry.size(); a++) {
                 if ((pl.getBounds().intersects(en_arry.get(a).getBounds())) && (pl.graceTimer < 1)) {
+                    en_index = a;
                     this.switchTo("battle");
                     frozen = true;
                 }
             }
+            hud.draw(g);
         }
         if (battle) {
             qt.draw(g);
