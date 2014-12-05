@@ -82,7 +82,6 @@ public class GamePanel extends JPanel {
     int transitionDir = -1;
     boolean transitioning = false;
 
-    
     BufferedImage spriteSheetTex;
     BufferedImage[][] spritesTex;
     int texRows = 8;
@@ -95,14 +94,14 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < texCols; i++) {
             for (int j = 0; j < texRows; j++) {
                 spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
-           }
+            }
         }
-        
+
         for (int l = 0; l < numEnemies; l++) {
             int spr = rand.nextInt(2);
             en_arry.add(new Enemy(this, spritePaths[spr]));
         }
-        
+
         this.addKeyListener(keys);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
@@ -128,35 +127,41 @@ public class GamePanel extends JPanel {
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
 
         if (SettingsProperties.programSound == true) {
-            //Playing starting music
-            //When built it shows errors but the code works, do not remove it.
-            //I lied remove it because this is one big error.
-            Thread sound;
-            sound = new Thread() {
+            try {
+                //Playing starting music
+                //When built it shows errors but the code works, do not remove it.
+                //I lied remove it because this is one big error.
+                Thread sound;
+                sound = new Thread() {
 
-                public void run() {
+                    public void run() {
 
-                    AudioPlayer MGP = AudioPlayer.player;
-                    AudioStream BGM;
-                    AudioData MD;
-                    ContinuousAudioDataStream loop = null;
-                    for (;;) {
-                        try {
-                            BGM = new AudioStream((getClass().getResourceAsStream("/resources/Game_Opening_screen.wav")));//enter the sound directory and name here
-                            AudioPlayer.player.start(BGM);
-                            sleep(35000);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        AudioPlayer MGP = AudioPlayer.player;
+                        AudioStream BGM;
+                        AudioData MD;
+                        ContinuousAudioDataStream loop = null;
+                        for (;;) {
+                            try {
+                                BGM = new AudioStream((getClass().getResourceAsStream("/resources/Game_Opening_screen.wav")));//enter the sound directory and name here
+                                AudioPlayer.player.start(BGM);
+                                sleep(35000);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-                }
-            };
-            sound.start();
+                };
+                sound.start();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
-    protected void paintComponent(Graphics g1) {
+    protected void paintComponent(Graphics g1
+    ) {
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
         font = font.deriveFont(24.0f);
@@ -394,6 +399,7 @@ public class GamePanel extends JPanel {
             case 3:
                 g.fillRect(-transitionProg, 0, 1000, 800);
                 break;
+
         }
     }
 
