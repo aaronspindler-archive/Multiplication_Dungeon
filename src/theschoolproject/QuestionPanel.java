@@ -22,7 +22,7 @@ public class QuestionPanel {
     int delay = 0;
     int timer = 150;
     int baseForNumber = 209;
-    String CurrentNumber = "";
+    String currentNumber = "";
     boolean answerRight = false;
 
     public QuestionPanel(GamePanel gp) {
@@ -37,53 +37,58 @@ public class QuestionPanel {
         //209 351
         if (world.mouse.isMousePressed() && answerRight == false) {
             if ((numButton(209, 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "1";
-                delay = 50;
+                currentNumber = currentNumber + "1";
+                delay = 100;
             }
             if ((numButton(baseForNumber + 43, 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "2";
-                delay = 50;
+                currentNumber = currentNumber + "2";
+                delay = 100;
             }
             if ((numButton(baseForNumber + (43 * 2), 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "3";
-                delay = 50;
+                currentNumber = currentNumber + "3";
+                delay = 100;
             }
             if ((numButton(baseForNumber + (43 * 3), 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "4";
-                delay = 50;
+                currentNumber = currentNumber + "4";
+                delay = 100;
             }
             if ((numButton(baseForNumber + (43 * 4), 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "5";
-                delay = 50;
+                currentNumber = currentNumber + "5";
+                delay = 100;
             }
             if ((numButton(baseForNumber + (43 * 5), 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "6";
-                delay = 50;
+                currentNumber = currentNumber + "6";
+                delay = 100;
             }
             if ((numButton(baseForNumber + (43 * 6), 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "7";
-                delay = 50;
+                currentNumber = currentNumber + "7";
+                delay = 100;
             }
             if ((numButton(baseForNumber + (43 * 7), 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "8";
-                delay = 50;
+                currentNumber = currentNumber + "8";
+                delay = 100;
             }
             if ((numButton(baseForNumber + (43 * 8), 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "9";
-                delay = 50;
+                currentNumber = currentNumber + "9";
+                delay = 100;
             }
             if ((numButton(baseForNumber + (43 * 9), 351, 40, 40, mX, mY) && delay == 0)) {
-                CurrentNumber = CurrentNumber + "0";
-                delay = 50;
+//                currentNumber = currentNumber + "0";
+                currentNumber = currentNumber.substring(0, currentNumber.length()-1);
+                delay = 100;
+            }
+            if ((numButton(306, 293, 50, 50, mX, mY) && delay == 0)) {
+                currentNumber = currentNumber.substring(0, currentNumber.length()-1);
+                delay = 100;
             }
         }
-        if(CurrentNumber != "" && Integer.parseInt(CurrentNumber) == product){
+        if (currentNumber != "" && Integer.parseInt(currentNumber) == product) {
             answerRight = true;
-            if(timer == 0){
-                 world.switchTo("game");
-            }else{
+            if (timer == 0) {
+                world.switchTo("game");
+            } else {
                 timer--;
-                if(timer < 0){
+                if (timer < 0) {
                     timer = 0;
                 }
             }
@@ -108,7 +113,7 @@ public class QuestionPanel {
     public final String makeEquation() {
         String eq = "";
         answerRight = false;
-        CurrentNumber = "";
+        currentNumber = "";
         timer = 150;
         int multiplicand = gen.nextInt(QUESTION_RANGE) + 1;
         int multiplier = gen.nextInt(QUESTION_RANGE) + 1;
@@ -124,12 +129,12 @@ public class QuestionPanel {
         g.setColor(Color.black);
         g.drawString("Multiplication Question", this.xLoc + 10, this.yLoc + 30);
         g.drawString(equation, this.xLoc + 200, this.yLoc + 100);
-        if(answerRight){
+        if (answerRight) {
             g.setColor(Color.GREEN);
-        }else{
+        } else {
             g.setColor(Color.BLACK);
         }
-        g.drawString(CurrentNumber, this.xLoc + 220 - (CurrentNumber.length() * 3), this.yLoc + 150);
+        g.drawString(currentNumber, this.xLoc + 220 - (currentNumber.length() * 3), this.yLoc + 150);
         g.drawString("This now works try it!", this.xLoc + 100, this.yLoc + 200);
     }
 }

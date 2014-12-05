@@ -60,6 +60,15 @@ public class FloorTile {
                 return true;
             case 5:
                 return false;
+            case 6:
+                return false;
+            case 7:
+                return false;
+            case 8:
+                return false;
+            case 9:
+                return true;
+
             default:
                 return false;
         }
