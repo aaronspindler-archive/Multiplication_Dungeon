@@ -52,8 +52,8 @@ public class Mouse implements MouseListener, MouseMotionListener {
         y2 = e.getY();
 //        Xcoords = new ArrayList<>();
 //        Ycoords = new ArrayList<>();
-        world.frozen = false;
-        world.battle = false;
+        //world.frozen = false;
+       // world.battle = false;
     }
 
     @Override
