@@ -24,6 +24,7 @@ public class QuestionPanel {
     int xButtonsOffset = 209;
     String currentNumber = "";
     boolean answerRight = false;
+    final int delaySet = 30;
 
     public QuestionPanel(GamePanel gp) {
         equation = makeEquation();
@@ -36,45 +37,45 @@ public class QuestionPanel {
         //System.out.println(mX + ", " + mY);
         //209 351
         if (world.mouse.isMousePressed() && answerRight == false) {
-            if ((buttonBounds(209, 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(209, 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "1";
-                delay = 50;
+                delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + 43, 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(xButtonsOffset + 43, 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "2";
-                delay = 50;
+                delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 2), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 2), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "3";
-                delay = 50;
+                delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 3), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 3), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "4";
-                delay = 50;
+                delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 4), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 4), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "5";
-                delay = 50;
+                delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 5), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 5), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "6";
-                delay = 50;
+                delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 6), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 6), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "7";
-                delay = 50;
+                delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 7), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 7), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "8";
-                delay = 50;
+                delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 8), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 8), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "9";
-                delay = 50;
+                delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 9), 351, 40, 40, mX, mY) && delay == 0)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 9), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
                 currentNumber = currentNumber + "0";
-                delay = 50;
+                delay = delaySet;
             }
             if ((buttonBounds(xButtonsOffset + 306, 293, 50, 50, mX, mY) && delay == 0)) {
                 if (currentNumber.length() > 1) {
@@ -82,7 +83,7 @@ public class QuestionPanel {
                 } else {
                     currentNumber = "";
                 }
-                delay = 50;
+                delay = delaySet;
             }
         }
         if (currentNumber != "" && Integer.parseInt(currentNumber) == product) {
