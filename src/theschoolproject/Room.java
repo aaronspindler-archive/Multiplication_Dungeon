@@ -9,6 +9,8 @@ public class Room {
 
     int width = 17;
     int height = 13;
+    int xNum;
+    int yNum;
 
     int[] tiles = new int[width * height];
     FloorTile[] tileArry = new FloorTile[width * height];
@@ -18,12 +20,14 @@ public class Room {
     BufferedImage lvl;
     int drawCycle = 0;
 
-    public Room(GamePanel gp, String LevelImage) {
+    public Room(GamePanel gp, String LevelImage, int x, int y) {
         mainPanel = gp;
         for (int i = 0; i < tileArry.length; i++) {
             tileArry[i] = new FloorTile(1);
         }
         lvl = UsefulSnippets.loadImage(LevelImage);
+        this.xNum = x;
+        this.yNum = y;
         loadLevel();
     }
 
@@ -42,7 +46,7 @@ public class Room {
                     tileArry[i + j * width].setTile(3); //Door
                 }
                 if (tiles[i + j * width] == 0xFF0000ff) {
-                    tileArry[i + j * width].setTile(9); //Water
+                    tileArry[i + j * width].setTile(4); //Water
                 }
                 if (tiles[i + j * width] == 0xFF03a5ff) {
                     tileArry[i + j * width].setTile(5); //Ice
@@ -85,6 +89,28 @@ public class Room {
                 }
             }
         }
+        
+        if (this.yNum == 0){
+            tileArry[7].TILE_ID = 1;
+            tileArry[8].TILE_ID = 1;
+            tileArry[9].TILE_ID = 1;
+        }
+        if (this.xNum == 0){
+            tileArry[85].TILE_ID = 1;
+            tileArry[102].TILE_ID = 1;
+            tileArry[119].TILE_ID = 1;
+        }
+        if (this.xNum == mainPanel.rooms[0].length-1){
+            tileArry[101].TILE_ID = 1;
+            tileArry[118].TILE_ID = 1;
+            tileArry[135].TILE_ID = 1;
+        }
+        if (this.yNum == mainPanel.rooms.length-1){
+            tileArry[211].TILE_ID = 1;
+            tileArry[212].TILE_ID = 1;
+            tileArry[213].TILE_ID = 1;
+        }
+        
     }
 
     public void draw(Graphics g) {

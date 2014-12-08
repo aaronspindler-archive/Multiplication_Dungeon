@@ -74,14 +74,14 @@ public class Player extends Entity {
                 dBlock = false;
             }
         }
-        if (this.yLocFeet > 625 && world.currentRoomY < world.rooms.length) {
+        if (this.yLocFeet > 625 && world.currentRoomY < world.rooms.length-1) {
             nextRoom(2);
             if (world.transitionProg > 0) {
                 this.xLoc = 400;
                 this.yLoc = 50;
             }
         }
-        if (this.xLocFeet > 825 && world.currentRoomX < world.rooms[0].length) {
+        if (this.xLocFeet > 825 && world.currentRoomX < world.rooms[0].length-1) {
             nextRoom(1);
             if (world.transitionProg > 0) {
                 this.xLoc = 50;
@@ -165,21 +165,29 @@ public class Player extends Entity {
 
     public void nextRoom(int i) {
         world.transitioning = true;
-//        switch (i) {
-//            case 0:
-//                world.currentRoomY--;
-//                break;
-//            case 1:
-//                world.currentRoomX++;
-//                break;
-//            case 2:
-//                world.currentRoomY++;
-//                break;
-//            case 3:
-//                world.currentRoomX--;
-//                break;
-//
-//        }
+        switch (i) {
+            case 0:
+                if (world.currentRoomY > 0 && world.transitionProg > 0) {
+                    world.currentRoomY--;
+                }
+                break;
+            case 1:
+                if (world.currentRoomX < world.rooms.length - 1 && world.transitionProg > 0) {
+                    world.currentRoomX++;
+                }
+                break;
+            case 2:
+                if (world.currentRoomY < world.rooms[0].length - 1 && world.transitionProg > 0) {
+                    world.currentRoomY++;
+                }
+                break;
+            case 3:
+                if (world.currentRoomX > 0 && world.transitionProg > 0) {
+                    world.currentRoomX--;
+                }
+                break;
+
+        }
         world.transitionDir = i;
     }
 }

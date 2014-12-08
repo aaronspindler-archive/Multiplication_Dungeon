@@ -18,6 +18,7 @@ import theschoolproject.Objects.GuiButton;
 import flexjson.JSONSerializer;
 import flexjson.JSONDeserializer;
 import java.awt.Font;
+import java.awt.RenderingHints;
 import resources.SettingsProperties;
 import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
@@ -124,7 +125,12 @@ public class GamePanel extends JPanel {
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
         play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
         play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
-        rooms[0][0] = new Room(this, "/resources/Levels/Level_02_2.png");
+        for (int x = 0; x < rooms.length; x++) {
+            for (int y = 0; y < rooms[0].length; y++) {
+                rooms[x][y] = new Room(this, "/resources/Levels/Level_0" + (rand.nextInt(7) + 1) + "_" + (rand.nextInt(3) + 1) + ".png", x, y);
+            }
+        }
+
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
 
@@ -142,14 +148,12 @@ public class GamePanel extends JPanel {
                         AudioStream BGM;
                         AudioData MD;
                         ContinuousAudioDataStream loop = null;
-                        for (;;) {
-                            try {
-                                BGM = new AudioStream((getClass().getResourceAsStream("/resources/Game_Opening_screen.wav")));//enter the sound directory and name here
-                                AudioPlayer.player.start(BGM);
-                                sleep(35000);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                        try {
+                            BGM = new AudioStream((getClass().getResourceAsStream("/resources/game.wav")));//enter the sound directory and name here
+                            AudioPlayer.player.start(BGM);
+                            sleep(35000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 };
@@ -165,6 +169,13 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g1) {
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
+        g.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
         font = font.deriveFont(26.0f);
         g.setFont(font);
 
