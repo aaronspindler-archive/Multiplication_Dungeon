@@ -68,10 +68,10 @@ public class Player extends Entity {
         if (this.yLocFeet < 40 && world.currentRoomY > 0) {
             nextRoom(0);
             if (world.transitionProg > 0) {
-                this.xLoc = 300;
-                this.yLoc = 50;
-                uBlock = false;
-                dBlock = false;
+                this.xLoc = 400;
+                this.yLoc = 550;
+//                uBlock = false;
+//                dBlock = false;
             }
         }
         if (this.yLocFeet > 625 && world.currentRoomY < world.rooms.length-1) {
@@ -92,7 +92,7 @@ public class Player extends Entity {
         if (this.xLocFeet < 40 && world.currentRoomX > 0) {
             nextRoom(3);
             if (world.transitionProg > 0) {
-                this.xLoc = 600;
+                this.xLoc = 750;
                 this.yLoc = 300;
                 lBlock = false;
             }

@@ -7,7 +7,7 @@ public class FloorTile {
 
     int metaData = 0;
     int metaType = 0;
-    int metaDir = 0;
+    int metaDir = -1;
     //Tile metadata:
     //0 = none
     //1 = water
@@ -36,6 +36,10 @@ public class FloorTile {
     //Tile 4 = Water
     //Tile 5 = Ice
     //Tile 6 = Lava
+    //Tile 7 = Moss
+    //Tile 8 = Grass
+    //Tile 9 = Rock
+    //Tile 10 = Spawn
 
     public FloorTile(int id) {
         this.TILE_ID = id;
@@ -62,7 +66,7 @@ public class FloorTile {
             case 5:
                 return false;
             case 6:
-                return false;
+                return true;
             case 7:
                 return false;
             case 8:

@@ -2,35 +2,43 @@ package theschoolproject.Input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import theschoolproject.GamePanel;
 
 public class Keyboard implements KeyListener {
 
+    GamePanel world;
+
+    public Keyboard(GamePanel gp) {
+        world = gp;
+    }
     boolean[] keys = new boolean[525];
 
     public boolean isKeyDown(String s) {
-        if (s.equals("up")) {
-            return keys[KeyEvent.VK_UP];
-        }
-        if (s.equals("down")) {
-            return keys[KeyEvent.VK_DOWN];
-        }
-        if (s.equals("left")) {
-            return keys[KeyEvent.VK_LEFT];
-        }
-        if (s.equals("right")) {
-            return keys[KeyEvent.VK_RIGHT];
-        }
-        if (s.equals("w")) {
-            return keys[KeyEvent.VK_W];
-        }
-        if (s.equals("a")) {
-            return keys[KeyEvent.VK_A];
-        }
-        if (s.equals("s")) {
-            return keys[KeyEvent.VK_S];
-        }
-        if (s.equals("d")) {
-            return keys[KeyEvent.VK_D];
+        if (!world.transitioning) {
+            if (s.equals("up")) {
+                return keys[KeyEvent.VK_UP];
+            }
+            if (s.equals("down")) {
+                return keys[KeyEvent.VK_DOWN];
+            }
+            if (s.equals("left")) {
+                return keys[KeyEvent.VK_LEFT];
+            }
+            if (s.equals("right")) {
+                return keys[KeyEvent.VK_RIGHT];
+            }
+            if (s.equals("w")) {
+                return keys[KeyEvent.VK_W];
+            }
+            if (s.equals("a")) {
+                return keys[KeyEvent.VK_A];
+            }
+            if (s.equals("s")) {
+                return keys[KeyEvent.VK_S];
+            }
+            if (s.equals("d")) {
+                return keys[KeyEvent.VK_D];
+            }
         }
         return false;
     }

@@ -24,7 +24,7 @@ public class QuestionPanel {
     int xButtonsOffset = 209;
     String currentNumber = "";
     boolean answerRight = false;
-    final int delaySet = 30;
+    final int delaySet = 25;
 
     public QuestionPanel(GamePanel gp) {
         equation = makeEquation();

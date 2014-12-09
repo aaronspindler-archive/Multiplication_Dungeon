@@ -46,7 +46,7 @@ public class GamePanel extends JPanel {
     //=========================
     //      Input Variables
     //=========================
-    Keyboard keys = new Keyboard();
+    Keyboard keys = new Keyboard(this);
     Mouse mouse = new Mouse(this);
 
     //=========================
@@ -83,7 +83,7 @@ public class GamePanel extends JPanel {
     int currentRoomY = 0;
     int transitionProg = -1000;
     int transitionDir = -1;
-    boolean transitioning = false;
+    public boolean transitioning = false;
 
     BufferedImage spriteSheetTex;
     BufferedImage[][] spritesTex;
@@ -206,12 +206,14 @@ public class GamePanel extends JPanel {
 
             mouse.x1 = (int) pl.xLoc + 32;
             mouse.y1 = (int) pl.yLoc + 32;
-            if (mouse.isMousePressed()) {
+            
+            if (mouse.isMousePressed() && !transitioning) {
                 g.setColor(Color.WHITE);
 
                 int dx = mouse.x2 - mouse.x1;
                 int dy = mouse.y2 - mouse.y1;
                 g.drawLine(mouse.x1, mouse.y1, mouse.x2, mouse.y2);
+
                 if (dx > 0) {    //R
                     if (dy > 0) {
                         if (abs(dx) < abs(dy)) {
