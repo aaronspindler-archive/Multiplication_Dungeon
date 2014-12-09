@@ -1,7 +1,0 @@
-Water: Solid, 0000ff
-Stone: Solid, 2c2a29
-Rock: Solid, 6b3d00
-Ice: Not Solid, 03a5ff
-Grass: Not Solid, 007f00
-Moss: Not Solid, 073a08
-Lava: Solid, fc1604      
