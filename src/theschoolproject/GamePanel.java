@@ -88,7 +88,7 @@ public class GamePanel extends JPanel {
     BufferedImage spriteSheetTex;
     BufferedImage[][] spritesTex;
     int texRows = 8;
-    int texCols = 10;
+    int texCols = 16;
     int texD = 50;
 
     public GamePanel() {

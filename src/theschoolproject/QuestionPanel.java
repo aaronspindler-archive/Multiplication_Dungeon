@@ -24,7 +24,8 @@ public class QuestionPanel {
     int xButtonsOffset = 209;
     String currentNumber = "";
     boolean answerRight = false;
-    final int delaySet = 25;
+    final int delaySet = 50;
+    final int answerLength = 3;
 
     public QuestionPanel(GamePanel gp) {
         equation = makeEquation();
@@ -37,43 +38,43 @@ public class QuestionPanel {
         //System.out.println(mX + ", " + mY);
         //209 351
         if (world.mouse.isMousePressed() && answerRight == false) {
-            if ((buttonBounds(209, 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(209, 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "1";
                 delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + 43, 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(xButtonsOffset + 43, 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "2";
                 delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 2), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 2), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "3";
                 delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 3), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 3), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "4";
                 delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 4), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 4), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "5";
                 delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 5), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 5), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "6";
                 delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 6), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 6), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "7";
                 delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 7), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 7), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "8";
                 delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 8), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 8), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "9";
                 delay = delaySet;
             }
-            if ((buttonBounds(xButtonsOffset + (43 * 9), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < 3)) {
+            if ((buttonBounds(xButtonsOffset + (43 * 9), 351, 40, 40, mX, mY) && delay == 0 && currentNumber.length() < answerLength)) {
                 currentNumber = currentNumber + "0";
                 delay = delaySet;
             }

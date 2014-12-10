@@ -68,26 +68,30 @@ public class Room {
                 }
             }
         }
-
-        System.out.println(tileArry[5 + 5 * width].TILE_ID);
+//
+//        System.out.println(tileArry[5 + 5 * width].TILE_ID);
         for (int i = 1; i < lvl.getWidth() - 1; i++) {
             for (int j = 1; j < lvl.getHeight() - 1; j++) {
-                if (tileArry[i + j * width].TILE_ID == 1) {
+                if (tileArry[i + j * width].TILE_ID == 2) {
                     if (tileArry[i + (j + 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].setMetadata(1);
+                        tileArry[i + j * width].metaData = 1;
                         tileArry[i + j * width].metaDir = 0;
                     }
                     if (tileArry[i + (j - 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].setMetadata(1);
+                        tileArry[i + j * width].metaData = 1;
                         tileArry[i + j * width].metaDir = 2;
                     }
                     if (tileArry[(i + 1) + j * width].TILE_ID == 4) {
-                        tileArry[i + j * width].setMetadata(1);
+                        tileArry[i + j * width].metaData = 1;
                         tileArry[i + j * width].metaDir = 1;
                     }
                     if (tileArry[(i - 1) + j * width].TILE_ID == 4) {
-                        tileArry[i + j * width].setMetadata(1);
+                        tileArry[i + j * width].metaData = 1;
                         tileArry[i + j * width].metaDir = 3;
+                    }
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaData = 4;
+                        tileArry[i + j * width].metaDir = 1;
                     }
                 }
             }
@@ -129,18 +133,28 @@ public class Room {
                         g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][1], i * 50, j * 50, null);
                         break;
                     case 2:
-                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][0], i * 50, j * 50, null);
-                        switch (tileArry[i + j * width].metaDir) {
-                            case 0:
-                                g.drawImage(mainPanel.spritesTex[6][2], i * 50, j * 50, null);
-                                break;
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
+                        if (tileArry[i + j * width].metaDir == -1) {
+                            g.drawImage(mainPanel.spritesTex[0][0], i * 50, j * 50, null);
+                        } else {
+                            switch (tileArry[i + j * width].metaDir) {
+                                case 0:
+                                    g.drawImage(mainPanel.spritesTex[11][0], i * 50, j * 50, null);
+                                    break;
+                                case 1:
+                                    g.drawImage(mainPanel.spritesTex[10][0], i * 50, j * 50, null);
+                                    break;
+                                case 2:
+                                    g.drawImage(mainPanel.spritesTex[8][0], i * 50, j * 50, null);
+                                    break;
+                                case 3:
+                                    g.drawImage(mainPanel.spritesTex[9][0], i * 50, j * 50, null);
+                                    break;
+                                case 4:
+                                    g.drawImage(mainPanel.spritesTex[5][0], i * 50, j * 50, null);
+                                    break;
+                            }
                         }
+
                         break;
                     case 3:
                         g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][5], i * 50, j * 50, null);
@@ -159,7 +173,14 @@ public class Room {
                         g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][3], i * 50, j * 50, null);
                         break;
                     case 6:
-                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][4], i * 50, j * 50, null);
+                        drawCycle++;
+                        if (drawCycle > 10) {
+                            tileArry[i + j * width].metaData = UsefulSnippets.generateRandomNumber(3);
+                            drawCycle = 0;
+                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][4], i * 50, j * 50, null);
+                        } else {
+                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][4], i * 50, j * 50, null);
+                        }
                         break;
                     case 7:
                         g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
