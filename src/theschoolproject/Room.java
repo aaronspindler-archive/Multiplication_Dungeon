@@ -3,6 +3,7 @@ package theschoolproject; //THis will be the dungeon room, 16x11 = 176 tiles
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import resources.SettingsProperties;
 
 public class Room {
@@ -11,6 +12,8 @@ public class Room {
     int height = 13;
     int xNum;
     int yNum;
+    
+    public int numEnemies;
 
     int[] tiles = new int[width * height];
     FloorTile[] tileArry = new FloorTile[width * height];
@@ -19,6 +22,8 @@ public class Room {
 
     BufferedImage lvl;
     int drawCycle = 0;
+    
+    Random gen = new Random();
 
     public Room(GamePanel gp, String LevelImage, int x, int y) {
         mainPanel = gp;
@@ -28,6 +33,7 @@ public class Room {
         lvl = UsefulSnippets.loadImage(LevelImage);
         this.xNum = x;
         this.yNum = y;
+        this.numEnemies = gen.nextInt(3) + 2;
         loadLevel();
     }
 

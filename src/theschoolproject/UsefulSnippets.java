@@ -6,6 +6,7 @@ import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,11 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import resources.SettingsProperties;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 public class UsefulSnippets {
 
@@ -24,10 +30,10 @@ public class UsefulSnippets {
         }
     }
 
-    public static int generateRandomNumber(int range){
-        return (int)(Math.random() * range);
+    public static int generateRandomNumber(int range) {
+        return (int) (Math.random() * range);
     }
-    
+
     /*
      Returns an Integer array of Values between the values in the range starting at 
      1 and going to range - 1. The Integer array's length is the amount of unique numbers you want
@@ -72,5 +78,30 @@ public class UsefulSnippets {
             Logger.getLogger(UsefulSnippets.class.getName()).log(Level.SEVERE, null, ex);
         }
         return f;
+    }
+
+    public static void playMusic(String fileLoc) {
+        if (SettingsProperties.programSound == true) {
+            try {
+                Thread sound;
+                sound = new Thread() {
+                    public void run() {
+
+                        AudioPlayer MGP = AudioPlayer.player;
+                        AudioStream BGM;
+                        try {
+                            BGM = new AudioStream((getClass().getResourceAsStream(fileLoc)));//enter the sound directory and name here
+                            AudioPlayer.player.start(BGM);
+                            sleep(BGM.getLength());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                sound.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
