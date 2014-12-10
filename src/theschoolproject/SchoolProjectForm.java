@@ -125,7 +125,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }//GEN-LAST:event_aboutbtnActionPerformed
 
     private void documentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentationBtnActionPerformed
-        UsefulSnippets.openWebpage("https://github.com/xNovax/The_School_Project/wiki");
+        UsefulSnippets.openWebpage("https://github.com/xNovax/Multiplication_Dungeon/wiki");
         System.out.println("Opened webpage");
     }//GEN-LAST:event_documentationBtnActionPerformed
 
