@@ -133,36 +133,9 @@ public class GamePanel extends JPanel {
 
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
-
-        if (SettingsProperties.programSound == true) {
-            try {
-                //Playing starting music
-                //When built it shows errors but the code works, do not remove it.
-                //I lied remove it because this is one big error.
-                Thread sound;
-                sound = new Thread() {
-
-                    public void run() {
-
-                        AudioPlayer MGP = AudioPlayer.player;
-                        AudioStream BGM;
-                        AudioData MD;
-                        ContinuousAudioDataStream loop = null;
-                        try {
-                            BGM = new AudioStream((getClass().getResourceAsStream("/resources/game.wav")));//enter the sound directory and name here
-                            AudioPlayer.player.start(BGM);
-                            sleep(35000);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                sound.start();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        
+        UsefulSnippets us = new UsefulSnippets();
+        us.playMusic("/resources/Game_Opening_screen.wav");
     }
 
     @Override
