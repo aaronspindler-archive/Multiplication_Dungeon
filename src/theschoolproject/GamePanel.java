@@ -133,9 +133,7 @@ public class GamePanel extends JPanel {
 
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
-        
-        UsefulSnippets us = new UsefulSnippets();
-        us.playMusic("/resources/Game_Opening_screen.wav");
+        UsefulSnippets.playMusic("/resources/Game_Opening_screen.wav");
     }
 
     @Override
@@ -179,7 +177,7 @@ public class GamePanel extends JPanel {
 
             mouse.x1 = (int) pl.xLoc + 32;
             mouse.y1 = (int) pl.yLoc + 32;
-            
+
             if (mouse.isMousePressed() && !transitioning) {
                 g.setColor(Color.WHITE);
 
