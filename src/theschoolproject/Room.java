@@ -47,6 +47,7 @@ public class Room {
                 }
                 if (tiles[i + j * width] == 0xFF000000) {
                     tileArry[i + j * width].setTile(2); //Floor
+                    tileArry[i + j * width].metaData = UsefulSnippets.generateRandomNumber(3);
                 }
                 if (tiles[i + j * width] == 0xFF532F00) {
                     tileArry[i + j * width].setTile(3); //Door
@@ -134,72 +135,74 @@ public class Room {
                 g.fill3DRect(i * 50, j * 50, 50, 50, true);
                 switch (tileArry[i + j * width].TILE_ID) {
                     case 0:
+                        g.drawImage(mainPanel.spritesTex[0][0], i * 50, j * 50, null); //Test tile
                         break;
                     case 1:
-                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][1], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][1], i * 50, j * 50, null);  //Wall tile
                         break;
                     case 2:
                         if (tileArry[i + j * width].metaDir == -1) {
-                            g.drawImage(mainPanel.spritesTex[0][0], i * 50, j * 50, null);
+                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][2], i * 50, j * 50, null);
                         } else {
                             switch (tileArry[i + j * width].metaDir) {
                                 case 0:
-                                    g.drawImage(mainPanel.spritesTex[11][0], i * 50, j * 50, null);
+                                    g.drawImage(mainPanel.spritesTex[11][2], i * 50, j * 50, null);
                                     break;
                                 case 1:
-                                    g.drawImage(mainPanel.spritesTex[10][0], i * 50, j * 50, null);
+                                    g.drawImage(mainPanel.spritesTex[10][2], i * 50, j * 50, null);
                                     break;
                                 case 2:
-                                    g.drawImage(mainPanel.spritesTex[8][0], i * 50, j * 50, null);
+                                    g.drawImage(mainPanel.spritesTex[8][2], i * 50, j * 50, null);
                                     break;
                                 case 3:
-                                    g.drawImage(mainPanel.spritesTex[9][0], i * 50, j * 50, null);
+                                    g.drawImage(mainPanel.spritesTex[9][2], i * 50, j * 50, null);
                                     break;
                                 case 4:
-                                    g.drawImage(mainPanel.spritesTex[5][0], i * 50, j * 50, null);
+                                    g.drawImage(mainPanel.spritesTex[5][2], i * 50, j * 50, null);
                                     break;
                             }
                         }
 
                         break;
                     case 3:
-                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][5], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][3], i * 50, j * 50, null);  //Door tile
                         break;
                     case 4:
                         drawCycle++;
                         if (drawCycle > 10) {
                             tileArry[i + j * width].metaData = UsefulSnippets.generateRandomNumber(3);
                             drawCycle = 0;
-                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][2], i * 50, j * 50, null);
+                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][4], i * 50, j * 50, null);
                         } else {
-                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][2], i * 50, j * 50, null);
+                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][4], i * 50, j * 50, null);
                         }
                         break;
                     case 5:
-                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][3], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][5], i * 50, j * 50, null);
                         break;
                     case 6:
                         drawCycle++;
                         if (drawCycle > 10) {
                             tileArry[i + j * width].metaData = UsefulSnippets.generateRandomNumber(3);
                             drawCycle = 0;
-                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][4], i * 50, j * 50, null);
+                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
                         } else {
-                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][4], i * 50, j * 50, null);
+                            g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
                         }
                         break;
                     case 7:
-                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][7], i * 50, j * 50, null);
                         break;
                     case 8:
-                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + j * width].metaData][7], i * 50, j * 50, null);
                         break;
                     case 9:
-                        g.drawImage(mainPanel.spritesTex[tileArry[i + (j - 1) * width].metaData][2], i * 50, j * 50, null);
-                        g.drawImage(mainPanel.spritesTex[1][5], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + (j - 1) * width].metaData][tileArry[i + (j - 1)].TILE_ID], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[0][9], i * 50, j * 50, null);
                         break;
                     case 10:
-                        g.drawImage(mainPanel.spritesTex[3][0], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[tileArry[i + (j - 1) * width].metaData][tileArry[i + (j - 1)].TILE_ID], i * 50, j * 50, null);
+                        g.drawImage(mainPanel.spritesTex[0][10], i * 50, j * 50, null);
                         break;
 
                 }

@@ -78,7 +78,7 @@ public class GamePanel extends JPanel {
     //=========================
     //      Room Variables
     //=========================
-    Room[][] rooms = new Room[10][10];
+    Room[][] rooms = new Room[5][5];
     int currentRoomX = 0;
     int currentRoomY = 0;
     int transitionProg = -1000;
@@ -87,7 +87,7 @@ public class GamePanel extends JPanel {
 
     BufferedImage spriteSheetTex;
     BufferedImage[][] spritesTex;
-    int texRows = 8;
+    int texRows = 12;
     int texCols = 16;
     int texD = 50;
 
