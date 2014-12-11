@@ -91,7 +91,7 @@ public class QuestionPanel {
             answerRight = true;
             if (timer == 0) {
                 world.switchTo("game");
-                world.en_arry.remove(world.en_index);
+                world.rooms[world.currentRoomX][world.currentRoomY].en_arry.remove(world.en_index);
                 world.pl.score = world.pl.score + 200;
             } else {
                 timer--;
