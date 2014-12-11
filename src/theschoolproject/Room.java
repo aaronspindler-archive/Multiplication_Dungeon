@@ -203,11 +203,11 @@ public class Room {
                         g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][7], i * 50, j * 50, null);
                         break;
                     case 9:
-                        g.drawImage(world.spritesTex[tileArry[(i - 1) + j * width].metaData][tileArry[i + (j - 1)].TILE_ID], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[(i + j * width)+1].metaData][tileArry[(i + j * width)+1].TILE_ID], i * 50, j * 50, null);
                         g.drawImage(world.spritesTex[0][9], i * 50, j * 50, null);
                         break;
                     case 10:
-                        g.drawImage(world.spritesTex[tileArry[(i - 1) + j * width].metaData][tileArry[i + (j - 1)].TILE_ID], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[(i + j * width) +1].metaData][tileArry[(i + j * width)+1].TILE_ID], i * 50, j * 50, null);
                         g.drawImage(world.spritesTex[0][10], i * 50, j * 50, null);
                         break;
 
