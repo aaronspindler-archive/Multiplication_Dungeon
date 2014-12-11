@@ -14,7 +14,7 @@ public class Room {
     int xNum;
     int yNum;
 
-    public int numEnemies = UsefulSnippets.generateRandomNumber(3)+2;
+    public int numEnemies = UsefulSnippets.generateRandomNumber(3) + 2;
     public ArrayList<Entity> en_arry = new ArrayList();
 
     int[] tiles = new int[width * height];
@@ -150,21 +150,43 @@ public class Room {
                         if (tileArry[i + j * width].metaDir == -1) {
                             g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][2], i * 50, j * 50, null);
                         } else {
-                            switch (tileArry[i + j * width].metaDir) {
-                                case 0:
-                                    g.drawImage(world.spritesTex[11][2], i * 50, j * 50, null);
-                                    break;
+                            switch (tileArry[i + j * width].metaData) {
                                 case 1:
-                                    g.drawImage(world.spritesTex[10][2], i * 50, j * 50, null);
-                                    break;
+                                    switch (tileArry[i + j * width].metaDir) {
+                                        case 0:
+                                            g.drawImage(world.spritesTex[11][2], i * 50, j * 50, null);
+                                            break;
+                                        case 1:
+                                            g.drawImage(world.spritesTex[10][2], i * 50, j * 50, null);
+                                            break;
+                                        case 2:
+                                            g.drawImage(world.spritesTex[8][2], i * 50, j * 50, null);
+                                            break;
+                                        case 3:
+                                            g.drawImage(world.spritesTex[9][2], i * 50, j * 50, null);
+                                            break;
+                                        case 4:
+                                            g.drawImage(world.spritesTex[5][2], i * 50, j * 50, null);
+                                            break;
+                                    }
                                 case 2:
-                                    g.drawImage(world.spritesTex[8][2], i * 50, j * 50, null);
-                                    break;
-                                case 3:
-                                    g.drawImage(world.spritesTex[9][2], i * 50, j * 50, null);
-                                    break;
-                                case 4:
-                                    g.drawImage(world.spritesTex[5][2], i * 50, j * 50, null);
+                                    switch (tileArry[i + j * width].metaDir) {
+                                        case 0:
+                                            g.drawImage(world.spritesTex[11][2], i * 50, j * 50, null);
+                                            break;
+                                        case 1:
+                                            g.drawImage(world.spritesTex[10][2], i * 50, j * 50, null);
+                                            break;
+                                        case 2:
+                                            g.drawImage(world.spritesTex[8][2], i * 50, j * 50, null);
+                                            break;
+                                        case 3:
+                                            g.drawImage(world.spritesTex[9][2], i * 50, j * 50, null);
+                                            break;
+                                        case 4:
+                                            g.drawImage(world.spritesTex[5][2], i * 50, j * 50, null);
+                                            break;
+                                    }
                                     break;
                             }
                         }
@@ -203,11 +225,11 @@ public class Room {
                         g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][7], i * 50, j * 50, null);
                         break;
                     case 9:
-                        g.drawImage(world.spritesTex[tileArry[(i + j * width)+1].metaData][tileArry[(i + j * width)+1].TILE_ID], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaData][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
                         g.drawImage(world.spritesTex[0][9], i * 50, j * 50, null);
                         break;
                     case 10:
-                        g.drawImage(world.spritesTex[tileArry[(i + j * width) +1].metaData][tileArry[(i + j * width)+1].TILE_ID], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaData][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
                         g.drawImage(world.spritesTex[0][10], i * 50, j * 50, null);
                         break;
 
