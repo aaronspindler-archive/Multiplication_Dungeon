@@ -1,5 +1,7 @@
 package theschoolproject;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -8,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import static java.lang.Thread.sleep;
 import java.net.URL;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -78,6 +83,45 @@ public class UsefulSnippets {
             Logger.getLogger(UsefulSnippets.class.getName()).log(Level.SEVERE, null, ex);
         }
         return f;
+    }
+
+    public void makeMySQLConnectionString() {
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        String url = "jdbc:mysql://localhost:3306/testdb";
+        String user = "testuser";
+        String password = "test623";
+
+        try {
+            con = (Connection) DriverManager.getConnection(url, user, password);
+            st = (Statement) con.createStatement();
+            rs = st.executeQuery("SELECT VERSION()");
+
+            if (rs.next()) {
+                System.out.println(rs.getString(1));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public static void playMusic(String fileLoc) {
