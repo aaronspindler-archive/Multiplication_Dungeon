@@ -154,7 +154,7 @@ public class Room {
                                 case 1:
                                     switch (tileArry[i + j * width].metaDir) {
                                         case 0:
-                                            g.drawImage(world.spritesTex[11][2], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[10][2], i * 50, j * 50, null);
                                             break;
                                         case 1:
                                             g.drawImage(world.spritesTex[10][2], i * 50, j * 50, null);
