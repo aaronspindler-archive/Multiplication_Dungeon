@@ -85,43 +85,21 @@ public class UsefulSnippets {
         return f;
     }
 
-    public void makeMySQLConnectionString() {
-        Connection con = null;
-        Statement st = null;
-        ResultSet rs = null;
+    public Connection makeMySQLConnection() {
+        String serverIP = ("");
+        String port = ("");
+        String databaseName = ("");
+        String username = ("");
+        String password = ("");
 
-        String url = "jdbc:mysql://localhost:3306/testdb";
-        String user = "testuser";
-        String password = "test623";
-
+        String url = String.format("jdbc:mysql://%s:%s/%s", serverIP, port, databaseName);
+        Connection connection = null;
         try {
-            con = (Connection) DriverManager.getConnection(url, user, password);
-            st = (Statement) con.createStatement();
-            rs = st.executeQuery("SELECT VERSION()");
-
-            if (rs.next()) {
-                System.out.println(rs.getString(1));
-            }
-
+            connection = (Connection) DriverManager.getConnection(url, username, password);
         } catch (SQLException ex) {
             ex.printStackTrace();
-
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (st != null) {
-                    st.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
+        return connection;
     }
 
     public static void playMusic(String fileLoc) {
