@@ -3,6 +3,9 @@ The_School_Project
 
 School project for grade 5 students made by grade 12 students for our final project in Computer Science.
 
+![alt text](http://i.imgur.com/riW8djA.png "Home Screen")
+![alt text](http://i.imgur.com/qTrYbMx.png "Random Levels")
+
 TODO:
 - [ ] Graphics - Arthur / Matt
 - [x] Level generation - Matt
