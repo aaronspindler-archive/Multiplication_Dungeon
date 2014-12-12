@@ -54,7 +54,6 @@ public class GamePanel extends JPanel {
     //=========================
     String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png", "/resources/textures.png"};
     Player pl;
-    ArrayList<Entity> en_arry = new ArrayList();
     HUD hud = new HUD(this); //heads up display
     int numEnemies = 5;
     int en_index; //the enemy that the player has collided with
@@ -98,11 +97,6 @@ public class GamePanel extends JPanel {
             for (int j = 0; j < texRows; j++) {
                 spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
             }
-        }
-
-        for (int l = 0; l < numEnemies; l++) {
-            int spr = rand.nextInt(2);
-            en_arry.add(new Enemy(this, spritePaths[spr]));
         }
 
         this.addKeyListener(keys);
@@ -271,17 +265,17 @@ public class GamePanel extends JPanel {
                 g.drawString("pl_pos: " + pl.xLocFeet + ", " + pl.yLocFeet, 50, 60);
             }
 
-            for (int i = 0; i < en_arry.size(); i++) {
-                en_arry.get(i).draw(g);
+            for (int i = 0; i < rooms[currentRoomX][currentRoomY].en_arry.size(); i++) {
+                rooms[currentRoomX][currentRoomY].en_arry.get(i).draw(g);
                 g.setColor(Color.GREEN);
                 if (SettingsProperties.debugModeG == true) {
-                    g.drawLine((int) en_arry.get(i).xLoc + 32, (int) en_arry.get(i).yLoc + 32,
+                    g.drawLine((int) rooms[currentRoomX][currentRoomY].en_arry.get(i).xLoc + 32, (int) rooms[currentRoomX][currentRoomY].en_arry.get(i).yLoc + 32,
                             (int) pl.xLoc + 32, (int) pl.yLoc + 32);
                 }
             }
             pl.draw(g);
-            for (int a = 0; a < en_arry.size(); a++) {
-                if ((pl.getBounds().intersects(en_arry.get(a).getBounds())) && (pl.graceTimer < 1)) {
+            for (int a = 0; a < rooms[currentRoomX][currentRoomY].en_arry.size(); a++) {
+                if ((pl.getBounds().intersects(rooms[currentRoomX][currentRoomY].en_arry.get(a).getBounds())) && (pl.graceTimer < 1)) {
                     en_index = a;
                     this.switchTo("battle");
                     frozen = true;
@@ -319,8 +313,8 @@ public class GamePanel extends JPanel {
         }
         if (gameScreen && !frozen) {
             pl.tick();
-            for (int i = 0; i < en_arry.size(); i++) {
-                en_arry.get(i).tick();
+            for (int i = 0; i < rooms[currentRoomX][currentRoomY].en_arry.size(); i++) {
+                rooms[currentRoomX][currentRoomY].en_arry.get(i).tick();
             }
         }
 
