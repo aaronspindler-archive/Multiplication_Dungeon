@@ -7,10 +7,12 @@ TODO:
 - [ ] Graphics - Arthur / Matt
 - [x] Level generation - Matt
 - [ ] Textures/Object Sprites
-- [ ] Sound - Chris
+- [x] Sound - Chris / Aaron
 - [x] Controls - Arthur
 - [ ] GUI/menu - Matt
-- [ ] Multiplication Equation Generation - Aaron ~~Tyler~~  
+- [x] Multiplication Equation Generation - Aaron ~~Tyler~~  
 - [ ] Savestates (we will use JSON) - Aaron
 - [ ] Documentation - Aaron
+- [ ] Highscore List - Aaron
+  - [ ] Global MySQL Highscore List - Aaron
 - [x] Installer / JRE 1.8 - Aaron
