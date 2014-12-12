@@ -85,14 +85,15 @@ public class UsefulSnippets {
         return f;
     }
 
-    public Connection makeMySQLConnection() {
-        String serverIP = ("");
-        String port = ("");
-        String databaseName = ("");
-        String username = ("");
-        String password = ("");
+    public static Connection makeMySQLConnection() {
+        String serverIP = ("192.168.1.1");
+        String port = ("3306");
+        String databaseName = ("Multiplication_Dungeon");
+        String username = ("xNovax");
+        String password = ("password");
 
         String url = String.format("jdbc:mysql://%s:%s/%s", serverIP, port, databaseName);
+        System.out.println(url);
         Connection connection = null;
         try {
             connection = (Connection) DriverManager.getConnection(url, username, password);
