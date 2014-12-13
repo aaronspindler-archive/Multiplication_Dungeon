@@ -1,5 +1,7 @@
 package theschoolproject;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -8,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import static java.lang.Thread.sleep;
 import java.net.URL;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -78,6 +83,24 @@ public class UsefulSnippets {
             Logger.getLogger(UsefulSnippets.class.getName()).log(Level.SEVERE, null, ex);
         }
         return f;
+    }
+
+    public static Connection makeMySQLConnection() {
+        String serverIP = ("192.168.1.1");
+        String port = ("3306");
+        String databaseName = ("Multiplication_Dungeon");
+        String username = ("xNovax");
+        String password = ("password");
+
+        String url = String.format("jdbc:mysql://%s:%s/%s", serverIP, port, databaseName);
+        System.out.println(url);
+        Connection connection = null;
+        try {
+            connection = (Connection) DriverManager.getConnection(url, username, password);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return connection;
     }
 
     public static void playMusic(String fileLoc) {
