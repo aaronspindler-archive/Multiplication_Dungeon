@@ -42,12 +42,13 @@ public class GamePanel extends JPanel {
     public boolean gameScreen = false;
     public boolean battle = false;
     public boolean frozen = false;
+    public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
 
     //=========================
     //      Input Variables
     //=========================
-    Keyboard keys = new Keyboard(this);
-    Mouse mouse = new Mouse(this);
+    public Keyboard keys = new Keyboard(this);
+    public Mouse mouse = new Mouse(this);
 
     //=========================
     //    Player Variables
@@ -61,7 +62,7 @@ public class GamePanel extends JPanel {
     //=========================
     //    Question Variables
     //=========================
-    QuestionPanel qt;
+    public QuestionPanel qt;
 
     //=========================
     //      Menu Variables
@@ -119,15 +120,18 @@ public class GamePanel extends JPanel {
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
         play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
         play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
-        for (int x = 0; x < rooms.length; x++) {
-            for (int y = 0; y < rooms[0].length; y++) {
-                rooms[x][y] = new Room(this, "/resources/Levels/Level_0" + (rand.nextInt(7) + 1) + "_" + (rand.nextInt(3) + 1) + ".png", x, y);
-            }
-        }
-
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
+        loadRooms();
         UsefulSnippets.playMusic("/resources/Game_Opening_screen.wav");
+    }
+    
+    public void loadRooms(){
+                for (int x = 0; x < rooms.length; x++) {
+            for (int y = 0; y < rooms[0].length; y++) {
+                rooms[x][y] = new Room(this, "/resources/Levels/Level_0" + (rand.nextInt(7) + 1) + "_" + (stratum) + ".png", x, y);
+            }
+        }
     }
 
     @Override
@@ -306,7 +310,7 @@ public class GamePanel extends JPanel {
             } else {
                 AnimationTimer++;
             }
-
+            
             for (int i = 0; i < buttons.size(); i++) {
                 buttons.get(i).tick();
             }

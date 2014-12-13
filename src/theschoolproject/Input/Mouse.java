@@ -53,7 +53,7 @@ public class Mouse implements MouseListener, MouseMotionListener {
 //        Xcoords = new ArrayList<>();
 //        Ycoords = new ArrayList<>();
         //world.frozen = false;
-       // world.battle = false;
+        // world.battle = false;
     }
 
     @Override
@@ -63,7 +63,6 @@ public class Mouse implements MouseListener, MouseMotionListener {
 //        Xcoords = new ArrayList<>();
 //        Ycoords = new ArrayList<>();
         pressed = true;
-
     }
 
     @Override
