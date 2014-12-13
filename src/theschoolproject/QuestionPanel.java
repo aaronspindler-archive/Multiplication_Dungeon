@@ -39,48 +39,48 @@ public class QuestionPanel {
         //209 351
         if (((world.mouse.isMousePressed() && answerRight == false) || (world.keys.isKeyPressed() && answerRight == false)) && (delay == 0)) {
             if (currentNumber.length() < answerLength) {
-                if ((buttonBounds(209, 351, 40, 40, mX, mY)) || (world.keys.isKeyDown("1"))) {
+                if ((buttonBounds(209, 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("1"))) {
                     currentNumber = currentNumber + "1";
                     delay = delaySet;
                 }
-                if (buttonBounds(xButtonsOffset + 43, 351, 40, 40, mX, mY) || (world.keys.isKeyDown("2"))) {
+                if ((buttonBounds(xButtonsOffset + 43, 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("2"))) {
                     currentNumber = currentNumber + "2";
                     delay = delaySet;
                 }
-                if ((buttonBounds(xButtonsOffset + (43 * 2), 351, 40, 40, mX, mY)) || (world.keys.isKeyDown("3"))) {
+                if ((buttonBounds(xButtonsOffset + (43 * 2), 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("3"))) {
                     currentNumber = currentNumber + "3";
                     delay = delaySet;
                 }
-                if ((buttonBounds(xButtonsOffset + (43 * 3), 351, 40, 40, mX, mY)) || (world.keys.isKeyDown("4"))) {
+                if ((buttonBounds(xButtonsOffset + (43 * 3), 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("4"))) {
                     currentNumber = currentNumber + "4";
                     delay = delaySet;
                 }
-                if ((buttonBounds(xButtonsOffset + (43 * 4), 351, 40, 40, mX, mY)) || (world.keys.isKeyDown("5"))) {
+                if ((buttonBounds(xButtonsOffset + (43 * 4), 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("5"))) {
                     currentNumber = currentNumber + "5";
                     delay = delaySet;
                 }
-                if ((buttonBounds(xButtonsOffset + (43 * 5), 351, 40, 40, mX, mY)) || (world.keys.isKeyDown("6"))) {
+                if ((buttonBounds(xButtonsOffset + (43 * 5), 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("6"))) {
                     currentNumber = currentNumber + "6";
                     delay = delaySet;
                 }
-                if ((buttonBounds(xButtonsOffset + (43 * 6), 351, 40, 40, mX, mY)) || (world.keys.isKeyDown("7"))) {
+                if ((buttonBounds(xButtonsOffset + (43 * 6), 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("7"))) {
                     currentNumber = currentNumber + "7";
                     delay = delaySet;
                 }
-                if ((buttonBounds(xButtonsOffset + (43 * 7), 351, 40, 40, mX, mY)) || (world.keys.isKeyDown("8"))) {
+                if ((buttonBounds(xButtonsOffset + (43 * 7), 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("8"))) {
                     currentNumber = currentNumber + "8";
                     delay = delaySet;
                 }
-                if ((buttonBounds(xButtonsOffset + (43 * 8), 351, 40, 40, mX, mY)) || (world.keys.isKeyDown("9"))) {
+                if ((buttonBounds(xButtonsOffset + (43 * 8), 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("9"))) {
                     currentNumber = currentNumber + "9";
                     delay = delaySet;
                 }
-                if ((buttonBounds(xButtonsOffset + (43 * 9), 351, 40, 40, mX, mY)) || (world.keys.isKeyDown("0"))) {
+                if ((buttonBounds(xButtonsOffset + (43 * 9), 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("0"))) {
                     currentNumber = currentNumber + "0";
                     delay = delaySet;
                 }
             }
-            if ((buttonBounds(xButtonsOffset + 306, 293, 50, 50, mX, mY)) || (world.keys.isKeyDown("Backspace"))) {
+            if ((buttonBounds(xButtonsOffset + 306, 293, 50, 50, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("Backspace"))) {
                 if (currentNumber.length() > 1) {
                     currentNumber = currentNumber.substring(0, currentNumber.length() - 1);
                 } else {
@@ -118,6 +118,7 @@ public class QuestionPanel {
     }
 
     public void startNewEquation() {
+        equation = "";
         equation = makeEquation();
     }
 
