@@ -29,15 +29,29 @@ import sun.audio.ContinuousAudioDataStream;
 public class GamePanel extends JPanel {
 
     public GameEngine ge = new GameEngine(this);
+    public GamePanel.ListenerThread lt;
+    Thread th;
 
     public GamePanel() {
         this.setFocusable(true);
         this.addKeyListener(ge.keys);
         this.addMouseListener(ge.mouse);
         this.addMouseMotionListener(ge.mouse);
-        GamePanel.ListenerThread lt = new GamePanel.ListenerThread();
-        Thread th = new Thread(lt);
+        newThread();
+    }
+
+    public void newThread() {
+        lt = new GamePanel.ListenerThread();
+        th = new Thread(lt);
         th.start();
+    }
+
+    public void reloadEngine() {
+        this.setFocusable(true);
+        this.addKeyListener(ge.keys);
+        this.addMouseListener(ge.mouse);
+        this.addMouseMotionListener(ge.mouse);
+        newThread();
     }
 
     @Override
@@ -207,7 +221,7 @@ public class GamePanel extends JPanel {
 
     public class ListenerThread implements Runnable {
 
-        boolean listening = true;   //listener is always listening
+        public boolean listening = true;   //listener is always listening
 
         @Override
         public void run() {

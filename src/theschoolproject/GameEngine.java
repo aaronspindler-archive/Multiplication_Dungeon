@@ -10,6 +10,7 @@ import flexjson.JSONSerializer;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,14 +24,12 @@ import theschoolproject.Objects.GuiButton;
  *
  * @author Arthur
  */
-public class GameEngine {
-    
+public class GameEngine implements Serializable {
+
     GamePanel gp;
 
     Random rand = new Random();
     FloorTile[][] ft = new FloorTile[17][16];
-    JSONSerializer jsonSer = new JSONSerializer();
-    JSONDeserializer jsonDes = new JSONDeserializer();
     public Font font;
 
     //=========================
@@ -65,10 +64,10 @@ public class GameEngine {
     //=========================
     //      Menu Variables
     //=========================
-    BufferedImage menuScreen;
-    BufferedImage menuTitle;
-    BufferedImage play_NoGlow;
-    BufferedImage play_Glow;
+    transient BufferedImage menuScreen;
+    transient BufferedImage menuTitle;
+    transient BufferedImage play_NoGlow;
+    transient BufferedImage play_Glow;
     int AnimationTimer = 0;
     int ImageScroll = 0;
     ArrayList<GuiButton> buttons = new ArrayList();
@@ -83,21 +82,13 @@ public class GameEngine {
     int transitionDir = -1;
     public boolean transitioning = false;
 
-    BufferedImage spriteSheetTex;
-    BufferedImage[][] spritesTex;
+    transient BufferedImage spriteSheetTex;
+    transient BufferedImage[][] spritesTex;
     int texRows = 12;
     int texCols = 16;
     int texD = 50;
 
     public GameEngine(GamePanel gp) {
-        spritesTex = new BufferedImage[texCols][texRows];
-        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[2]);
-        for (int i = 0; i < texCols; i++) {
-            for (int j = 0; j < texRows; j++) {
-                spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
-            }
-        }
-
 
         this.qt = new QuestionPanel(this);
         pl = new Player(this, "/resources/pl_sprite.png", keys);
@@ -108,6 +99,13 @@ public class GameEngine {
                 } else {
                     ft[w][h] = new FloorTile(0);
                 }
+            }
+        }
+        spritesTex = new BufferedImage[texCols][texRows];
+        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[2]);
+        for (int i = 0; i < texCols; i++) {
+            for (int j = 0; j < texRows; j++) {
+                spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
             }
         }
         menuScreen = UsefulSnippets.loadImage("/resources/JustBG.png");
@@ -127,7 +125,7 @@ public class GameEngine {
             }
         }
     }
-    
+
     public void tick() {
         if (mainMenu) {
             if (AnimationTimer > 5) {
@@ -139,7 +137,7 @@ public class GameEngine {
             } else {
                 AnimationTimer++;
             }
-            
+
             for (int i = 0; i < buttons.size(); i++) {
                 buttons.get(i).tick();
             }
@@ -161,8 +159,8 @@ public class GameEngine {
             pl.graceTimer = 100;
         }
     }
-    
-        public void switchTo(String mode) {
+
+    public void switchTo(String mode) {
         if (mode.equals("menu")) {
             this.mainMenu = true;
             this.gameScreen = false;
@@ -207,5 +205,32 @@ public class GameEngine {
 
         }
     }
-    
+
+    public void loadResources() {
+        pl.loadResources("/resources/pl_sprite.png");
+        spritesTex = new BufferedImage[texCols][texRows];
+        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[2]);
+        for (int i = 0; i < texCols; i++) {
+            for (int j = 0; j < texRows; j++) {
+                spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
+            }
+        }
+        menuScreen = UsefulSnippets.loadImage("/resources/JustBG.png");
+        menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
+        play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
+        play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
+        for (int i = 0; i < rooms.length; i++) {
+            for (int j = 0; j < rooms[0].length; j++) {
+                rooms[i][j].loadResources();
+                for (int k = 0; k < rooms[i][j].en_arry.size(); k++) {
+                    rooms[i][j].en_arry.get(k).loadResources(rooms[i][j].en_arry.get(k).spritePath);
+                }
+            }
+        }
+        qt.loadResources();
+        for (int l = 0; l < 0; l++) {
+            buttons.get(l).loadResources();
+        }
+    }
+
 }

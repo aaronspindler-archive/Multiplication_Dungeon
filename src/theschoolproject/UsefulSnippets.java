@@ -8,6 +8,7 @@ import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.sql.DriverManager;
@@ -25,7 +26,7 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 
-public class UsefulSnippets {
+public class UsefulSnippets implements Serializable{
 
     public static void openWebpage(String urlString) {
         try {

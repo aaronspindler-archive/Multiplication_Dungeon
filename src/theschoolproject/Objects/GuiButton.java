@@ -7,27 +7,32 @@ package theschoolproject.Objects;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import resources.SettingsProperties;
 import theschoolproject.GameEngine;
 import theschoolproject.GamePanel;
 import theschoolproject.Input.Mouse;
 import theschoolproject.UsefulSnippets;
 
-public class GuiButton {
+public class GuiButton implements Serializable{
 
-    BufferedImage unPressed;
-    BufferedImage Pressed;
+    transient BufferedImage unPressed;
+    transient BufferedImage Pressed;
     int minX, maxX, minY, maxY;
     String mode;
     boolean hover = false;
     Mouse m;
     GameEngine g;
     boolean bounds;
+    String btn_unp;
+    String btn_pr;
 
     public GuiButton(String UP, String P, String modeSwitched, int x, int y, GameEngine ge) {
         bounds = false;
         unPressed = UsefulSnippets.loadImage(UP);
         Pressed = UsefulSnippets.loadImage(P);
+        btn_unp = UP;
+        btn_pr = P;
         minX = x;
         maxX = x + unPressed.getWidth();
         minY = y;
@@ -80,5 +85,10 @@ public class GuiButton {
                 g.drawImage(unPressed, 0, 0, null);
             }
         }
+    }
+    
+    public void loadResources(){
+        unPressed = UsefulSnippets.loadImage(btn_unp);
+        Pressed = UsefulSnippets.loadImage(btn_pr);
     }
 }

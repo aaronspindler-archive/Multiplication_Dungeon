@@ -3,11 +3,12 @@ package theschoolproject; //THis will be the dungeon room, 16x11 = 176 tiles
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import resources.SettingsProperties;
 
-public class Room {
+public class Room implements Serializable{
 
     int width = 17;
     int height = 13;
@@ -22,7 +23,8 @@ public class Room {
     GameEngine world;
     SettingsProperties props = new SettingsProperties();
 
-    BufferedImage lvl;
+    transient BufferedImage lvl;
+    String lvlPath;
     int drawCycle = 0;
 
     Random gen = new Random();
@@ -37,6 +39,7 @@ public class Room {
             en_arry.add(new Enemy(world, world.spritePaths[spr]));
         }
         lvl = UsefulSnippets.loadImage(LevelImage);
+        lvlPath = LevelImage;
         this.xNum = x;
         this.yNum = y;
         this.numEnemies = gen.nextInt(3) + 2;
@@ -260,5 +263,9 @@ public class Room {
 //                }
             }
         }
+    }
+    
+    public void loadResources(){
+        lvl = UsefulSnippets.loadImage(lvlPath);
     }
 }

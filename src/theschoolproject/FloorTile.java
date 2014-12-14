@@ -1,9 +1,10 @@
 package theschoolproject;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.Random;
 
-public class FloorTile {
+public class FloorTile implements Serializable{
 
     int metaData = 0;
     int metaType = 0;

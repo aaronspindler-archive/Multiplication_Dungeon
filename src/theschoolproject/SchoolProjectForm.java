@@ -36,6 +36,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         saveStateBtn = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         documentationBtn = new javax.swing.JMenuItem();
@@ -75,6 +76,14 @@ public class SchoolProjectForm extends javax.swing.JFrame {
             }
         });
         fileMenu.add(saveStateBtn);
+
+        jMenuItem1.setText("Load State");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem1);
 
         exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Exit");
@@ -133,14 +142,19 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         saveState();
     }//GEN-LAST:event_saveStateBtnActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        loadState();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     public void saveState() {
         long millis;
         long currMillis = System.currentTimeMillis();
         System.out.println("saving state");
+        GameEngine gecopy = gamePanel.ge;
         try {
             FileOutputStream fout = new FileOutputStream("saveState.dat");
             ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(gamePanel);
+            oos.writeObject(gecopy);
             oos.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,20 +165,24 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }
 
     public void loadState() {
+        gamePanel.lt.listening = false;
         long millis;
         long currMillis = System.currentTimeMillis();
         System.out.println("loading state");
-        try {
+                try {
             FileInputStream fin = new FileInputStream("saveState.dat");
             ObjectInputStream ois = new ObjectInputStream(fin);
-            gamePanel = (GamePanel) ois.readObject();
+            gamePanel.ge = (GameEngine) ois.readObject();
             ois.close();
+
+            gamePanel.ge.loadResources();
         } catch (Exception e) {
             e.printStackTrace();
         }
         long endMillis = System.currentTimeMillis();
         millis = endMillis - currMillis;
         System.out.println("load completed (" + millis + " milliseconds)");
+        gamePanel.reloadEngine();
 
     }
 
@@ -208,6 +226,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private theschoolproject.GamePanel gamePanel;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem saveStateBtn;

@@ -5,8 +5,9 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 import theschoolproject.Input.Keyboard;
 import java.awt.Rectangle;
+import java.io.Serializable;
 
-public class Entity {
+public class Entity implements Serializable {
 
     GameEngine world;
 
@@ -36,21 +37,17 @@ public class Entity {
     int height = 64;
     int width = 64;
     int animCycle = 1;
-    BufferedImage spriteSheetB;
-    BufferedImage[][] sprites;
+    transient BufferedImage spriteSheetB;
+    transient BufferedImage[][] sprites;
     Random rand = new Random();
+    String spritePath;
 
     Keyboard keys;
 
     public Entity(GameEngine ge, String sp) {
         world = ge;
-        sprites = new BufferedImage[rows][columns];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                spriteSheetB = UsefulSnippets.loadImage(sp);
-                sprites[i][j] = spriteSheetB.getSubimage(j * width, i * height, width, height);
-            }
-        }
+        spritePath = sp;
+        loadResources(spritePath);
         this.xLoc = rand.nextInt(400) + 50;
         this.yLoc = rand.nextInt(300) + 50;
     }
@@ -161,5 +158,15 @@ public class Entity {
 
     public double getY() {
         return yLoc;
+    }
+
+    public void loadResources(String sp) {
+        sprites = new BufferedImage[rows][columns];
+        spriteSheetB = UsefulSnippets.loadImage(spritePath);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                sprites[i][j] = spriteSheetB.getSubimage(j * width, i * height, width, height);
+            }
+        }
     }
 }

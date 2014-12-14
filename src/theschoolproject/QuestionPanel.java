@@ -3,15 +3,16 @@ package theschoolproject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.Random;
 
-public class QuestionPanel {
+public class QuestionPanel implements Serializable {
 
     Random gen = new Random();
     static int QUESTION_RANGE = 15;
-    BufferedImage BG = UsefulSnippets.loadImage("/resources/QuestionBG.png");
-    BufferedImage Boxes = UsefulSnippets.loadImage("/resources/boxesGrey.png");
-    BufferedImage Numbers = UsefulSnippets.loadImage("/resources/numbers.png");
+    transient BufferedImage BG = UsefulSnippets.loadImage("/resources/QuestionBG.png");
+    transient BufferedImage Boxes = UsefulSnippets.loadImage("/resources/boxesGrey.png");
+    transient BufferedImage Numbers = UsefulSnippets.loadImage("/resources/numbers.png");
     String equation;
     int product;
     int xLoc = 200;
@@ -149,5 +150,11 @@ public class QuestionPanel {
         }
         g.drawString(currentNumber, this.xLoc + 220 - (currentNumber.length() * 3), this.yLoc + 150);
 //        g.drawString("This now works try it!", this.xLoc + 100, this.yLoc + 200);
+    }
+
+    public void loadResources() {
+        BG = UsefulSnippets.loadImage("/resources/QuestionBG.png");
+        Boxes = UsefulSnippets.loadImage("/resources/boxesGrey.png");
+        Numbers = UsefulSnippets.loadImage("/resources/numbers.png");
     }
 }

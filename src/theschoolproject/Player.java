@@ -1,8 +1,9 @@
 package theschoolproject;
 
+import java.io.Serializable;
 import theschoolproject.Input.Keyboard;
 
-public class Player extends Entity {
+public class Player extends Entity implements Serializable{
 
     Keyboard keys;
     int lives;

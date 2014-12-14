@@ -2,10 +2,11 @@ package theschoolproject.Input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import theschoolproject.GameEngine;
 import theschoolproject.GamePanel;
 
-public class Keyboard implements KeyListener {
+public class Keyboard implements KeyListener, Serializable{
 
     GameEngine world;
     boolean isKeyPressed = false;

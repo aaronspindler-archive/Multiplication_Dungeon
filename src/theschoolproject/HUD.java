@@ -2,8 +2,9 @@ package theschoolproject;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.Serializable;
 
-public class HUD {
+public class HUD implements Serializable{
 
     GameEngine world;
     int lives;

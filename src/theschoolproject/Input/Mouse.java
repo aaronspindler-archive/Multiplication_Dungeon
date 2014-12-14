@@ -8,6 +8,7 @@ package theschoolproject.Input;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import theschoolproject.GameEngine;
 
@@ -15,7 +16,7 @@ import theschoolproject.GameEngine;
  *
  * @author root
  */
-public class Mouse implements MouseListener, MouseMotionListener {
+public class Mouse implements MouseListener, MouseMotionListener, Serializable {
 
     int xLoc;
     int yLoc;
