@@ -42,7 +42,7 @@ public class GamePanel extends JPanel {
     public boolean gameScreen = false;
     public boolean battle = false;
     public boolean frozen = false;
-    public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
+    public int stratum = 3; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
 
     //=========================
     //      Input Variables
