@@ -89,27 +89,79 @@ public class Room implements Serializable{
         for (int i = 1; i < lvl.getWidth() - 1; i++) {
             for (int j = 1; j < lvl.getHeight() - 1; j++) {
                 if (tileArry[i + j * width].TILE_ID == 2) {
+                    //Sides
                     if (tileArry[i + (j + 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaData = 0;
                         tileArry[i + j * width].metaDir = 0;
                     }
                     if (tileArry[i + (j - 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaData = 0;
                         tileArry[i + j * width].metaDir = 2;
                     }
                     if (tileArry[(i + 1) + j * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaData = 0;
                         tileArry[i + j * width].metaDir = 1;
                     }
                     if (tileArry[(i - 1) + j * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaData = 0;
+                        tileArry[i + j * width].metaDir = 3;
+                    }
+                    //Corners
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaDir = 0;
+                    }
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaDir = 1;
+                    }
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j - 1) * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaDir = 2;
+                    }
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j - 1) * width].TILE_ID == 4) {
                         tileArry[i + j * width].metaData = 1;
                         tileArry[i + j * width].metaDir = 3;
                     }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 4;
+
+                    //Lava 
+                    //Sides
+                    if (tileArry[i + (j + 1) * width].TILE_ID == 6) {
+                        tileArry[i + j * width].metaData = 2;
+                        tileArry[i + j * width].metaDir = 0;
+                    }
+                    if (tileArry[i + (j - 1) * width].TILE_ID == 6) {
+                        tileArry[i + j * width].metaData = 2;
+                        tileArry[i + j * width].metaDir = 2;
+                    }
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 6) {
+                        tileArry[i + j * width].metaData = 2;
                         tileArry[i + j * width].metaDir = 1;
                     }
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 6) {
+                        tileArry[i + j * width].metaData = 2;
+                        tileArry[i + j * width].metaDir = 3;
+                    }
+                    //Corners
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j + 1) * width].TILE_ID == 6) {
+                        tileArry[i + j * width].metaData = 3;
+                        tileArry[i + j * width].metaDir = 0;
+                    }
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j + 1) * width].TILE_ID == 6) {
+                        tileArry[i + j * width].metaData = 3;
+                        tileArry[i + j * width].metaDir = 1;
+                    }
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j - 1) * width].TILE_ID == 6) {
+                        tileArry[i + j * width].metaData = 3;
+                        tileArry[i + j * width].metaDir = 2;
+                    }
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j - 1) * width].TILE_ID == 6) {
+                        tileArry[i + j * width].metaData = 3;
+                        tileArry[i + j * width].metaDir = 3;
+                    }
+
                 }
+
             }
         }
 
@@ -154,46 +206,71 @@ public class Room implements Serializable{
                             g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][2], i * 50, j * 50, null);
                         } else {
                             switch (tileArry[i + j * width].metaData) {
+                                case 0:
+                                    switch (tileArry[i + j * width].metaDir) {
+                                        case 0:
+                                            g.drawImage(world.spritesTex[9][4], i * 50, j * 50, null);
+                                            break;
+                                        case 1:
+                                            g.drawImage(world.spritesTex[8][4], i * 50, j * 50, null);
+                                            break;
+                                        case 2:
+                                            g.drawImage(world.spritesTex[6][4], i * 50, j * 50, null);
+                                            break;
+                                        case 3:
+                                            g.drawImage(world.spritesTex[7][4], i * 50, j * 50, null);
+                                            break;
+                                    }
+                                    break;
                                 case 1:
                                     switch (tileArry[i + j * width].metaDir) {
                                         case 0:
-                                            g.drawImage(world.spritesTex[10][2], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[3][4], i * 50, j * 50, null);
                                             break;
                                         case 1:
-                                            g.drawImage(world.spritesTex[10][2], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[12][4], i * 50, j * 50, null);
                                             break;
                                         case 2:
-                                            g.drawImage(world.spritesTex[8][2], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[10][4], i * 50, j * 50, null);
                                             break;
                                         case 3:
-                                            g.drawImage(world.spritesTex[9][2], i * 50, j * 50, null);
-                                            break;
-                                        case 4:
-                                            g.drawImage(world.spritesTex[5][2], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[11][4], i * 50, j * 50, null);
                                             break;
                                     }
                                 case 2:
                                     switch (tileArry[i + j * width].metaDir) {
                                         case 0:
-                                            g.drawImage(world.spritesTex[11][2], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[9][6], i * 50, j * 50, null);
                                             break;
                                         case 1:
-                                            g.drawImage(world.spritesTex[10][2], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[8][6], i * 50, j * 50, null);
                                             break;
                                         case 2:
-                                            g.drawImage(world.spritesTex[8][2], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[6][6], i * 50, j * 50, null);
                                             break;
                                         case 3:
-                                            g.drawImage(world.spritesTex[9][2], i * 50, j * 50, null);
-                                            break;
-                                        case 4:
-                                            g.drawImage(world.spritesTex[5][2], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[7][6], i * 50, j * 50, null);
                                             break;
                                     }
                                     break;
+                                case 3:
+                                    switch (tileArry[i + j * width].metaDir) {
+                                        case 0:
+                                            g.drawImage(world.spritesTex[3][6], i * 50, j * 50, null);
+                                            break;
+                                        case 1:
+                                            g.drawImage(world.spritesTex[12][6], i * 50, j * 50, null);
+                                            break;
+                                        case 2:
+                                            g.drawImage(world.spritesTex[10][6], i * 50, j * 50, null);
+                                            break;
+                                        case 3:
+                                            g.drawImage(world.spritesTex[11][6], i * 50, j * 50, null);
+                                            break;
+                                    }
                             }
+                            break;
                         }
-
                         break;
                     case 3:
                         g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][3], i * 50, j * 50, null);  //Door tile
