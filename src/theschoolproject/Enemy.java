@@ -7,8 +7,8 @@ public class Enemy extends Entity {
     int pathDist = 0;
     int difficulty = 0;
 
-    public Enemy(GamePanel gp, String sp) {
-        super(gp, sp);
+    public Enemy(GameEngine ge, String sp) {
+        super(ge, sp);
         this.isMoving = true;
     }
 

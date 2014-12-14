@@ -4,24 +4,24 @@ import javax.swing.UIManager;
 import flexjson.JSONSerializer;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import resources.SettingsProperties;
 
 public class SchoolProjectForm extends javax.swing.JFrame {
 
     //Variables
-    
     JSONSerializer jSerial = new JSONSerializer();
 
     public SchoolProjectForm() {
         initComponents();
         this.setSize(855, 700);
-        if(SettingsProperties.aaronsLaptop == true)
-        {
+        if (SettingsProperties.aaronsLaptop == true) {
             this.setResizable(true);
-        }
-        else
-        {
+        } else {
             this.setResizable(false);
         }
         this.setTitle(SettingsProperties.gameName);
@@ -133,19 +133,41 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         saveState();
     }//GEN-LAST:event_saveStateBtnActionPerformed
 
-    public void saveState(){
-        String savedState = jSerial.deepSerialize(gamePanel);
+    public void saveState() {
+        long millis;
+        long currMillis = System.currentTimeMillis();
+        System.out.println("saving state");
         try {
-            File f = new File("ss01.dat");
-            FileWriter fw = new FileWriter(f); 
-            BufferedWriter bw = new BufferedWriter(fw);
-            
-            bw.write(savedState);
-        }catch (Exception e) {
+            FileOutputStream fout = new FileOutputStream("saveState.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(gamePanel);
+            oos.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        long endMillis = System.currentTimeMillis();
+        millis = endMillis - currMillis;
+        System.out.println("save completed (" + millis + " milliseconds)");
     }
-    
+
+    public void loadState() {
+        long millis;
+        long currMillis = System.currentTimeMillis();
+        System.out.println("loading state");
+        try {
+            FileInputStream fin = new FileInputStream("saveState.dat");
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            gamePanel = (GamePanel) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        long endMillis = System.currentTimeMillis();
+        millis = endMillis - currMillis;
+        System.out.println("load completed (" + millis + " milliseconds)");
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -154,14 +176,19 @@ public class SchoolProjectForm extends javax.swing.JFrame {
          */
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SchoolProjectForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SchoolProjectForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SchoolProjectForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SchoolProjectForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SchoolProjectForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SchoolProjectForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SchoolProjectForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SchoolProjectForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

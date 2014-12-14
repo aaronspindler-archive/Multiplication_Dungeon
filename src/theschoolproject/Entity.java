@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 
 public class Entity {
 
-    GamePanel world;
+    GameEngine world;
 
     double xLoc = 0;
     double yLoc = 0;
@@ -42,8 +42,8 @@ public class Entity {
 
     Keyboard keys;
 
-    public Entity(GamePanel gp, String sp) {
-        world = gp;
+    public Entity(GameEngine ge, String sp) {
+        world = ge;
         sprites = new BufferedImage[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {

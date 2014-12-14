@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-import theschoolproject.GamePanel;
+import theschoolproject.GameEngine;
 
 /**
  *
@@ -20,14 +20,14 @@ public class Mouse implements MouseListener, MouseMotionListener {
     int xLoc;
     int yLoc;
     boolean pressed = false;
-    GamePanel world;
+    GameEngine world;
 //    public ArrayList Xcoords = new ArrayList<>();
 //    public ArrayList Ycoords = new ArrayList<>();
 
     public int y2, y1, x2, x1; //starting and ending points of mousedrag action
 
-    public Mouse(GamePanel gp) {
-        world = gp;
+    public Mouse(GameEngine ge) {
+        world = ge;
     }
 
     public boolean isMousePressed() {

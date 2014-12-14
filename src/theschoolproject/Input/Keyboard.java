@@ -2,15 +2,16 @@ package theschoolproject.Input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import theschoolproject.GameEngine;
 import theschoolproject.GamePanel;
 
 public class Keyboard implements KeyListener {
 
-    GamePanel world;
+    GameEngine world;
     boolean isKeyPressed = false;
 
-    public Keyboard(GamePanel gp) {
-        world = gp;
+    public Keyboard(GameEngine ge) {
+        world = ge;
     }
     boolean[] keys = new boolean[525];
 

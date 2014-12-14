@@ -11,8 +11,8 @@ public class Player extends Entity {
     int graceTimer = 0;
     boolean autoMove = false;
 
-    public Player(GamePanel gp, String sp, Keyboard k) {
-        super(gp, sp);
+    public Player(GameEngine ge, String sp, Keyboard k) {
+        super(ge, sp);
         keys = k;
 
         this.xLoc = 100;

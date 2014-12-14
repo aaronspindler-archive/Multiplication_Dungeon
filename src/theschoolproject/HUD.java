@@ -5,12 +5,12 @@ import java.awt.Graphics2D;
 
 public class HUD {
 
-    GamePanel world;
+    GameEngine world;
     int lives;
     int score;
 
-    public HUD(GamePanel gp) {
-        world = gp;
+    public HUD(GameEngine ge) {
+        world = ge;
     }
 
     public void draw (Graphics2D g) {

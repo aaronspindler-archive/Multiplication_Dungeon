@@ -8,6 +8,7 @@ package theschoolproject.Objects;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import resources.SettingsProperties;
+import theschoolproject.GameEngine;
 import theschoolproject.GamePanel;
 import theschoolproject.Input.Mouse;
 import theschoolproject.UsefulSnippets;
@@ -20,10 +21,10 @@ public class GuiButton {
     String mode;
     boolean hover = false;
     Mouse m;
-    GamePanel g;
+    GameEngine g;
     boolean bounds;
 
-    public GuiButton(String UP, String P, String modeSwitched, int x, int y, GamePanel gp) {
+    public GuiButton(String UP, String P, String modeSwitched, int x, int y, GameEngine ge) {
         bounds = false;
         unPressed = UsefulSnippets.loadImage(UP);
         Pressed = UsefulSnippets.loadImage(P);
@@ -32,11 +33,11 @@ public class GuiButton {
         minY = y;
         maxY = y + unPressed.getHeight();
         mode = modeSwitched;
-        g = gp;
-        m = gp.getMouse();
+        g = ge;
+        m = ge.getMouse();
     }
 
-    public GuiButton(String UP, String P, String modeSwitched, int x, int y, int x1, int y1, GamePanel gp) {
+    public GuiButton(String UP, String P, String modeSwitched, int x, int y, int x1, int y1, GameEngine ge) {
         bounds = true;
         unPressed = UsefulSnippets.loadImage(UP);
         Pressed = UsefulSnippets.loadImage(P);
@@ -45,8 +46,8 @@ public class GuiButton {
         minY = y;
         maxY = y1;
         mode = modeSwitched;
-        g = gp;
-        m = gp.getMouse();
+        g = ge;
+        m = ge.getMouse();
     }
 
     public void tick() {

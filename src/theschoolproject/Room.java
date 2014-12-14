@@ -19,7 +19,7 @@ public class Room {
 
     int[] tiles = new int[width * height];
     FloorTile[] tileArry = new FloorTile[width * height];
-    GamePanel world;
+    GameEngine world;
     SettingsProperties props = new SettingsProperties();
 
     BufferedImage lvl;
@@ -27,8 +27,8 @@ public class Room {
 
     Random gen = new Random();
 
-    public Room(GamePanel gp, String LevelImage, int x, int y) {
-        world = gp;
+    public Room(GameEngine ge, String LevelImage, int x, int y) {
+        world = ge;
         for (int i = 0; i < tileArry.length; i++) {
             tileArry[i] = new FloorTile(1);
         }

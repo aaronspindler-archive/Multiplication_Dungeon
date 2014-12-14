@@ -19,6 +19,7 @@ import flexjson.JSONSerializer;
 import flexjson.JSONDeserializer;
 import java.awt.Font;
 import java.awt.RenderingHints;
+import java.io.Serializable;
 import resources.SettingsProperties;
 import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
@@ -27,111 +28,16 @@ import sun.audio.ContinuousAudioDataStream;
 
 public class GamePanel extends JPanel {
 
-    Random rand = new Random();
-    ListenerThread lt = new ListenerThread();
-    Thread th = new Thread(lt);
-    FloorTile[][] ft = new FloorTile[17][16];
-    JSONSerializer jsonSer = new JSONSerializer();
-    JSONDeserializer jsonDes = new JSONDeserializer();
-    Font font;
-
-    //=========================
-    //   Game State Variables
-    //=========================
-    public boolean mainMenu = true;
-    public boolean gameScreen = false;
-    public boolean battle = false;
-    public boolean frozen = false;
-    public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
-
-    //=========================
-    //      Input Variables
-    //=========================
-    public Keyboard keys = new Keyboard(this);
-    public Mouse mouse = new Mouse(this);
-
-    //=========================
-    //    Player Variables
-    //=========================
-    String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png", "/resources/textures.png"};
-    Player pl;
-    HUD hud = new HUD(this); //heads up display
-    int numEnemies = 5;
-    int en_index; //the enemy that the player has collided with
-
-    //=========================
-    //    Question Variables
-    //=========================
-    public QuestionPanel qt;
-
-    //=========================
-    //      Menu Variables
-    //=========================
-    BufferedImage menuScreen;
-    BufferedImage menuTitle;
-    BufferedImage play_NoGlow;
-    BufferedImage play_Glow;
-    int AnimationTimer = 0;
-    int ImageScroll = 0;
-    ArrayList<GuiButton> buttons = new ArrayList();
-
-    //=========================
-    //      Room Variables
-    //=========================
-    Room[][] rooms = new Room[5][5];
-    int currentRoomX = 0;
-    int currentRoomY = 0;
-    int transitionProg = -1000;
-    int transitionDir = -1;
-    public boolean transitioning = false;
-
-    BufferedImage spriteSheetTex;
-    BufferedImage[][] spritesTex;
-    int texRows = 12;
-    int texCols = 16;
-    int texD = 50;
+    public GameEngine ge = new GameEngine(this);
 
     public GamePanel() {
-        spritesTex = new BufferedImage[texCols][texRows];
-        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[2]);
-        for (int i = 0; i < texCols; i++) {
-            for (int j = 0; j < texRows; j++) {
-                spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
-            }
-        }
-
-        this.addKeyListener(keys);
-        this.addMouseListener(mouse);
-        this.addMouseMotionListener(mouse);
-        this.qt = new QuestionPanel(this);
-        pl = new Player(this, "/resources/pl_sprite.png", keys);
-        th.start();
-        for (int w = 0; w < 17; w++) {
-            for (int h = 0; h < 15; h++) {
-                if (w == 0 || w == 16 || h == 0 || h == 12) {
-                    ft[w][h] = new FloorTile(1);
-                } else {
-                    ft[w][h] = new FloorTile(0);
-                }
-            }
-        }
         this.setFocusable(true);
-        menuScreen = UsefulSnippets.loadImage("/resources/JustBG.png");
-        menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
-        play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
-        play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
-        buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
-        font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
-        loadRooms();
-        UsefulSnippets.playMusic("/resources/Game_Opening_screen.wav");
-    }
-    
-    public void loadRooms(){
-                for (int x = 0; x < rooms.length; x++) {
-            for (int y = 0; y < rooms[0].length; y++) {
-                rooms[x][y] = new Room(this, "/resources/Levels/Level_0" + (rand.nextInt(7) + 1) + "_" + (stratum) + ".png", x, y);
-            }
-        }
+        this.addKeyListener(ge.keys);
+        this.addMouseListener(ge.mouse);
+        this.addMouseMotionListener(ge.mouse);
+        GamePanel.ListenerThread lt = new GamePanel.ListenerThread();
+        Thread th = new Thread(lt);
+        th.start();
     }
 
     @Override
@@ -150,19 +56,19 @@ public class GamePanel extends JPanel {
                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         }
 
-        font = font.deriveFont(26.0f);
-        g.setFont(font);
+        ge.font = ge.font.deriveFont(26.0f);
+        g.setFont(ge.font);
 
-        if (mainMenu) {
-            g.drawImage(menuScreen, 0 - ImageScroll, 0, 850, 650, null);
-            g.drawImage(menuScreen, 850 - ImageScroll, 0, 850, 650, null);
-            g.drawImage(menuTitle, 0, 0, null);
-            for (int i = 0; i < buttons.size(); i++) {
-                buttons.get(i).draw(g1);
+        if (ge.mainMenu) {
+            g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
+            g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
+            g.drawImage(ge.menuTitle, 0, 0, null);
+            for (int i = 0; i < ge.buttons.size(); i++) {
+                ge.buttons.get(i).draw(g1);
             }
         }
-        if (gameScreen) {
-            rooms[currentRoomX][currentRoomY].draw(g);
+        if (ge.gameScreen) {
+            ge.rooms[ge.currentRoomX][ge.currentRoomY].draw(g);
 
 //            for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
 //                int x = (int) mouse.Xcoords.get(i);
@@ -173,52 +79,52 @@ public class GamePanel extends JPanel {
 //            }
             g.setColor(Color.red);
 
-            mouse.x1 = (int) pl.xLoc + 32;
-            mouse.y1 = (int) pl.yLoc + 32;
+            ge.mouse.x1 = (int) ge.pl.xLoc + 32;
+            ge.mouse.y1 = (int) ge.pl.yLoc + 32;
 
-            if (mouse.isMousePressed() && !transitioning) {
+            if (ge.mouse.isMousePressed() && !ge.transitioning) {
                 g.setColor(Color.WHITE);
 
-                int dx = mouse.x2 - mouse.x1;
-                int dy = mouse.y2 - mouse.y1;
-                g.drawLine(mouse.x1, mouse.y1, mouse.x2, mouse.y2);
+                int dx = ge.mouse.x2 - ge.mouse.x1;
+                int dy = ge.mouse.y2 - ge.mouse.y1;
+                g.drawLine(ge.mouse.x1, ge.mouse.y1, ge.mouse.x2, ge.mouse.y2);
 
                 if (dx > 0) {    //R
                     if (dy > 0) {
                         if (abs(dx) < abs(dy)) {
                             if (SettingsProperties.debugModeG == true) {
-                                g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+//                                g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                                 g.drawString("quad_3_D", 50, 50);
                             }
-                            pl.distToMove = abs(dy);
-                            pl.orientation = 2;
+                            ge.pl.distToMove = abs(dy);
+                            ge.pl.orientation = 2;
 
                         } else {
                             if (SettingsProperties.debugModeG == true) {
-                                g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+//                                g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                                 g.drawString("quad_3_R", 50, 50);
                             }
-                            pl.distToMove = abs(dx);
-                            pl.orientation = 1;
+                            ge.pl.distToMove = abs(dx);
+                            ge.pl.orientation = 1;
 
                         }
 
                     } else {
                         if (abs(dx) < abs(dy)) {
                             if (SettingsProperties.debugModeG == true) {
-                                g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+//                                g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                                 g.drawString("quad_0_U", 50, 50);
                             }
-                            pl.distToMove = abs(dy);
-                            pl.orientation = 0;
+                            ge.pl.distToMove = abs(dy);
+                            ge.pl.orientation = 0;
 
                         } else {
                             if (SettingsProperties.debugModeG == true) {
-                                g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+//                                g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                                 g.drawString("quad_0_R", 50, 50);
                             }
-                            pl.distToMove = abs(dx);
-                            pl.orientation = 1;
+                            ge.pl.distToMove = abs(dx);
+                            ge.pl.orientation = 1;
 
                         }
 
@@ -227,171 +133,75 @@ public class GamePanel extends JPanel {
                 if (dy > 0) {
                     if (abs(dx) < abs(dy)) {
                         if (SettingsProperties.debugModeG == true) {
-                            g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+//                            g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                             g.drawString("quad_2_D", 50, 50);
                         }
-                        pl.distToMove = abs(dy);
-                        pl.orientation = 2;
+                        ge.pl.distToMove = abs(dy);
+                        ge.pl.orientation = 2;
 
                     } else {
                         if (SettingsProperties.debugModeG == true) {
-                            g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+//                            g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                             g.drawString("quad_2_L", 50, 50);
                         }
-                        pl.distToMove = abs(dx);
-                        pl.orientation = 3;
+                        ge.pl.distToMove = abs(dx);
+                        ge.pl.orientation = 3;
 
                     }
 
                 } else {
                     if (abs(dx) < abs(dy)) {
                         if (SettingsProperties.debugModeG == true) {
-                            g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
+//                            g.drawLine(mouse.x1, mouse.y1, mouse.x1, mouse.y1 + dy);
                             g.drawString("quad_1_U", 50, 50);
                         }
-                        pl.distToMove = abs(dy);
-                        pl.orientation = 0;
+                        ge.pl.distToMove = abs(dy);
+                        ge.pl.orientation = 0;
 
                     } else {
                         if (SettingsProperties.debugModeG == true) {
-                            g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
+//                            g.drawLine(mouse.x1, mouse.y1, mouse.x1 + dx, mouse.y1);
                             g.drawString("quad_1_L", 50, 50);
                         }
-                        pl.distToMove = abs(dx);
-                        pl.orientation = 3;
+                        ge.pl.distToMove = abs(dx);
+                        ge.pl.orientation = 3;
 
                     }
                 }
             } else {
-                pl.distToMove = 0;
+                ge.pl.distToMove = 0;
             }
             if (SettingsProperties.debugModeG == true) {
-                g.drawString("pl_pos: " + pl.xLocFeet + ", " + pl.yLocFeet, 50, 60);
+//                g.drawString("pl_pos: " + pl.xLocFeet + ", " + pl.yLocFeet, 50, 60);
             }
 
-            for (int i = 0; i < rooms[currentRoomX][currentRoomY].en_arry.size(); i++) {
-                rooms[currentRoomX][currentRoomY].en_arry.get(i).draw(g);
+            for (int i = 0; i < ge.rooms[ge.currentRoomX][ge.currentRoomY].en_arry.size(); i++) {
+                ge.rooms[ge.currentRoomX][ge.currentRoomY].en_arry.get(i).draw(g);
                 g.setColor(Color.GREEN);
                 if (SettingsProperties.debugModeG == true) {
-                    g.drawLine((int) rooms[currentRoomX][currentRoomY].en_arry.get(i).xLoc + 32, (int) rooms[currentRoomX][currentRoomY].en_arry.get(i).yLoc + 32,
-                            (int) pl.xLoc + 32, (int) pl.yLoc + 32);
+                    g.drawLine((int) ge.rooms[ge.currentRoomX][ge.currentRoomY].en_arry.get(i).xLoc + 32, (int) ge.rooms[ge.currentRoomX][ge.currentRoomY].en_arry.get(i).yLoc + 32,
+                            (int) ge.pl.xLoc + 32, (int) ge.pl.yLoc + 32);
                 }
             }
-            pl.draw(g);
-            for (int a = 0; a < rooms[currentRoomX][currentRoomY].en_arry.size(); a++) {
-                if ((pl.getBounds().intersects(rooms[currentRoomX][currentRoomY].en_arry.get(a).getBounds())) && (pl.graceTimer < 1)) {
-                    en_index = a;
-                    this.switchTo("battle");
-                    frozen = true;
+            ge.pl.draw(g);
+            for (int a = 0; a < ge.rooms[ge.currentRoomX][ge.currentRoomY].en_arry.size(); a++) {
+                if ((ge.pl.getBounds().intersects(ge.rooms[ge.currentRoomX][ge.currentRoomY].en_arry.get(a).getBounds())) && (ge.pl.graceTimer < 1)) {
+                    ge.en_index = a;
+                    ge.switchTo("battle");
+                    ge.frozen = true;
                 }
             }
-            hud.draw(g);
+            ge.hud.draw(g);
         }
-        if (battle) {
-            qt.draw(g);
-            pl.graceTimer = 1000;
+        if (ge.battle) {
+            ge.qt.draw(g);
+            ge.pl.graceTimer = 1000;
         }
 
-        if (transitioning) {
+        if (ge.transitioning) {
             g.setColor(Color.BLACK);
-            transitionProg = transitionProg + 10;
-            drawTransition(transitionDir, g);
-        }
-    }
-
-    public void tick() {
-        if (mainMenu) {
-            if (AnimationTimer > 5) {
-                ImageScroll++;
-                if (ImageScroll >= 850) {
-                    ImageScroll = 0;
-                }
-                AnimationTimer = 0;
-            } else {
-                AnimationTimer++;
-            }
-            
-            for (int i = 0; i < buttons.size(); i++) {
-                buttons.get(i).tick();
-            }
-        }
-        if (gameScreen && !frozen) {
-            pl.tick();
-            for (int i = 0; i < rooms[currentRoomX][currentRoomY].en_arry.size(); i++) {
-                rooms[currentRoomX][currentRoomY].en_arry.get(i).tick();
-            }
-        }
-
-        if (battle) {
-            qt.tick();
-
-        }
-
-        if (transitionProg > 800) {
-            transitioning = false;
-            transitionProg = -1000;
-            pl.graceTimer = 100;
-        }
-    }
-
-    /*
-     Switchs the gamemode to the desired gamemode
-     */
-    public void switchTo(String mode) {
-        if (mode.equals("menu")) {
-            this.mainMenu = true;
-            this.gameScreen = false;
-            this.battle = false;
-        }
-        if (mode.equals("game")) {
-            this.mainMenu = false;
-            this.gameScreen = true;
-            this.battle = false;
-            this.frozen = false;
-        }
-        if (mode.equals("battle")) {
-            this.mainMenu = false;
-            this.gameScreen = true;
-            this.battle = true;
-            this.qt.startNewEquation();
-        }
-    }
-
-    public void saveState() {
-        jsonSer.serialize(this);
-    }
-
-    public void loadState() {
-
-    }
-
-    public Keyboard getKeyboard() {
-        return keys;
-    }
-
-    public Mouse getMouse() {
-        return mouse;
-    }
-
-    public GamePanel(LayoutManager layout) {
-        super(layout);
-    }
-
-    public void drawTransition(int i, Graphics g) {
-        switch (i) {
-            case 0:
-                g.fillRect(0, -transitionProg, 1000, 800);
-                break;
-            case 1:
-                g.fillRect(transitionProg, 0, 1000, 800);
-                break;
-            case 2:
-                g.fillRect(0, transitionProg, 1000, 800);
-                break;
-            case 3:
-                g.fillRect(-transitionProg, 0, 1000, 800);
-                break;
-
+            ge.transitionProg = ge.transitionProg + 10;
+            ge.drawTransition(ge.transitionDir, g);
         }
     }
 
@@ -402,7 +212,7 @@ public class GamePanel extends JPanel {
         @Override
         public void run() {
             while (listening) {
-                tick();
+                ge.tick();
                 repaint();
                 try {
                     sleep(5);   //This is to save resources on repaint

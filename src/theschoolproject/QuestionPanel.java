@@ -16,7 +16,7 @@ public class QuestionPanel {
     int product;
     int xLoc = 200;
     int yLoc = 100;
-    GamePanel world;
+    GameEngine world;
     int mX = -1;
     int mY = -1;
     int delay = 0;
@@ -27,9 +27,9 @@ public class QuestionPanel {
     final int delaySet = 50;
     final int answerLength = 3;
 
-    public QuestionPanel(GamePanel gp) {
+    public QuestionPanel(GameEngine ge) {
         equation = makeEquation();
-        world = gp;
+        world = ge;
     }
 
     public void tick() {
