@@ -19,17 +19,20 @@ public class Room implements Serializable{
     public ArrayList<Entity> en_arry = new ArrayList();
 
     int[] tiles = new int[width * height];
+    int[] spawnTiles = new int[width * height];
     FloorTile[] tileArry = new FloorTile[width * height];
     GameEngine world;
     SettingsProperties props = new SettingsProperties();
 
     transient BufferedImage lvl;
+    transient BufferedImage spawnMap;
     String lvlPath;
+    String spawnMapPath;
     int drawCycle = 0;
 
     Random gen = new Random();
 
-    public Room(GameEngine ge, String LevelImage, int x, int y) {
+    public Room(GameEngine ge, String levelImage, String spawnImage, int x, int y) {
         world = ge;
         for (int i = 0; i < tileArry.length; i++) {
             tileArry[i] = new FloorTile(1);
@@ -38,8 +41,10 @@ public class Room implements Serializable{
             int spr = UsefulSnippets.generateRandomNumber(2);
             en_arry.add(new Enemy(world, world.spritePaths[spr]));
         }
-        lvl = UsefulSnippets.loadImage(LevelImage);
-        lvlPath = LevelImage;
+        lvl = UsefulSnippets.loadImage(levelImage);
+        spawnMap = UsefulSnippets.loadImage(spawnImage);
+        lvlPath = levelImage;
+        spawnMapPath = spawnImage;
         this.xNum = x;
         this.yNum = y;
         this.numEnemies = gen.nextInt(3) + 2;
@@ -48,6 +53,7 @@ public class Room implements Serializable{
 
     public final void loadLevel() {
         lvl.getRGB(0, 0, width, height, tiles, 0, width);
+        spawnMap.getRGB(0, 0, width, height, spawnTiles, 0, width);
         for (int i = 0; i < lvl.getWidth(); i++) {
             for (int j = 0; j < lvl.getHeight(); j++) {
 
@@ -79,8 +85,8 @@ public class Room implements Serializable{
                 if (tiles[i + j * width] == 0xFF6b3d00) {
                     tileArry[i + j * width].setTile(9); //Rock
                 }
-                if (tiles[i + j * width] == 0xFFff0096) {
-                    tileArry[i + j * width].setTile(10); //Spawn
+                if (spawnTiles[i + j * width] == 0xFFff0096) {
+                    tileArry[i + j * width].isSpawn = true; //Spawn
                 }
             }
         }
@@ -189,7 +195,7 @@ public class Room implements Serializable{
     }
 
     public void draw(Graphics g) {
-
+        //You are entering switch hell
         for (int i = 0; i < lvl.getWidth(); i++) {
             for (int j = 0; j < lvl.getHeight(); j++) {
                 g.setColor(tileArry[i + j * width].getColor());
@@ -314,6 +320,9 @@ public class Room implements Serializable{
                         break;
 
                 }
+                if (tileArry[i + j * width].isSpawn){
+                    g.drawImage(world.spritesTex[0][10], i * 50, j * 50, null);
+                }
 //                if (SettingsProperties.debugModeG == true) {
 //                    g.setColor(Color.yellow);
 //                    g.fill3DRect((world.pl.tileLocX) * 50, (world.pl.tileLocY) * 50, 50, 50, true);
@@ -344,5 +353,6 @@ public class Room implements Serializable{
     
     public void loadResources(){
         lvl = UsefulSnippets.loadImage(lvlPath);
+        spawnMap = UsefulSnippets.loadImage(spawnMapPath);
     }
 }

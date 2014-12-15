@@ -25,7 +25,7 @@ public class QuestionPanel implements Serializable {
     int xButtonsOffset = 209;
     String currentNumber = "";
     boolean answerRight = false;
-    final int delaySet = 50;
+    final int delaySet = 25;
     final int answerLength = 3;
 
     public QuestionPanel(GameEngine ge) {

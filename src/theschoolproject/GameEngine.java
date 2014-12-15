@@ -12,6 +12,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import static java.lang.Thread.sleep;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -20,10 +21,6 @@ import theschoolproject.Input.Keyboard;
 import theschoolproject.Input.Mouse;
 import theschoolproject.Objects.GuiButton;
 
-/**
- *
- * @author Arthur
- */
 public class GameEngine implements Serializable {
 
     GamePanel gp;
@@ -115,13 +112,19 @@ public class GameEngine implements Serializable {
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         loadRooms();
-        UsefulSnippets.playMusic("/resources/Game_Opening_screen.wav");
+        UsefulSnippets.playMusic("/resources/game.wav");
     }
 
     public void loadRooms() {
+        DecimalFormat form = new DecimalFormat("00");
         for (int x = 0; x < rooms.length; x++) {
             for (int y = 0; y < rooms[0].length; y++) {
-                rooms[x][y] = new Room(this, "/resources/Levels/Level_0" + (rand.nextInt(7) + 1) + "_" + (stratum) + ".png", x, y);
+                String mapNum = form.format(rand.nextInt(11) + 1);
+                rooms[x][y] = new Room(this,
+                        "/resources/Levels/Level_" + mapNum + "_" + stratum + ".png",
+                        "/resources/Levels/Spawn_Map_" + mapNum + ".png",
+                        x,
+                        y);
             }
         }
     }
@@ -206,8 +209,9 @@ public class GameEngine implements Serializable {
         }
     }
 
-    public void loadResources() {
+    public void loadResources() {  //Called on loadstate
         pl.loadResources("/resources/pl_sprite.png");
+        font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         spritesTex = new BufferedImage[texCols][texRows];
         spriteSheetTex = UsefulSnippets.loadImage(spritePaths[2]);
         for (int i = 0; i < texCols; i++) {

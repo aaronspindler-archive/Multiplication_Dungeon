@@ -4,11 +4,12 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.Random;
 
-public class FloorTile implements Serializable{
+public class FloorTile implements Serializable {
 
     int metaData = 0;
     int metaType = 0;
     int metaDir = -1;
+    boolean isSpawn = false;
     //Tile metadata:
     //0 = none
     //1 = water
@@ -20,7 +21,6 @@ public class FloorTile implements Serializable{
     //2 = 2 sides (corner)
     //3 = 2 sides (opposite)
     //4 = 3 side
-    
     //Tile metaDir (rotation/ orientation, relative to spritesheet):
     //0 = up
     //1 = left
@@ -40,7 +40,7 @@ public class FloorTile implements Serializable{
     //Tile 7 = Moss
     //Tile 8 = Grass
     //Tile 9 = Rock
-    //Tile 10 = Spawn
+    //Tile 10 = ???
 
     public FloorTile(int id) {
         this.TILE_ID = id;
