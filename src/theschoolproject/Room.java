@@ -1,6 +1,5 @@
-package theschoolproject; //THis will be the dungeon room, 16x11 = 176 tiles
+package theschoolproject;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
