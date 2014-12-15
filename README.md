@@ -14,7 +14,7 @@ TODO:
 - [x] Controls - Arthur
 - [ ] GUI/menu - Matt
 - [x] Multiplication Equation Generation - Aaron ~~Tyler~~  
-- [ ] Savestates (we will use JSON) - Aaron
+- [x] Savestates (we will use JSON) - Aaron
 - [ ] Documentation - Aaron
 - [ ] Highscore List - Aaron
   - [ ] Global MySQL Highscore List - Aaron
