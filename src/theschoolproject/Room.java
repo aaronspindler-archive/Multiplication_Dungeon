@@ -61,7 +61,7 @@ public class Room implements Serializable {
                 }
                 if (tiles[i + j * width] == 0xFF000000) {
                     tileArry[i + j * width].setTile(2); //Floor
-                    tileArry[i + j * width].metaData = UsefulSnippets.generateRandomNumber(3);
+                    tileArry[i + j * width].metaElement = UsefulSnippets.generateRandomNumber(3);
                 }
                 if (tiles[i + j * width] == 0xFF532F00) {
                     tileArry[i + j * width].setTile(3); //Door
@@ -96,72 +96,100 @@ public class Room implements Serializable {
                 if (tileArry[i + j * width].TILE_ID == 2) {
                     //Sides
                     if (tileArry[i + (j + 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 0;
+                        tileArry[i + j * width].metaElement = 1;
                         tileArry[i + j * width].metaDir = 0;
                     }
                     if (tileArry[i + (j - 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 0;
+                        tileArry[i + j * width].metaElement = 1;
                         tileArry[i + j * width].metaDir = 2;
                     }
                     if (tileArry[(i + 1) + j * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 0;
+                        tileArry[i + j * width].metaElement = 1;
                         tileArry[i + j * width].metaDir = 1;
                     }
                     if (tileArry[(i - 1) + j * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 0;
+                        tileArry[i + j * width].metaElement = 1;
                         tileArry[i + j * width].metaDir = 3;
                     }
                     //Corners
                     if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 0;
                     }
                     if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 1;
                     }
                     if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j - 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 2;
                     }
                     if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j - 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaData = 1;
+                        tileArry[i + j * width].metaElement = 2;
+                        tileArry[i + j * width].metaDir = 3;
+                    }
+
+                    //Opposites
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaElement = 3;
+                        tileArry[i + j * width].metaDir = 0;
+                    }
+                    if (tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaElement = 3;
+                        tileArry[i + j * width].metaDir = 1;
+                    }
+
+                    //3 Sides (dead end)
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaElement = 4;
+                        tileArry[i + j * width].metaDir = 0;
+                    }
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaElement = 4;
+                        tileArry[i + j * width].metaDir = 1;
+                    }
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j - 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaElement = 4;
+                        tileArry[i + j * width].metaDir = 2;
+                    }
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {
+                        tileArry[i + j * width].metaElement = 4;
                         tileArry[i + j * width].metaDir = 3;
                     }
 
                     //Lava 
                     //Sides
                     if (tileArry[i + (j + 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaData = 2;
+                        tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 0;
                     }
                     if (tileArry[i + (j - 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaData = 2;
+                        tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 2;
                     }
                     if (tileArry[(i + 1) + j * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaData = 2;
+                        tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 1;
                     }
                     if (tileArry[(i - 1) + j * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaData = 2;
+                        tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 3;
                     }
                     //Corners
                     if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j + 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaData = 3;
+                        tileArry[i + j * width].metaElement = 3;
                         tileArry[i + j * width].metaDir = 0;
                     }
                     if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j + 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaData = 3;
+                        tileArry[i + j * width].metaElement = 3;
                         tileArry[i + j * width].metaDir = 1;
                     }
                     if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j - 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaData = 3;
+                        tileArry[i + j * width].metaElement = 3;
                         tileArry[i + j * width].metaDir = 2;
                     }
                     if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j - 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaData = 3;
+                        tileArry[i + j * width].metaElement = 3;
                         tileArry[i + j * width].metaDir = 3;
                     }
 
@@ -204,13 +232,13 @@ public class Room implements Serializable {
                         g.drawImage(world.spritesTex[0][0], i * 50, j * 50, null); //Test tile
                         break;
                     case 1:
-                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][1], i * 50, j * 50, null);  //Wall tile
+                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][1], i * 50, j * 50, null);  //Wall tile
                         break;
                     case 2:
                         if (tileArry[i + j * width].metaDir == -1) {
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][2], i * 50, j * 50, null);
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][2], i * 50, j * 50, null);
                         } else {
-                            switch (tileArry[i + j * width].metaData) {
+                            switch (tileArry[i + j * width].metaElement) {
                                 case 0:
                                     switch (tileArry[i + j * width].metaDir) {
                                         case 0:
@@ -230,7 +258,7 @@ public class Room implements Serializable {
                                 case 1:
                                     switch (tileArry[i + j * width].metaDir) {
                                         case 0:
-                                            g.drawImage(world.spritesTex[3][4], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[13][4], i * 50, j * 50, null);
                                             break;
                                         case 1:
                                             g.drawImage(world.spritesTex[12][4], i * 50, j * 50, null);
@@ -261,7 +289,7 @@ public class Room implements Serializable {
                                 case 3:
                                     switch (tileArry[i + j * width].metaDir) {
                                         case 0:
-                                            g.drawImage(world.spritesTex[3][6], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[13][6], i * 50, j * 50, null);
                                             break;
                                         case 1:
                                             g.drawImage(world.spritesTex[12][6], i * 50, j * 50, null);
@@ -278,43 +306,43 @@ public class Room implements Serializable {
                         }
                         break;
                     case 3:
-                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][3], i * 50, j * 50, null);  //Door tile
+                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][3], i * 50, j * 50, null);  //Door tile
                         break;
                     case 4:
                         drawCycle++;
                         if (drawCycle > 10) {
-                            tileArry[i + j * width].metaData = UsefulSnippets.generateRandomNumber(3);
+                            tileArry[i + j * width].metaElement = UsefulSnippets.generateRandomNumber(3);
                             drawCycle = 0;
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][4], i * 50, j * 50, null);
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][4], i * 50, j * 50, null);
                         } else {
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][4], i * 50, j * 50, null);
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][4], i * 50, j * 50, null);
                         }
                         break;
                     case 5:
-                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][5], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][5], i * 50, j * 50, null);
                         break;
                     case 6:
                         drawCycle++;
                         if (drawCycle > 10) {
-                            tileArry[i + j * width].metaData = UsefulSnippets.generateRandomNumber(3);
+                            tileArry[i + j * width].metaElement = UsefulSnippets.generateRandomNumber(3);
                             drawCycle = 0;
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][6], i * 50, j * 50, null);
                         } else {
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][6], i * 50, j * 50, null);
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][6], i * 50, j * 50, null);
                         }
                         break;
                     case 7:
-                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][7], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][7], i * 50, j * 50, null);
                         break;
                     case 8:
-                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaData][7], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][7], i * 50, j * 50, null);
                         break;
                     case 9:
-                        g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaData][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaElement][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
                         g.drawImage(world.spritesTex[0][9], i * 50, j * 50, null);
                         break;
                     case 10:
-                        g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaData][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaElement][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
                         g.drawImage(world.spritesTex[0][10], i * 50, j * 50, null);
                         break;
 

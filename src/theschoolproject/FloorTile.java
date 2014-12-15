@@ -6,21 +6,20 @@ import java.util.Random;
 
 public class FloorTile implements Serializable {
 
-    int metaData = 0;
-    int metaType = 0;
+    int metaElement = 0;
     int metaDir = -1;
     boolean isSpawn = false;
-    //Tile metadata:
+    //Tile metaElement:
     //0 = none
-    //1 = water
-    //2 = lava
+    //1 = Water (1side)
+    //2 = Water (2sidesC)
+    //3 = Water (2sidesO)
+    //4 = Water (3sides)
+    //5 = Lava (1side)
+    //6 = Lava (2sideC)
+    //7 = Lava (2sideO)
+    //8 = Lava (3side)
 
-    //Tile metaType:
-    //0 = none
-    //1 = 1 side
-    //2 = 2 sides (corner)
-    //3 = 2 sides (opposite)
-    //4 = 3 side
     //Tile metaDir (rotation/ orientation, relative to spritesheet):
     //0 = up
     //1 = left
@@ -90,7 +89,7 @@ public class FloorTile implements Serializable {
     }
 
     public void setMetadata(int i) {
-        metaData = i;
+        metaElement = i;
     }
 
     public Color getColor() {
