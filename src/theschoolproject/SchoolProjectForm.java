@@ -7,8 +7,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import resources.SettingsProperties;
 
 public class SchoolProjectForm extends javax.swing.JFrame {
@@ -147,21 +153,38 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public void saveState() {
-        long millis;
-        long currMillis = System.currentTimeMillis();
-        System.out.println("saving state");
-        GameEngine gecopy = gamePanel.ge;
+        FileWriter fw = null;
         try {
-            FileOutputStream fout = new FileOutputStream("saveState.dat");
-            ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(gecopy);
-            oos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            long millis;
+            long currMillis = System.currentTimeMillis();
+            System.out.println("saving state");
+            GameEngine gecopy = gamePanel.ge;
+            try {
+                FileOutputStream fout = new FileOutputStream("saveState.dat");
+                ObjectOutputStream oos = new ObjectOutputStream(fout);
+                oos.writeObject(gecopy);
+                oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            long endMillis = System.currentTimeMillis();
+            millis = endMillis - currMillis;
+            System.out.println("save completed (" + millis + " milliseconds)");
+            File md5f = new File("saveState_md5.dat");
+            fw = new FileWriter(md5f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(md5Hash(new File("saveState.dat")));
+            bw.close();
+            //MD5 checksum, for integrity verification on transport
+        } catch (IOException ex) {
+            Logger.getLogger(SchoolProjectForm.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(SchoolProjectForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        long endMillis = System.currentTimeMillis();
-        millis = endMillis - currMillis;
-        System.out.println("save completed (" + millis + " milliseconds)");
     }
 
     public void loadState() {
@@ -169,7 +192,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         long millis;
         long currMillis = System.currentTimeMillis();
         System.out.println("loading state");
-                try {
+        try {
             FileInputStream fin = new FileInputStream("saveState.dat");
             ObjectInputStream ois = new ObjectInputStream(fin);
             gamePanel.ge = (GameEngine) ois.readObject();
@@ -183,7 +206,37 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         millis = endMillis - currMillis;
         System.out.println("load completed (" + millis + " milliseconds)");
         gamePanel.reloadEngine();
+    }
 
+    public String md5Hash(File f) {
+        String output = "";
+        try {
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            InputStream is = new FileInputStream(f);
+            byte[] head = new byte[8192];
+            int read = 0;
+            try {
+                while ((read = is.read(head)) > 0) {
+                    digest.update(head, 0, read);
+                }
+                byte[] md5sum = digest.digest();
+                BigInteger bigInt = new BigInteger(1, md5sum);
+                output = bigInt.toString(16);
+                System.out.println("MD5 hash: " + output);
+                return output;
+            } catch (IOException e) {
+                throw new RuntimeException("MD5 hash failed", e);
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    throw new RuntimeException("Input stream close failure", e);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return output;
     }
 
     public static void main(String args[]) {
