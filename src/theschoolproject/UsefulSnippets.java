@@ -12,7 +12,6 @@ import java.io.Serializable;
 import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
