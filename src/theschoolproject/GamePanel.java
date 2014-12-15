@@ -3,26 +3,13 @@ package theschoolproject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.LayoutManager;
-import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
 import static java.lang.Thread.sleep;
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-import theschoolproject.Input.Keyboard;
-import theschoolproject.Input.Mouse;
-import theschoolproject.Objects.GuiButton;
-import java.awt.Font;
 import java.awt.RenderingHints;
-import java.io.Serializable;
 import resources.SettingsProperties;
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
 
 public class GamePanel extends JPanel {
 

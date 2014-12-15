@@ -1,6 +1,5 @@
-package theschoolproject; //THis will be the dungeon room, 16x11 = 176 tiles
+package theschoolproject;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import resources.SettingsProperties;
 
-public class Room implements Serializable{
+public class Room implements Serializable {
 
     int width = 17;
     int height = 13;
@@ -320,7 +319,7 @@ public class Room implements Serializable{
                         break;
 
                 }
-                if (tileArry[i + j * width].isSpawn){
+                if (tileArry[i + j * width].isSpawn) {
                     g.drawImage(world.spritesTex[0][10], i * 50, j * 50, null);
                 }
 //                if (SettingsProperties.debugModeG == true) {
@@ -350,8 +349,8 @@ public class Room implements Serializable{
             }
         }
     }
-    
-    public void loadResources(){
+
+    public void loadResources() {
         lvl = UsefulSnippets.loadImage(lvlPath);
         spawnMap = UsefulSnippets.loadImage(spawnMapPath);
     }

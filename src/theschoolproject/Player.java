@@ -3,7 +3,7 @@ package theschoolproject;
 import java.io.Serializable;
 import theschoolproject.Input.Keyboard;
 
-public class Player extends Entity implements Serializable{
+public class Player extends Entity implements Serializable {
 
     Keyboard keys;
     int lives;
@@ -75,14 +75,14 @@ public class Player extends Entity implements Serializable{
 //                dBlock = false;
             }
         }
-        if (this.yLocFeet > 625 && world.currentRoomY < world.rooms.length-1) {
+        if (this.yLocFeet > 625 && world.currentRoomY < world.rooms.length - 1) {
             nextRoom(2);
             if (world.transitionProg > 0) {
                 this.xLoc = 400;
                 this.yLoc = 50;
             }
         }
-        if (this.xLocFeet > 825 && world.currentRoomX < world.rooms[0].length-1) {
+        if (this.xLocFeet > 825 && world.currentRoomX < world.rooms[0].length - 1) {
             nextRoom(1);
             if (world.transitionProg > 0) {
                 this.xLoc = 50;

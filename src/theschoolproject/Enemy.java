@@ -2,7 +2,7 @@ package theschoolproject;
 
 import java.io.Serializable;
 
-public class Enemy extends Entity implements Serializable{
+public class Enemy extends Entity implements Serializable {
 
     int mode = 0; // 0 - random walk, 1 - player targeting
     int type = 0; // value ranges from 0-5, increasing in strength/ difficulty
