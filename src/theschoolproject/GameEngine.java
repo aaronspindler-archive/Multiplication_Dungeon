@@ -110,7 +110,7 @@ public class GameEngine implements Serializable {
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         loadRooms();
-        UsefulSnippets.playMusic("/resources/game.wav");
+        UsefulSnippets.playMusic("/resources/game.mp3");
     }
 
     public void loadRooms() {
