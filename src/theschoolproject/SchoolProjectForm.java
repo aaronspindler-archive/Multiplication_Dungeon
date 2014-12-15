@@ -1,7 +1,6 @@
 package theschoolproject;
 
 import javax.swing.UIManager;
-import flexjson.JSONSerializer;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,9 +17,6 @@ import java.util.logging.Logger;
 import resources.SettingsProperties;
 
 public class SchoolProjectForm extends javax.swing.JFrame {
-
-    //Variables
-    JSONSerializer jSerial = new JSONSerializer();
 
     public SchoolProjectForm() {
         initComponents();
