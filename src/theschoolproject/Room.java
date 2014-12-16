@@ -94,105 +94,134 @@ public class Room implements Serializable {
         for (int i = 1; i < lvl.getWidth() - 1; i++) {
             for (int j = 1; j < lvl.getHeight() - 1; j++) {
                 if (tileArry[i + j * width].TILE_ID == 2) {
+                    
+                    //Water
                     //Sides
-                    if (tileArry[i + (j + 1) * width].TILE_ID == 4) {
+                    if (tileArry[i + (j - 1) * width].TILE_ID == 4) {  //up
                         tileArry[i + j * width].metaElement = 1;
                         tileArry[i + j * width].metaDir = 0;
                     }
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 4) {
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaDir = 2;
-                    }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 4) {
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 4) {  //right
                         tileArry[i + j * width].metaElement = 1;
                         tileArry[i + j * width].metaDir = 1;
                     }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4) {
+                    if (tileArry[i + (j + 1) * width].TILE_ID == 4) {  //down
+                        tileArry[i + j * width].metaElement = 1;
+                        tileArry[i + j * width].metaDir = 2;
+                    }
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4) {  //left
                         tileArry[i + j * width].metaElement = 1;
                         tileArry[i + j * width].metaDir = 3;
                     }
                     //Corners
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4) {
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4) {  //up + left
                         tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 0;
                     }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4) {
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4) {  //up + right
                         tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 1;
                     }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j - 1) * width].TILE_ID == 4) {
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4) {  //down + right
                         tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 2;
                     }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j - 1) * width].TILE_ID == 4) {
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4) {  //down + left
                         tileArry[i + j * width].metaElement = 2;
                         tileArry[i + j * width].metaDir = 3;
                     }
 
                     //Opposites
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {
+                    if (tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4) {  //up/down
                         tileArry[i + j * width].metaElement = 3;
                         tileArry[i + j * width].metaDir = 0;
                     }
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4) {
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {  //left/right
                         tileArry[i + j * width].metaElement = 3;
                         tileArry[i + j * width].metaDir = 1;
                     }
 
                     //3 Sides (dead end)
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4) {
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {  //n
                         tileArry[i + j * width].metaElement = 4;
                         tileArry[i + j * width].metaDir = 0;
                     }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4) {
+                    if (tileArry[(j - 1) + j * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {  //backwards "C"
                         tileArry[i + j * width].metaElement = 4;
                         tileArry[i + j * width].metaDir = 1;
                     }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j - 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {  //U
                         tileArry[i + j * width].metaElement = 4;
                         tileArry[i + j * width].metaDir = 2;
                     }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i) + (j + 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {
+                    if (tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4 && tileArry[(i - 1) + j * width].TILE_ID == 4) {  //C
                         tileArry[i + j * width].metaElement = 4;
                         tileArry[i + j * width].metaDir = 3;
                     }
 
                     //Lava 
                     //Sides
-                    if (tileArry[i + (j + 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaElement = 2;
+                    if (tileArry[i + (j - 1) * width].TILE_ID == 6) {  //up
+                        tileArry[i + j * width].metaElement = 5;
                         tileArry[i + j * width].metaDir = 0;
                     }
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaElement = 2;
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 6) {  //right
+                        tileArry[i + j * width].metaElement = 5;
                         tileArry[i + j * width].metaDir = 2;
                     }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaElement = 2;
+                    if (tileArry[i + (j + 1) * width].TILE_ID == 6) {  //down
+                        tileArry[i + j * width].metaElement = 5;
                         tileArry[i + j * width].metaDir = 1;
                     }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaElement = 2;
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 6) {  //left
+                        tileArry[i + j * width].metaElement = 5;
                         tileArry[i + j * width].metaDir = 3;
                     }
                     //Corners
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j + 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaElement = 3;
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[i + (j - 1) * width].TILE_ID == 6) {  //up + left
+                        tileArry[i + j * width].metaElement = 6;
                         tileArry[i + j * width].metaDir = 0;
                     }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j + 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaElement = 3;
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[i + (j - 1) * width].TILE_ID == 6) {  //up + right
+                        tileArry[i + j * width].metaElement = 6;
                         tileArry[i + j * width].metaDir = 1;
                     }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j - 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaElement = 3;
+                    if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6) {  //down + right
+                        tileArry[i + j * width].metaElement = 6;
                         tileArry[i + j * width].metaDir = 2;
                     }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[(i) + (j - 1) * width].TILE_ID == 6) {
-                        tileArry[i + j * width].metaElement = 3;
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6) {  //down + left
+                        tileArry[i + j * width].metaElement = 6;
                         tileArry[i + j * width].metaDir = 3;
                     }
 
+                    //Opposites
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[(i + 1) + j * width].TILE_ID == 6) {  //left/right
+                        tileArry[i + j * width].metaElement = 7;
+                        tileArry[i + j * width].metaDir = 0;
+                    }
+                    if (tileArry[i + (j - 1) * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6) {  //up/down
+                        tileArry[i + j * width].metaElement = 7;
+                        tileArry[i + j * width].metaDir = 1;
+                    }
+
+                    //3 Sides (dead end)
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[i + (j - 1) * width].TILE_ID == 6 && tileArry[(i + 1) + j * width].TILE_ID == 6) {  //n
+                        tileArry[i + j * width].metaElement = 8;
+                        tileArry[i + j * width].metaDir = 0;
+                    }
+                    if (tileArry[(j - 1) + j * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6 && tileArry[(i + 1) + j * width].TILE_ID == 6) {  //backwards "C"
+                        tileArry[i + j * width].metaElement = 8;
+                        tileArry[i + j * width].metaDir = 1;
+                    }
+                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[i + (j - 1) * width].TILE_ID == 6 && tileArry[(i + 1) + j * width].TILE_ID == 6) {  //U
+                        tileArry[i + j * width].metaElement = 8;
+                        tileArry[i + j * width].metaDir = 2;
+                    }
+                    if (tileArry[i + (j - 1) * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6 && tileArry[(i - 1) + j * width].TILE_ID == 6) {  //C
+                        tileArry[i + j * width].metaElement = 8;
+                        tileArry[i + j * width].metaDir = 3;
+                    }
                 }
 
             }
@@ -239,68 +268,44 @@ public class Room implements Serializable {
                             g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][2], i * 50, j * 50, null);
                         } else {
                             switch (tileArry[i + j * width].metaElement) {
-                                case 0:
+                                case 1:
                                     switch (tileArry[i + j * width].metaDir) {
                                         case 0:
-                                            g.drawImage(world.spritesTex[9][4], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[6][4], i * 50, j * 50, null);
                                             break;
                                         case 1:
                                             g.drawImage(world.spritesTex[8][4], i * 50, j * 50, null);
                                             break;
                                         case 2:
-                                            g.drawImage(world.spritesTex[6][4], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[9][4], i * 50, j * 50, null);
                                             break;
                                         case 3:
                                             g.drawImage(world.spritesTex[7][4], i * 50, j * 50, null);
                                             break;
                                     }
                                     break;
-                                case 1:
-                                    switch (tileArry[i + j * width].metaDir) {
-                                        case 0:
-                                            g.drawImage(world.spritesTex[13][4], i * 50, j * 50, null);
-                                            break;
-                                        case 1:
-                                            g.drawImage(world.spritesTex[12][4], i * 50, j * 50, null);
-                                            break;
-                                        case 2:
-                                            g.drawImage(world.spritesTex[10][4], i * 50, j * 50, null);
-                                            break;
-                                        case 3:
-                                            g.drawImage(world.spritesTex[11][4], i * 50, j * 50, null);
-                                            break;
-                                    }
                                 case 2:
                                     switch (tileArry[i + j * width].metaDir) {
                                         case 0:
-                                            g.drawImage(world.spritesTex[9][6], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[10][4], i * 50, j * 50, null);
                                             break;
                                         case 1:
-                                            g.drawImage(world.spritesTex[8][6], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[11][4], i * 50, j * 50, null);
                                             break;
                                         case 2:
-                                            g.drawImage(world.spritesTex[6][6], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[12][4], i * 50, j * 50, null);
                                             break;
                                         case 3:
-                                            g.drawImage(world.spritesTex[7][6], i * 50, j * 50, null);
+                                            g.drawImage(world.spritesTex[3][4], i * 50, j * 50, null);
                                             break;
                                     }
                                     break;
                                 case 3:
-                                    switch (tileArry[i + j * width].metaDir) {
-                                        case 0:
-                                            g.drawImage(world.spritesTex[13][6], i * 50, j * 50, null);
-                                            break;
-                                        case 1:
-                                            g.drawImage(world.spritesTex[12][6], i * 50, j * 50, null);
-                                            break;
-                                        case 2:
-                                            g.drawImage(world.spritesTex[10][6], i * 50, j * 50, null);
-                                            break;
-                                        case 3:
-                                            g.drawImage(world.spritesTex[11][6], i * 50, j * 50, null);
-                                            break;
-                                    }
+                                    g.drawImage(world.spritesTex[4 + tileArry[i + j * width].metaDir][4], i * 50, j * 50, null);
+                                    break;
+                                case 4:
+                                    g.drawImage(world.spritesTex[13 + tileArry[i + j * width].metaDir][4], i * 50, j * 50, null);
+                                    break;
                             }
                             break;
                         }
@@ -328,7 +333,44 @@ public class Room implements Serializable {
                             drawCycle = 0;
                             g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][6], i * 50, j * 50, null);
                         } else {
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][6], i * 50, j * 50, null);
+                            switch (tileArry[i + j * width].metaElement) {
+                                case 5:
+                                    switch (tileArry[i + j * width].metaDir) {
+                                        case 0:
+                                            g.drawImage(world.spritesTex[6][6], i * 50, j * 50, null);
+                                            break;
+                                        case 1:
+                                            g.drawImage(world.spritesTex[8][6], i * 50, j * 50, null);
+                                            break;
+                                        case 2:
+                                            g.drawImage(world.spritesTex[9][6], i * 50, j * 50, null);
+                                            break;
+                                        case 3:
+                                            g.drawImage(world.spritesTex[7][6], i * 50, j * 50, null);
+                                            break;
+                                    }
+                                    break;
+                                case 6:
+                                    switch (tileArry[i + j * width].metaDir) {
+                                        case 0:
+                                            g.drawImage(world.spritesTex[10][6], i * 50, j * 50, null);
+                                            break;
+                                        case 1:
+                                            g.drawImage(world.spritesTex[11][6], i * 50, j * 50, null);
+                                            break;
+                                        case 2:
+                                            g.drawImage(world.spritesTex[12][6], i * 50, j * 50, null);
+                                            break;
+                                        case 3:
+                                            g.drawImage(world.spritesTex[3][6], i * 50, j * 50, null);
+                                            break;
+                                    }
+                                case 7:
+                                    g.drawImage(world.spritesTex[4 + tileArry[i + j * width].metaDir][6], i * 50, j * 50, null);
+                                    break;
+                                case 8:
+                                    g.drawImage(world.spritesTex[13 + tileArry[i + j * width].metaDir][6], i * 50, j * 50, null);
+                            }
                         }
                         break;
                     case 7:

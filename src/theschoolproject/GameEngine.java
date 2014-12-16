@@ -9,12 +9,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import static java.lang.Thread.sleep;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import theschoolproject.Input.Keyboard;
 import theschoolproject.Input.Mouse;
 import theschoolproject.Objects.GuiButton;
@@ -34,7 +31,7 @@ public class GameEngine implements Serializable {
     public boolean gameScreen = false;
     public boolean battle = false;
     public boolean frozen = false;
-    public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
+    public int stratum = 2; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
 
     //=========================
     //      Input Variables
@@ -79,8 +76,8 @@ public class GameEngine implements Serializable {
 
     transient BufferedImage spriteSheetTex;
     transient BufferedImage[][] spritesTex;
-    int texRows = 12;
-    int texCols = 16;
+    int texRows = 20;
+    int texCols = 20;
     int texD = 50;
 
     public GameEngine(GamePanel gp) {
@@ -110,7 +107,7 @@ public class GameEngine implements Serializable {
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         loadRooms();
-        UsefulSnippets.playMusic("/resources/game.wav");
+        UsefulSnippets.playMusic("/resources/game.mp3");
     }
 
     public void loadRooms() {

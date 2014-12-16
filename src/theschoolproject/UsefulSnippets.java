@@ -1,7 +1,6 @@
 package theschoolproject;
 
 import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -12,7 +11,6 @@ import java.io.Serializable;
 import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,12 +19,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import resources.SettingsProperties;
-import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
 
-public class UsefulSnippets implements Serializable{
+public class UsefulSnippets implements Serializable {
 
     public static void openWebpage(String urlString) {
         try {

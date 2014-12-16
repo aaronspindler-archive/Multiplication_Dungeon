@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package theschoolproject.Objects;
 
 import java.awt.Graphics;
@@ -10,11 +5,10 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import resources.SettingsProperties;
 import theschoolproject.GameEngine;
-import theschoolproject.GamePanel;
 import theschoolproject.Input.Mouse;
 import theschoolproject.UsefulSnippets;
 
-public class GuiButton implements Serializable{
+public class GuiButton implements Serializable {
 
     transient BufferedImage unPressed;
     transient BufferedImage Pressed;
@@ -86,8 +80,8 @@ public class GuiButton implements Serializable{
             }
         }
     }
-    
-    public void loadResources(){
+
+    public void loadResources() {
         unPressed = UsefulSnippets.loadImage(btn_unp);
         Pressed = UsefulSnippets.loadImage(btn_pr);
     }
