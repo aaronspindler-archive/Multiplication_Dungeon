@@ -1,10 +1,12 @@
 package theschoolproject;
 
+import java.io.BufferedReader;
 import javax.swing.UIManager;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -184,24 +186,39 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }
 
     public void loadState() {
-        gamePanel.lt.listening = false;
-        long millis;
-        long currMillis = System.currentTimeMillis();
-        System.out.println("loading state");
+        FileReader fr = null;
+        System.out.print("Verifying file md5 hash...");
         try {
-            FileInputStream fin = new FileInputStream("saveState.dat");
-            ObjectInputStream ois = new ObjectInputStream(fin);
-            gamePanel.ge = (GameEngine) ois.readObject();
-            ois.close();
+            File md5f = new File("saveState_md5.dat");
+            fr = new FileReader(md5f);
+            BufferedReader br = new BufferedReader(fr);
+            String md5Check = br.readLine();
+            if (md5Check.equals(md5Hash(new File("saveState.dat")))) {
+                gamePanel.lt.listening = false;
+                System.out.println("OK, reloading state");
+                long millis;
+                long currMillis = System.currentTimeMillis();
+                try {
+                    FileInputStream fin = new FileInputStream("saveState.dat");
+                    ObjectInputStream ois = new ObjectInputStream(fin);
+                    gamePanel.ge = (GameEngine) ois.readObject();
+                    ois.close();
 
-            gamePanel.ge.loadResources();
+                    gamePanel.ge.loadResources();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                long endMillis = System.currentTimeMillis();
+                millis = endMillis - currMillis;
+                System.out.println("load completed (" + millis + " milliseconds)");
+                gamePanel.reloadEngine();
+            } else {
+                System.out.print("md5 check failed");
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.print("md5 check failed");
         }
-        long endMillis = System.currentTimeMillis();
-        millis = endMillis - currMillis;
-        System.out.println("load completed (" + millis + " milliseconds)");
-        gamePanel.reloadEngine();
     }
 
     public String md5Hash(File f) {
