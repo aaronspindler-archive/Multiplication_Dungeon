@@ -1,12 +1,12 @@
-package theschoolproject.Objects;
+package game.Objects;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import resources.SettingsProperties;
-import theschoolproject.GameEngine;
-import theschoolproject.Input.Mouse;
-import theschoolproject.UsefulSnippets;
+import game.GameEngine;
+import game.Input.Mouse;
+import game.UsefulSnippets;
 
 public class GuiButton implements Serializable {
 

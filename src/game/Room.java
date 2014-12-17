@@ -1,4 +1,4 @@
-package theschoolproject;
+package game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -37,7 +37,7 @@ public class Room implements Serializable {
             tileArry[i] = new FloorTile(1);
         }
         for (int l = 0; l < numEnemies; l++) {
-            int spr = UsefulSnippets.generateRandomNumber(2);
+            int spr = UsefulSnippets.generateRandomNumber(3);
             en_arry.add(new Enemy(world, world.spritePaths[spr]));
         }
         lvl = UsefulSnippets.loadImage(levelImage);

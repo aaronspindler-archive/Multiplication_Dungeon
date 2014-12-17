@@ -1,9 +1,9 @@
-package theschoolproject.Input;
+package game.Input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
-import theschoolproject.GameEngine;
+import game.GameEngine;
 
 public class Keyboard implements KeyListener, Serializable {
 

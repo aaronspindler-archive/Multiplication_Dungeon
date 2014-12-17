@@ -1,7 +1,7 @@
-package theschoolproject;
+package game;
 
 import java.io.Serializable;
-import theschoolproject.Input.Keyboard;
+import game.Input.Keyboard;
 
 public class Player extends Entity implements Serializable {
 

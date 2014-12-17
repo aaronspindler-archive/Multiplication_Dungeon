@@ -1,10 +1,10 @@
-package theschoolproject.Input;
+package game.Input;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.Serializable;
-import theschoolproject.GameEngine;
+import game.GameEngine;
 
 public class Mouse implements MouseListener, MouseMotionListener, Serializable {
 

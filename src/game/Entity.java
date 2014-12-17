@@ -1,9 +1,9 @@
-package theschoolproject;
+package game;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-import theschoolproject.Input.Keyboard;
+import game.Input.Keyboard;
 import java.awt.Rectangle;
 import java.io.Serializable;
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package theschoolproject;
+package game;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,9 +12,9 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
-import theschoolproject.Input.Keyboard;
-import theschoolproject.Input.Mouse;
-import theschoolproject.Objects.GuiButton;
+import game.Input.Keyboard;
+import game.Input.Mouse;
+import game.Objects.GuiButton;
 
 public class GameEngine implements Serializable {
 
@@ -31,7 +31,7 @@ public class GameEngine implements Serializable {
     public boolean gameScreen = false;
     public boolean battle = false;
     public boolean frozen = false;
-    public int stratum = 2; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
+    public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
 
     //=========================
     //      Input Variables
@@ -42,7 +42,7 @@ public class GameEngine implements Serializable {
     //=========================
     //    Player Variables
     //=========================
-    String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png", "/resources/textures.png"};
+    String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png", "/resources/en3_sprite.png","/resources/textures.png"};
     Player pl;
     HUD hud = new HUD(this); //heads up display
     int numEnemies = 5;
@@ -94,7 +94,7 @@ public class GameEngine implements Serializable {
             }
         }
         spritesTex = new BufferedImage[texCols][texRows];
-        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[2]);
+        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[spritePaths.length-1]);
         for (int i = 0; i < texCols; i++) {
             for (int j = 0; j < texRows; j++) {
                 spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
@@ -204,7 +204,7 @@ public class GameEngine implements Serializable {
         }
     }
 
-    public void loadResources() {  //Called on loadstate
+    public void loadResources() {  //Called on loadstate, reloads all transient resources into gameEngine
         pl.loadResources("/resources/pl_sprite.png");
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         spritesTex = new BufferedImage[texCols][texRows];

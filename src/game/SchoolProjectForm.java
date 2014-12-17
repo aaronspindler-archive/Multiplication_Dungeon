@@ -1,4 +1,4 @@
-package theschoolproject;
+package game;
 
 import java.io.BufferedReader;
 import javax.swing.UIManager;
@@ -36,7 +36,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jSpinner1 = new javax.swing.JSpinner();
-        gamePanel = new theschoolproject.GamePanel();
+        gamePanel = new game.GamePanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         saveStateBtn = new javax.swing.JMenuItem();
@@ -290,7 +290,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem documentationBtn;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private theschoolproject.GamePanel gamePanel;
+    private game.GamePanel gamePanel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JSpinner jSpinner1;

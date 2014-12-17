@@ -1,4 +1,4 @@
-package theschoolproject;
+package game;
 
 import com.mysql.jdbc.Connection;
 import java.awt.Desktop;
@@ -15,12 +15,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import resources.SettingsProperties;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class UsefulSnippets implements Serializable {
 
@@ -106,13 +107,10 @@ public class UsefulSnippets implements Serializable {
                 Thread sound;
                 sound = new Thread() {
                     public void run() {
-
-                        AudioPlayer MGP = AudioPlayer.player;
-                        AudioStream BGM;
                         try {
-                            BGM = new AudioStream((getClass().getResourceAsStream(fileLoc)));//enter the sound directory and name here
-                            AudioPlayer.player.start(BGM);
-                            sleep(BGM.getLength());
+                            Media mu = new Media(fileLoc);
+                            MediaPlayer mediaPlayer = new MediaPlayer(mu);
+                            mediaPlayer.play();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
