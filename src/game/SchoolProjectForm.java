@@ -203,7 +203,6 @@ public class SchoolProjectForm extends javax.swing.JFrame {
                     ObjectInputStream ois = new ObjectInputStream(fin);
                     gamePanel.ge = (GameEngine) ois.readObject();
                     ois.close();
-
                     gamePanel.ge.loadResources();
                 } catch (Exception e) {
                     e.printStackTrace();

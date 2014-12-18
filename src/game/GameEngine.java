@@ -42,7 +42,7 @@ public class GameEngine implements Serializable {
     //=========================
     //    Player Variables
     //=========================
-    String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png", "/resources/en3_sprite.png","/resources/textures.png"};
+    String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png", "/resources/en3_sprite.png", "/resources/textures.png"};
     Player pl;
     HUD hud = new HUD(this); //heads up display
     int numEnemies = 5;
@@ -94,7 +94,7 @@ public class GameEngine implements Serializable {
             }
         }
         spritesTex = new BufferedImage[texCols][texRows];
-        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[spritePaths.length-1]);
+        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[spritePaths.length - 1]);
         for (int i = 0; i < texCols; i++) {
             for (int j = 0; j < texRows; j++) {
                 spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
@@ -208,7 +208,7 @@ public class GameEngine implements Serializable {
         pl.loadResources("/resources/pl_sprite.png");
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         spritesTex = new BufferedImage[texCols][texRows];
-        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[2]);
+        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[spritePaths.length-1]);
         for (int i = 0; i < texCols; i++) {
             for (int j = 0; j < texRows; j++) {
                 spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
@@ -231,5 +231,4 @@ public class GameEngine implements Serializable {
             buttons.get(l).loadResources();
         }
     }
-
 }
