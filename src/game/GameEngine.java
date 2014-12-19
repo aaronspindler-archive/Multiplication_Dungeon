@@ -15,6 +15,8 @@ import java.util.Random;
 import game.Input.Keyboard;
 import game.Input.Mouse;
 import game.Objects.GuiButton;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class GameEngine implements Serializable {
 
@@ -27,11 +29,13 @@ public class GameEngine implements Serializable {
     //=========================
     //   Game State Variables
     //=========================
-    public boolean mainMenu = true;
+    public boolean intro = true;
+    public boolean mainMenu = false;
     public boolean gameScreen = false;
     public boolean battle = false;
     public boolean frozen = false;
     public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
+    public int introTime = 100;
 
     //=========================
     //      Input Variables
@@ -62,6 +66,9 @@ public class GameEngine implements Serializable {
     transient BufferedImage play_Glow;
     int AnimationTimer = 0;
     int ImageScroll = 0;
+    int loadingBarX = 0;
+    int loadingBarW = 0;
+    int loadingBarProg = 0;
     ArrayList<GuiButton> buttons = new ArrayList();
 
     //=========================
@@ -80,8 +87,12 @@ public class GameEngine implements Serializable {
     int texCols = 20;
     int texD = 50;
 
-    public GameEngine(GamePanel gp) {
-
+    //=============================
+    //=============================
+    //==========CONSTRUCTOR========
+    //=============================
+    public GameEngine(GamePanel g) {
+        gp = g;
         this.qt = new QuestionPanel(this);
         pl = new Player(this, "/resources/pl_sprite.png", keys);
         for (int w = 0; w < 17; w++) {
@@ -110,6 +121,7 @@ public class GameEngine implements Serializable {
         UsefulSnippets.playMusic("/resources/game.mp3");
     }
 
+    //=============================
     public void loadRooms() {
         DecimalFormat form = new DecimalFormat("00");
         for (int x = 0; x < rooms.length; x++) {
@@ -125,6 +137,9 @@ public class GameEngine implements Serializable {
     }
 
     public void tick() {
+        if (intro) {
+
+        }
         if (mainMenu) {
             if (AnimationTimer > 5) {
                 ImageScroll++;
@@ -208,7 +223,7 @@ public class GameEngine implements Serializable {
         pl.loadResources("/resources/pl_sprite.png");
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         spritesTex = new BufferedImage[texCols][texRows];
-        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[spritePaths.length-1]);
+        spriteSheetTex = UsefulSnippets.loadImage(spritePaths[spritePaths.length - 1]);
         for (int i = 0; i < texCols; i++) {
             for (int j = 0; j < texRows; j++) {
                 spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
