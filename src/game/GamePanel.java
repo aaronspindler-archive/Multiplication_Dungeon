@@ -1,6 +1,8 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import static java.lang.Math.abs;
@@ -9,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import java.awt.RenderingHints;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import resources.SettingsProperties;
 
 public class GamePanel extends JPanel {
@@ -57,6 +61,19 @@ public class GamePanel extends JPanel {
 
         ge.font = ge.font.deriveFont(26.0f);
         g.setFont(ge.font);
+
+        if (ge.intro) {
+            g.setColor(Color.GRAY);
+            g.fillRect(0, 0, 1000, 1000);
+            g.fillRect(ge.loadingBarProg, 20, 10, 10);
+            ge.loadingBarProg++;
+            g.fill3DRect(abs((int)(this.getWidth()*Math.sin(0.01*ge.loadingBarProg))), 0, (int)(this.getWidth()/2*Math.sin(0.02*ge.loadingBarProg-Math.PI)), 20, true);
+            if (ge.loadingBarProg > (2*(Math.PI/.01))){
+                ge.loadingBarProg = 0;
+                ge.intro = false;
+                ge.mainMenu = true;
+            }
+        }
 
         if (ge.mainMenu) {
             g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
