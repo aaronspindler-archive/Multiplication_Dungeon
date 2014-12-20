@@ -1,8 +1,6 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import static java.lang.Math.abs;
@@ -11,17 +9,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import java.awt.RenderingHints;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import resources.SettingsProperties;
 
 public class GamePanel extends JPanel {
 
-    public GameEngine ge = new GameEngine(this);
+    public GameEngine ge = new GameEngine();
     public GamePanel.ListenerThread lt;
     Thread th;
 
     public GamePanel() {
+        this.setLayout(null);
         this.setFocusable(true);
         this.addKeyListener(ge.keys);
         this.addMouseListener(ge.mouse);
@@ -65,10 +62,11 @@ public class GamePanel extends JPanel {
         if (ge.intro) {
             g.setColor(Color.GRAY);
             g.fillRect(0, 0, 1000, 1000);
+            g.setColor(Color.BLACK);
             g.fillRect(ge.loadingBarProg, 20, 10, 10);
             ge.loadingBarProg++;
-            g.fill3DRect(abs((int)(this.getWidth()*Math.sin(0.01*ge.loadingBarProg))), 0, (int)(this.getWidth()/2*Math.sin(0.02*ge.loadingBarProg-Math.PI)), 20, true);
-            if (ge.loadingBarProg > (2*(Math.PI/.01))){
+            g.fillRect(abs((int) (this.getWidth() * Math.sin(0.01 * ge.loadingBarProg))), 0, (int) (this.getWidth() / 2 * Math.sin(0.02 * ge.loadingBarProg - Math.PI)), 20);
+            if (ge.loadingBarProg > (2 * (Math.PI / .01))) {
                 ge.loadingBarProg = 0;
                 ge.intro = false;
                 ge.mainMenu = true;

@@ -15,9 +15,6 @@ import java.util.Random;
 import game.Input.Keyboard;
 import game.Input.Mouse;
 import game.Objects.GuiButton;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 public class GameEngine implements Serializable {
 
     GamePanel gp;
@@ -34,7 +31,7 @@ public class GameEngine implements Serializable {
     public boolean gameScreen = false;
     public boolean battle = false;
     public boolean frozen = false;
-    public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
+    public int stratum = 3; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
     public int introTime = 100;
 
     //=========================
@@ -91,8 +88,7 @@ public class GameEngine implements Serializable {
     //=============================
     //==========CONSTRUCTOR========
     //=============================
-    public GameEngine(GamePanel g) {
-        gp = g;
+    public GameEngine() {
         this.qt = new QuestionPanel(this);
         pl = new Player(this, "/resources/pl_sprite.png", keys);
         for (int w = 0; w < 17; w++) {
@@ -138,7 +134,7 @@ public class GameEngine implements Serializable {
 
     public void tick() {
         if (intro) {
-
+            
         }
         if (mainMenu) {
             if (AnimationTimer > 5) {
