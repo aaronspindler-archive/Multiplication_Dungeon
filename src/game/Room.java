@@ -350,6 +350,19 @@ public class Room implements Serializable {
                             }
                             break;
                         }
+
+                        if (tileArry[i + (j - 1) * width].TILE_ID != 2) {
+                            g.drawImage(world.spritesTex[3][0], i * 50, j * 50, null);
+                        }
+                        if (tileArry[(i + 1) + j * width].TILE_ID != 2) {
+                            g.drawImage(world.spritesTex[4][0], i * 50, j * 50, null);
+                        }
+                        if (tileArry[i + (j + 1) * width].TILE_ID != 2) {
+                            g.drawImage(world.spritesTex[5][0], i * 50, j * 50, null);
+                        }
+                        if (tileArry[(i - 1) + j * width].TILE_ID != 2) {
+                            g.drawImage(world.spritesTex[6][0], i * 50, j * 50, null);
+                        }
                         break;
                     case 3:
                         g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][3], i * 50, j * 50, null);  //Door tile

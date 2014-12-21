@@ -90,7 +90,7 @@ public class GameEngine implements Serializable {
     //=============================
     public GameEngine() {
         this.qt = new QuestionPanel(this);
-        pl = new Player(this, "/resources/pl_sprite.png", keys);
+        pl = new Player(this, "/resources/pl_fem.png", keys);
         for (int w = 0; w < 17; w++) {
             for (int h = 0; h < 15; h++) {
                 if (w == 0 || w == 16 || h == 0 || h == 12) {
@@ -216,7 +216,7 @@ public class GameEngine implements Serializable {
     }
 
     public void loadResources() {  //Called on loadstate, reloads all transient resources into gameEngine
-        pl.loadResources("/resources/pl_sprite.png");
+        pl.loadResources("/resources/pl_fem.png");
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         spritesTex = new BufferedImage[texCols][texRows];
         spriteSheetTex = UsefulSnippets.loadImage(spritePaths[spritePaths.length - 1]);
