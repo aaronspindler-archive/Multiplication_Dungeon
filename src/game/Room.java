@@ -281,10 +281,6 @@ public class Room implements Serializable {
     public void draw(Graphics g) {
         //You are entering switch hell
 
-        System.out.println(tileArry[13 + 5 * width].metaDir);
-        System.out.println(tileArry[13 + 5 * width].metaType);
-        System.out.println(tileArry[13 + 5 * width].metaElement);
-
         for (int i = 0; i < lvl.getWidth(); i++) {
             for (int j = 0; j < lvl.getHeight(); j++) {
                 g.setColor(tileArry[i + j * width].getColor());
@@ -348,19 +344,17 @@ public class Room implements Serializable {
                                     g.drawImage(world.spritesTex[13 + tileArry[i + j * width].metaDir][2], i * 50, j * 50, null);
                                     break;
                             }
-                            break;
                         }
-
-                        if (tileArry[i + (j - 1) * width].TILE_ID != 2) {
+                        if (tileArry[i + (j - 1) * width].TILE_ID != 2 && tileArry[i + (j - 1) * width].TILE_ID != 4 && tileArry[i + (j - 1) * width].TILE_ID != 6 && tileArry[i + (j - 1) * width].metaElement == 0) {
                             g.drawImage(world.spritesTex[3][0], i * 50, j * 50, null);
                         }
-                        if (tileArry[(i + 1) + j * width].TILE_ID != 2) {
+                        if (tileArry[(i + 1) + j * width].TILE_ID != 2 && tileArry[(i + 1) + j * width].TILE_ID != 4 && tileArry[(i + 1) + j * width].TILE_ID != 6 && tileArry[(i + 1) + j * width].metaElement == 0) {
                             g.drawImage(world.spritesTex[4][0], i * 50, j * 50, null);
                         }
-                        if (tileArry[i + (j + 1) * width].TILE_ID != 2) {
+                        if (tileArry[i + (j + 1) * width].TILE_ID != 2 && tileArry[i + (j + 1) * width].TILE_ID != 4 && tileArry[i + (j + 1) * width].TILE_ID != 6 && tileArry[i + (j + 1) * width].metaElement == 0) {
                             g.drawImage(world.spritesTex[5][0], i * 50, j * 50, null);
                         }
-                        if (tileArry[(i - 1) + j * width].TILE_ID != 2) {
+                        if (tileArry[(i - 1) + j * width].TILE_ID != 2 && tileArry[(i - 1) + j * width].TILE_ID != 4 && tileArry[(i - 1) + j * width].TILE_ID != 6 && tileArry[(i - 1) + j * width].metaElement == 0) {
                             g.drawImage(world.spritesTex[6][0], i * 50, j * 50, null);
                         }
                         break;
@@ -370,11 +364,11 @@ public class Room implements Serializable {
                     case 4:
                         drawCycle++;
                         if (drawCycle > 10) {
-                            tileArry[i + j * width].metaElement = UsefulSnippets.generateRandomNumber(3);
+                            tileArry[i + j * width].metaAnim = UsefulSnippets.generateRandomNumber(3);
                             drawCycle = 0;
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][4], i * 50, j * 50, null);
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaAnim][4], i * 50, j * 50, null);
                         } else {
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][4], i * 50, j * 50, null);
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaAnim][4], i * 50, j * 50, null);
                         }
                         break;
                     case 5:
@@ -383,11 +377,11 @@ public class Room implements Serializable {
                     case 6:
                         drawCycle++;
                         if (drawCycle > 10) {
-                            tileArry[i + j * width].metaElement = UsefulSnippets.generateRandomNumber(3);
+                            tileArry[i + j * width].metaAnim = UsefulSnippets.generateRandomNumber(3);
                             drawCycle = 0;
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][6], i * 50, j * 50, null);
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaAnim][6], i * 50, j * 50, null);
                         } else {
-                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][6], i * 50, j * 50, null);
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaAnim][6], i * 50, j * 50, null);
                         }
                         break;
                     case 7:

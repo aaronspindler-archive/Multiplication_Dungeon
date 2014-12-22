@@ -9,6 +9,7 @@ public class FloorTile implements Serializable {
     int metaElement = 0;
     int metaType = -1;
     int metaDir = -1;
+    int metaAnim = 0;
     boolean isSpawn = false;
     //Tile metaElement:
     //0 = none
