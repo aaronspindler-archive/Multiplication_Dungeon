@@ -20,6 +20,7 @@ public class Room implements Serializable {
     int[] tiles = new int[width * height];
     int[] spawnTiles = new int[width * height];
     FloorTile[] tileArry = new FloorTile[width * height];
+    int[] liquidTiles = {4, 6};  //Tiles that are special that need the connecting textures, i.e. water, lava
     GameEngine world;
     SettingsProperties props = new SettingsProperties();
 
@@ -94,164 +95,84 @@ public class Room implements Serializable {
         for (int i = 1; i < lvl.getWidth() - 1; i++) {
             for (int j = 1; j < lvl.getHeight() - 1; j++) {
                 if (tileArry[i + j * width].TILE_ID == 2) {
+                    for (int f = 0; f < liquidTiles.length; f++) {
+                        if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 1;
+                            tileArry[i + j * width].metaDir = 0;
+                        }
+                        if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //right
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 1;
+                            tileArry[i + j * width].metaDir = 1;
+                        }
+                        if (tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 1;
+                            tileArry[i + j * width].metaDir = 2;
+                        }
+                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f]) {  //left
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 1;
+                            tileArry[i + j * width].metaDir = 3;
+                        }
+                        //Corners
+                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up + left
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 2;
+                            tileArry[i + j * width].metaDir = 0;
+                        }
+                        if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up + right
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 2;
+                            tileArry[i + j * width].metaDir = 1;
+                        }
+                        if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down + right
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 2;
+                            tileArry[i + j * width].metaDir = 2;
+                        }
+                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down + left
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 2;
+                            tileArry[i + j * width].metaDir = 3;
+                        }
 
-                    //Water
-                    //Sides
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 4) {  //up
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 1;
-                        tileArry[i + j * width].metaDir = 0;
-                    }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 4) {  //right
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 1;
-                        tileArry[i + j * width].metaDir = 1;
-                    }
-                    if (tileArry[i + (j + 1) * width].TILE_ID == 4) {  //down
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 1;
-                        tileArry[i + j * width].metaDir = 2;
-                    }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4) {  //left
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 1;
-                        tileArry[i + j * width].metaDir = 3;
-                    }
-                    //Corners
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4) {  //up + left
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 2;
-                        tileArry[i + j * width].metaDir = 0;
-                    }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4) {  //up + right
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 2;
-                        tileArry[i + j * width].metaDir = 1;
-                    }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4) {  //down + right
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 2;
-                        tileArry[i + j * width].metaDir = 2;
-                    }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4) {  //down + left
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 2;
-                        tileArry[i + j * width].metaDir = 3;
-                    }
+                        //Opposites
+                        if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //up/down
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 3;
+                            tileArry[i + j * width].metaDir = 1;
+                        }
+                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //left/right
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 3;
+                            tileArry[i + j * width].metaDir = 0;
+                        }
 
-                    //Opposites
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4) {  //up/down
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 3;
-                        tileArry[i + j * width].metaDir = 0;
-                    }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {  //left/right
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 3;
-                        tileArry[i + j * width].metaDir = 1;
-                    }
-
-                    //3 Sides (dead end)
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {  //n
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 4;
-                        tileArry[i + j * width].metaDir = 0;
-                    }
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {  //backwards "C"
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 4;
-                        tileArry[i + j * width].metaDir = 1;
-                    }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 4 && tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[(i + 1) + j * width].TILE_ID == 4) {  //U
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 4;
-                        tileArry[i + j * width].metaDir = 2;
-                    }
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 4 && tileArry[i + (j + 1) * width].TILE_ID == 4 && tileArry[(i - 1) + j * width].TILE_ID == 4) {  //C
-                        tileArry[i + j * width].metaElement = 1;
-                        tileArry[i + j * width].metaType = 4;
-                        tileArry[i + j * width].metaDir = 3;
-                    }
-
-                    //Lava 
-                    //Sides
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 6) {  //up
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 1;
-                        tileArry[i + j * width].metaDir = 0;
-                    }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 6) {  //right
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 1;
-                        tileArry[i + j * width].metaDir = 1;
-                    }
-                    if (tileArry[i + (j + 1) * width].TILE_ID == 6) {  //down
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 1;
-                        tileArry[i + j * width].metaDir = 2;
-                    }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 6) {  //left
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 1;
-                        tileArry[i + j * width].metaDir = 3;
-                    }
-                    //Corners
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[i + (j - 1) * width].TILE_ID == 6) {  //up + left
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 2;
-                        tileArry[i + j * width].metaDir = 0;
-                    }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[i + (j - 1) * width].TILE_ID == 6) {  //up + right
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 2;
-                        tileArry[i + j * width].metaDir = 1;
-                    }
-                    if (tileArry[(i + 1) + j * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6) {  //down + right
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 2;
-                        tileArry[i + j * width].metaDir = 2;
-                    }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6) {  //down + left
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 2;
-                        tileArry[i + j * width].metaDir = 3;
-                    }
-
-                    //Opposites
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[(i + 1) + j * width].TILE_ID == 6) {  //left/right
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 3;
-                        tileArry[i + j * width].metaDir = 0;
-                    }
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6) {  //up/down
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 3;
-                        tileArry[i + j * width].metaDir = 1;
-                    }
-
-                    //3 Sides (dead end)
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[i + (j - 1) * width].TILE_ID == 6 && tileArry[(i + 1) + j * width].TILE_ID == 6) {  //n
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 4;
-                        tileArry[i + j * width].metaDir = 0;
-                    }
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6 && tileArry[(i + 1) + j * width].TILE_ID == 6) {  //backwards "C"
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 4;
-                        tileArry[i + j * width].metaDir = 1;
-                    }
-                    if (tileArry[(i - 1) + j * width].TILE_ID == 6 && tileArry[i + (j - 1) * width].TILE_ID == 6 && tileArry[(i + 1) + j * width].TILE_ID == 6) {  //U
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 4;
-                        tileArry[i + j * width].metaDir = 2;
-                    }
-                    if (tileArry[i + (j - 1) * width].TILE_ID == 6 && tileArry[i + (j + 1) * width].TILE_ID == 6 && tileArry[(i - 1) + j * width].TILE_ID == 6) {  //C
-                        tileArry[i + j * width].metaElement = 2;
-                        tileArry[i + j * width].metaType = 4;
-                        tileArry[i + j * width].metaDir = 3;
+                        //3 Sides (dead end)
+                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //n
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 4;
+                            tileArry[i + j * width].metaDir = 0;
+                        }
+                        if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //backwards "C"
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 4;
+                            tileArry[i + j * width].metaDir = 1;
+                        }
+                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //U
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 4;
+                            tileArry[i + j * width].metaDir = 2;
+                        }
+                        if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f]) {  //C
+                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaType = 4;
+                            tileArry[i + j * width].metaDir = 3;
+                        }
                     }
                 }
-
             }
         }
 
