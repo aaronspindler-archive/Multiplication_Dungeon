@@ -98,6 +98,25 @@ public class UsefulSnippets implements Serializable {
         }
         return connection;
     }
+    
+    public void addHighScore(String username, int score)
+    {
+        
+    }
+    
+    public int getNumScores()
+    {
+        int numScores = 0;
+        
+        return numScores;
+    }
+    
+    public String[][] getHighScoreList()
+    {
+        String[][] highScoreList = new String[getNumScores()][getNumScores()];
+        
+        return highScoreList;
+    }
 
     public static void playMusic(String fileLoc) {
         if (SettingsProperties.programSound == true) {
