@@ -19,6 +19,8 @@ public class Room implements Serializable {
 
     int[] tiles = new int[width * height];
     int[] spawnTiles = new int[width * height];
+    ArrayList<Integer> spawnCoordsX = new ArrayList();
+    ArrayList<Integer> spawnCoordsY = new ArrayList();
     FloorTile[] tileArry = new FloorTile[width * height];
     int[] liquidTiles = {4, 6};  //Tiles that are special that need the connecting textures, i.e. water, lava
     GameEngine world;
@@ -37,10 +39,6 @@ public class Room implements Serializable {
         for (int i = 0; i < tileArry.length; i++) {
             tileArry[i] = new FloorTile(1);
         }
-        for (int l = 0; l < numEnemies; l++) {
-            int spr = UsefulSnippets.generateRandomNumber(3);
-            en_arry.add(new Enemy(world, world.spritePaths[spr]));
-        }
         lvl = UsefulSnippets.loadImage(levelImage);
         spawnMap = UsefulSnippets.loadImage(spawnImage);
         lvlPath = levelImage;
@@ -49,6 +47,11 @@ public class Room implements Serializable {
         this.yNum = y;
         this.numEnemies = gen.nextInt(3) + 2;
         loadLevel();
+        for (int l = 0; l < numEnemies; l++) {
+            int spr = UsefulSnippets.generateRandomNumber(3);
+            int spawnInd = UsefulSnippets.generateRandomNumber(spawnCoordsX.size());
+            en_arry.add(new Enemy(world, world.spritePaths[spr], spawnCoordsX.get(spawnInd), spawnCoordsY.get(spawnInd)));
+        }
     }
 
     public final void loadLevel() {
@@ -87,8 +90,14 @@ public class Room implements Serializable {
                 }
                 if (spawnTiles[i + j * width] == 0xFFff0096) {
                     tileArry[i + j * width].isSpawn = true; //Spawn
+                    spawnCoordsX.add(i * 50);
+                    spawnCoordsY.add(j * 50);
                 }
             }
+        }
+        
+        if (xNum == world.rooms.length && yNum == world.rooms[0].length){
+            tileArry[(UsefulSnippets.generateRandomNumber(width))+(UsefulSnippets.generateRandomNumber(height))*width].setTile(10);
         }
 //
 //        System.out.println(tileArry[5 + 5 * width].TILE_ID);
@@ -97,77 +106,77 @@ public class Room implements Serializable {
                 if (tileArry[i + j * width].TILE_ID == 2) {
                     for (int f = 0; f < liquidTiles.length; f++) {
                         if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 1;
                             tileArry[i + j * width].metaDir = 0;
                         }
                         if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //right
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 1;
                             tileArry[i + j * width].metaDir = 1;
                         }
                         if (tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 1;
                             tileArry[i + j * width].metaDir = 2;
                         }
                         if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f]) {  //left
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 1;
                             tileArry[i + j * width].metaDir = 3;
                         }
                         //Corners
                         if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up + left
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 2;
                             tileArry[i + j * width].metaDir = 0;
                         }
                         if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up + right
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 2;
                             tileArry[i + j * width].metaDir = 1;
                         }
                         if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down + right
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 2;
                             tileArry[i + j * width].metaDir = 2;
                         }
                         if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down + left
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 2;
                             tileArry[i + j * width].metaDir = 3;
                         }
 
                         //Opposites
                         if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //up/down
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 3;
                             tileArry[i + j * width].metaDir = 1;
                         }
                         if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //left/right
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 3;
                             tileArry[i + j * width].metaDir = 0;
                         }
 
                         //3 Sides (dead end)
                         if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //n
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 4;
                             tileArry[i + j * width].metaDir = 0;
                         }
                         if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //backwards "C"
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 4;
                             tileArry[i + j * width].metaDir = 1;
                         }
                         if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //U
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 4;
                             tileArry[i + j * width].metaDir = 2;
                         }
                         if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f]) {  //C
-                            tileArry[i + j * width].metaElement = 1+f;
+                            tileArry[i + j * width].metaElement = 1 + f;
                             tileArry[i + j * width].metaType = 4;
                             tileArry[i + j * width].metaDir = 3;
                         }
@@ -309,7 +318,7 @@ public class Room implements Serializable {
                         g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][7], i * 50, j * 50, null);
                         break;
                     case 8:
-                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][7], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][8], i * 50, j * 50, null);
                         break;
                     case 9:
                         g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaElement][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
