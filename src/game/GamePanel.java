@@ -130,7 +130,7 @@ public class GamePanel extends JPanel {
                                 g.drawString("quad_0_U", 50, 50);
                             }
                             ge.pl.distToMove = abs(dy);
-                            ge.pl.orientation = 0;
+                             ge.pl.orientation = 0;
 
                         } else {
                             if (SettingsProperties.debugModeG == true) {

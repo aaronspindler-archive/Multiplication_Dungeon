@@ -53,7 +53,9 @@ public class Entity implements Serializable {
     }
 
     public void draw(Graphics2D g) {
+        g.drawImage(world.spritesTex[1][0], (int) xLoc+10, (int) yLoc+25, null);
         g.drawImage(sprites[orientation][animSeq[animCycle]], (int) xLoc, (int) yLoc, null);
+        
     }
 
     public void checkCollision() {

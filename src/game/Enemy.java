@@ -9,9 +9,11 @@ public class Enemy extends Entity implements Serializable {
     int pathDist = 0;
     int difficulty = 0;
 
-    public Enemy(GameEngine ge, String sp) {
+    public Enemy(GameEngine ge, String sp, int x, int y) {
         super(ge, sp);
         this.isMoving = true;
+        this.xLoc = x+25;
+        this.yLoc = y;
     }
 
     @Override
@@ -87,5 +89,4 @@ public class Enemy extends Entity implements Serializable {
     public void targetPlayer() {
 
     }
-
 }

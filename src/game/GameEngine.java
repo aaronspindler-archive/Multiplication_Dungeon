@@ -15,6 +15,8 @@ import java.util.Random;
 import game.Input.Keyboard;
 import game.Input.Mouse;
 import game.Objects.GuiButton;
+import java.awt.Color;
+
 public class GameEngine implements Serializable {
 
     GamePanel gp;
@@ -31,7 +33,7 @@ public class GameEngine implements Serializable {
     public boolean gameScreen = false;
     public boolean battle = false;
     public boolean frozen = false;
-    public int stratum = 3; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
+    public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
     public int introTime = 100;
 
     //=========================
@@ -134,7 +136,7 @@ public class GameEngine implements Serializable {
 
     public void tick() {
         if (intro) {
-            
+
         }
         if (mainMenu) {
             if (AnimationTimer > 5) {
@@ -155,6 +157,17 @@ public class GameEngine implements Serializable {
             pl.tick();
             for (int i = 0; i < rooms[currentRoomX][currentRoomY].en_arry.size(); i++) {
                 rooms[currentRoomX][currentRoomY].en_arry.get(i).tick();
+            }
+
+            if (currentRoomX == rooms.length - 1 && currentRoomY == rooms[0].length - 1) {
+                if ((pl.xLoc > rooms[currentRoomX][currentRoomY].trapDoorX) && (pl.xLoc < rooms[currentRoomX][currentRoomY].trapDoorX + 50) && (pl.yLoc > rooms[currentRoomX][currentRoomY].trapDoorY) && (pl.yLoc < rooms[currentRoomX][currentRoomY].trapDoorY + 50)) {
+                    frozen = true;
+                    transitioning = true;
+                    currentRoomX = 0;
+                    currentRoomY = 0;
+                    stratum++;
+                    loadRooms();
+                }
             }
         }
 
@@ -211,6 +224,9 @@ public class GameEngine implements Serializable {
             case 3:
                 g.fillRect(-transitionProg, 0, 1000, 800);
                 break;
+            case 4:
+                g.setColor(new Color(255, 255, 255, transitionProg % 255));
+                g.fillRect(0, 0, 1000, 1000);
 
         }
     }

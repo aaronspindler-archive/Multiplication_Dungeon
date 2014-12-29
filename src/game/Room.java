@@ -19,6 +19,10 @@ public class Room implements Serializable {
 
     int[] tiles = new int[width * height];
     int[] spawnTiles = new int[width * height];
+    
+    int trapDoorX;
+    int trapDoorY;
+    
     ArrayList<Integer> spawnCoordsX = new ArrayList();
     ArrayList<Integer> spawnCoordsY = new ArrayList();
     FloorTile[] tileArry = new FloorTile[width * height];
@@ -95,9 +99,11 @@ public class Room implements Serializable {
                 }
             }
         }
-        
-        if (xNum == world.rooms.length && yNum == world.rooms[0].length){
-            tileArry[(UsefulSnippets.generateRandomNumber(width))+(UsefulSnippets.generateRandomNumber(height))*width].setTile(10);
+
+        if (xNum == world.rooms.length - 1 && yNum == world.rooms[0].length - 1) {
+            trapDoorX = UsefulSnippets.generateRandomNumber(width);
+            trapDoorY = UsefulSnippets.generateRandomNumber(height);
+            tileArry[trapDoorX + trapDoorY * width].setTile(10);
         }
 //
 //        System.out.println(tileArry[5 + 5 * width].TILE_ID);
@@ -210,7 +216,6 @@ public class Room implements Serializable {
 
     public void draw(Graphics g) {
         //You are entering switch hell
-
         for (int i = 0; i < lvl.getWidth(); i++) {
             for (int j = 0; j < lvl.getHeight(); j++) {
                 g.setColor(tileArry[i + j * width].getColor());
@@ -326,13 +331,14 @@ public class Room implements Serializable {
                         break;
                     case 10:
                         g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaElement][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
-                        g.drawImage(world.spritesTex[0][10], i * 50, j * 50, null);
+                        g.drawImage(world.spritesTex[0][11], i * 50, j * 50, null);
                         break;
 
                 }
                 if (tileArry[i + j * width].isSpawn) {
                     g.drawImage(world.spritesTex[0][10], i * 50, j * 50, null);
                 }
+
 //                if (SettingsProperties.debugModeG == true) {
 //                    g.setColor(Color.yellow);
 //                    g.fill3DRect((world.pl.tileLocX) * 50, (world.pl.tileLocY) * 50, 50, 50, true);
