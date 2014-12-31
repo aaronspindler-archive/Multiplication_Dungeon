@@ -218,8 +218,8 @@ public class Room implements Serializable {
         //You are entering switch hell
         for (int i = 0; i < lvl.getWidth(); i++) {
             for (int j = 0; j < lvl.getHeight(); j++) {
-                g.setColor(tileArry[i + j * width].getColor());
-                g.fill3DRect(i * 50, j * 50, 50, 50, true);
+//                g.setColor(tileArry[i + j * width].getColor());
+//                g.fill3DRect(i * 50, j * 50, 50, 50, true);
                 switch (tileArry[i + j * width].TILE_ID) {
                     case 0:
                         g.drawImage(world.spritesTex[0][0], i * 50, j * 50, null); //Test tile
@@ -333,8 +333,8 @@ public class Room implements Serializable {
                         g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaElement][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
                         g.drawImage(world.spritesTex[0][11], i * 50, j * 50, null);
                         break;
-
                 }
+                
                 if (tileArry[i + j * width].isSpawn) {
                     g.drawImage(world.spritesTex[0][10], i * 50, j * 50, null);
                 }

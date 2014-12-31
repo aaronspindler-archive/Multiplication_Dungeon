@@ -16,8 +16,8 @@ public class Player extends Entity implements Serializable {
         super(ge, sp);
         keys = k;
 
-        this.xLoc = 100;
-        this.yLoc = 100;
+        this.xLoc = 400;
+        this.yLoc = 50;
     }
 
     @Override
@@ -35,22 +35,22 @@ public class Player extends Entity implements Serializable {
                 dTd = 99;
                 dTl = 99;
 
-                if (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid()) {
+                if (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[(this.tileLocX + 1) + this.tileLocY * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid()) {
                     this.rBlock = true;
                     dTr = ((50 * (this.tileLocX + 1))) - (int) this.xLocFeet;
                 }   //Right
 
-                if (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid()) {
+                if (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[(this.tileLocX - 1) + this.tileLocY * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid()) {
                     this.lBlock = true;
                     dTl = ((int) this.xLocFeet - (50 * (this.tileLocX)));
                 }   //Left
 
-                if (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid()) {
+                if (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[this.tileLocX + (this.tileLocY + 1) * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid()) {
                     this.dBlock = true;
                     dTd = ((50 * (this.tileLocY + 1))) - (int) this.yLocFeet;
                 }   //Up
 
-                if (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid()) {
+                if (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid()) {
                     this.uBlock = true;
                     dTu = ((int) this.yLocFeet - (50 * (this.tileLocY)));
                 }   //Down
@@ -66,33 +66,33 @@ public class Player extends Entity implements Serializable {
             checkCollision();
         }
 
-        if (this.yLocFeet < 40 && world.currentRoomY > 0) {
+        if (this.yLocFeet < 40 && ge.currentRoomY > 0) {
             nextRoom(0);
-            if (world.transitionProg > 0) {
+            if (ge.transitionProg > 0) {
                 this.xLoc = 400;
                 this.yLoc = 550;
 //                uBlock = false;
 //                dBlock = false;
             }
         }
-        if (this.yLocFeet > 625 && world.currentRoomY < world.rooms.length - 1) {
+        if (this.yLocFeet > 625 && ge.currentRoomY < ge.rooms.length - 1) {
             nextRoom(2);
-            if (world.transitionProg > 0) {
+            if (ge.transitionProg > 0) {
                 this.xLoc = 400;
                 this.yLoc = 50;
             }
         }
-        if (this.xLocFeet > 825 && world.currentRoomX < world.rooms[0].length - 1) {
+        if (this.xLocFeet > 825 && ge.currentRoomX < ge.rooms[0].length - 1) {
             nextRoom(1);
-            if (world.transitionProg > 0) {
+            if (ge.transitionProg > 0) {
                 this.xLoc = 50;
                 this.yLoc = 300;
                 rBlock = false;
             }
         }
-        if (this.xLocFeet < 40 && world.currentRoomX > 0) {
+        if (this.xLocFeet < 40 && ge.currentRoomX > 0) {
             nextRoom(3);
-            if (world.transitionProg > 0) {
+            if (ge.transitionProg > 0) {
                 this.xLoc = 750;
                 this.yLoc = 300;
                 lBlock = false;
@@ -165,30 +165,30 @@ public class Player extends Entity implements Serializable {
     }
 
     public void nextRoom(int i) {
-        world.transitioning = true;
+        ge.transitioning = true;
         switch (i) {
             case 0:
-                if (world.currentRoomY > 0 && world.transitionProg > 0) {
-                    world.currentRoomY--;
+                if (ge.currentRoomY > 0 && ge.transitionProg > 0) {
+                    ge.currentRoomY--;
                 }
                 break;
             case 1:
-                if (world.currentRoomX < world.rooms.length - 1 && world.transitionProg > 0) {
-                    world.currentRoomX++;
+                if (ge.currentRoomX < ge.rooms.length - 1 && ge.transitionProg > 0) {
+                    ge.currentRoomX++;
                 }
                 break;
             case 2:
-                if (world.currentRoomY < world.rooms[0].length - 1 && world.transitionProg > 0) {
-                    world.currentRoomY++;
+                if (ge.currentRoomY < ge.rooms[0].length - 1 && ge.transitionProg > 0) {
+                    ge.currentRoomY++;
                 }
                 break;
             case 3:
-                if (world.currentRoomX > 0 && world.transitionProg > 0) {
-                    world.currentRoomX--;
+                if (ge.currentRoomX > 0 && ge.transitionProg > 0) {
+                    ge.currentRoomX--;
                 }
                 break;
 
         }
-        world.transitionDir = i;
+        ge.transitionDir = i;
     }
 }

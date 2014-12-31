@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class Entity implements Serializable {
 
-    GameEngine world;
+    GameEngine ge;
 
     double xLoc = 0;
     double yLoc = 0;
@@ -44,8 +44,8 @@ public class Entity implements Serializable {
 
     Keyboard keys;
 
-    public Entity(GameEngine ge, String sp) {
-        world = ge;
+    public Entity(GameEngine world, String sp) {
+        ge = world;
         spritePath = sp;
         loadResources(spritePath);
         this.xLoc = rand.nextInt(400) + 50;
@@ -53,9 +53,9 @@ public class Entity implements Serializable {
     }
 
     public void draw(Graphics2D g) {
-        g.drawImage(world.spritesTex[1][0], (int) xLoc+10, (int) yLoc+25, null);
+        g.drawImage(ge.spritesTex[1][0], (int) xLoc + 10, (int) yLoc + 25, null);
         g.drawImage(sprites[orientation][animSeq[animCycle]], (int) xLoc, (int) yLoc, null);
-        
+
     }
 
     public void checkCollision() {
@@ -71,26 +71,26 @@ public class Entity implements Serializable {
             dTd = 99;
             dTl = 99;
 
-            if ((world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid())
-                    || (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX + 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isDoor())) {
+            if ((ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[(this.tileLocX + 1) + this.tileLocY * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid())
+                    || (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[(this.tileLocX + 1) + this.tileLocY * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isDoor())) {
                 this.rBlock = true;
                 dTr = ((50 * (this.tileLocX + 1))) - (int) this.xLocFeet;
             }   //Right
 
-            if ((world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid())
-                    || (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[(this.tileLocX - 1) + this.tileLocY * world.rooms[world.currentRoomX][world.currentRoomY].width].isDoor())) {
+            if ((ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[(this.tileLocX - 1) + this.tileLocY * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid())
+                    || (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[(this.tileLocX - 1) + this.tileLocY * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isDoor())) {
                 this.lBlock = true;
                 dTl = ((int) this.xLocFeet - (50 * (this.tileLocX)));
             }   //Left
 
-            if ((world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid())
-                    || (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY + 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isDoor())) {
+            if ((ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[this.tileLocX + (this.tileLocY + 1) * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid())
+                    || (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[this.tileLocX + (this.tileLocY + 1) * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isDoor())) {
                 this.dBlock = true;
                 dTd = ((50 * (this.tileLocY + 1))) - (int) this.yLocFeet;
             }   //Up
 
-            if ((world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isSolid())
-                    || (world.rooms[world.currentRoomX][world.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * world.rooms[world.currentRoomX][world.currentRoomY].width].isDoor())) {
+            if ((ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid())
+                    || (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isDoor())) {
                 this.uBlock = true;
                 dTu = ((int) this.yLocFeet - (50 * (this.tileLocY)));
             }   //Down
@@ -102,8 +102,9 @@ public class Entity implements Serializable {
     }
 
     public void tick() {
-
-        checkCollision();
+        if (!ge.frozen) {
+            checkCollision();
+        }
 
         if (isMoving && spd < 3) {
             spd = spd + 0.5;

@@ -12,13 +12,16 @@ public class Enemy extends Entity implements Serializable {
     public Enemy(GameEngine ge, String sp, int x, int y) {
         super(ge, sp);
         this.isMoving = true;
-        this.xLoc = x+25;
+        this.xLoc = x + 25;
         this.yLoc = y;
     }
 
     @Override
     public void tick() {
-        checkCollision();
+        if (!ge.transitioning) {
+            checkCollision();
+        }
+
         switch (mode) {
             case 0:
                 if (pathDist <= 0) {

@@ -63,6 +63,7 @@ public class GameEngine implements Serializable {
     transient BufferedImage menuTitle;
     transient BufferedImage play_NoGlow;
     transient BufferedImage play_Glow;
+
     int AnimationTimer = 0;
     int ImageScroll = 0;
     int loadingBarX = 0;
@@ -74,8 +75,8 @@ public class GameEngine implements Serializable {
     //      Room Variables
     //=========================
     public Room[][] rooms = new Room[5][5];
-    int currentRoomX = 0;
-    int currentRoomY = 0;
+    int currentRoomX = 4;
+    int currentRoomY = 4;
     int transitionProg = -1000;
     int transitionDir = -1;
     public boolean transitioning = false;
@@ -160,13 +161,10 @@ public class GameEngine implements Serializable {
             }
 
             if (currentRoomX == rooms.length - 1 && currentRoomY == rooms[0].length - 1) {
-                if ((pl.xLoc > rooms[currentRoomX][currentRoomY].trapDoorX) && (pl.xLoc < rooms[currentRoomX][currentRoomY].trapDoorX + 50) && (pl.yLoc > rooms[currentRoomX][currentRoomY].trapDoorY) && (pl.yLoc < rooms[currentRoomX][currentRoomY].trapDoorY + 50)) {
+                if ((pl.xLocFeet > rooms[currentRoomX][currentRoomY].trapDoorX * 50) && (pl.xLocFeet < rooms[currentRoomX][currentRoomY].trapDoorX * 50 + 50) && (pl.yLocFeet > rooms[currentRoomX][currentRoomY].trapDoorY * 50) && (pl.yLocFeet < rooms[currentRoomX][currentRoomY].trapDoorY * 50 + 50)) {
                     frozen = true;
+                    transitionDir = 4;
                     transitioning = true;
-                    currentRoomX = 0;
-                    currentRoomY = 0;
-                    stratum++;
-                    loadRooms();
                 }
             }
         }
@@ -175,7 +173,13 @@ public class GameEngine implements Serializable {
             qt.tick();
         }
 
-        if (transitionProg > 800) {
+        if (transitionProg == 0 && transitionDir == 4) {
+            currentRoomX = 0;
+            currentRoomY = 0;
+            stratum++;
+            loadRooms();
+        }
+        if (transitionProg > 1000) {
             transitioning = false;
             transitionProg = -1000;
             pl.graceTimer = 100;
@@ -211,6 +215,7 @@ public class GameEngine implements Serializable {
     }
 
     public void drawTransition(int i, Graphics g) {
+        frozen = true;
         switch (i) {
             case 0:
                 g.fillRect(0, -transitionProg, 1000, 800);
@@ -225,10 +230,17 @@ public class GameEngine implements Serializable {
                 g.fillRect(-transitionProg, 0, 1000, 800);
                 break;
             case 4:
-                g.setColor(new Color(255, 255, 255, transitionProg % 255));
+                int alpha = Math.min(255, Math.max(0, (int) (256 * (((-0.002 * (Math.pow((transitionProg + 1000) - 1000, 2))) / 2000) + 1))));
+                g.setColor(new Color(0, 0, 0, alpha));
                 g.fillRect(0, 0, 1000, 1000);
+                g.setFont(font);
+                g.setColor(new Color(50, 50, 50, alpha));
+                g.drawString("Stratum " + stratum, 105, 105);
+                g.setColor(new Color(255, 255 - (70 * stratum), 255 - (70 * stratum), alpha));
+                g.drawString("Stratum " + stratum, 100, 100);
 
         }
+        frozen = false;
     }
 
     public void loadResources() {  //Called on loadstate, reloads all transient resources into gameEngine
