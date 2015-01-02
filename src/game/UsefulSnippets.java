@@ -82,11 +82,11 @@ public class UsefulSnippets implements Serializable {
     }
 
     public static Connection makeMySQLConnection() {
-        String serverIP = ("192.168.1.1");
+        String serverIP = ("50.87.144.85");
         String port = ("3306");
-        String databaseName = ("Multiplication_Dungeon");
-        String username = ("xNovax");
-        String password = ("password");
+        String databaseName = ("xnovax_school");
+        String username = ("xnovax_school");
+        String password = ("Temp123@");
 
         String url = String.format("jdbc:mysql://%s:%s/%s", serverIP, port, databaseName);
         System.out.println(url);
