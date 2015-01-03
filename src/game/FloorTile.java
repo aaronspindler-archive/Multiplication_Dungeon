@@ -15,14 +15,13 @@ public class FloorTile implements Serializable {
     //0 = none
     //1 = Water
     //2 = Lava
-    
+
     //Tile metaType:
     //0 = none
     //1 = (1side)
     //2 = (2sidesC)
     //3 = (2sidesO)
     //4 = (3sides)
-
     //Tile metaDir (rotation/ orientation, relative to spritesheet):
     //0 = up
     //1 = left
@@ -85,6 +84,8 @@ public class FloorTile implements Serializable {
     public boolean isDoor() {
         switch (TILE_ID) {
             case 3:
+                return true;
+            case 10:
                 return true;
             default:
                 return false;

@@ -60,7 +60,7 @@ public class GamePanel extends JPanel {
         g.setFont(ge.font);
 
         if (ge.intro) {
-            g.setColor(Color.GRAY);
+            g.setColor(Color.WHITE);
             g.fillRect(0, 0, 1000, 1000);
             g.setColor(Color.BLACK);
             g.fillRect(ge.loadingBarProg, 20, 10, 10);

@@ -18,9 +18,7 @@ public class Enemy extends Entity implements Serializable {
 
     @Override
     public void tick() {
-        if (!ge.transitioning) {
             checkCollision();
-        }
 
         switch (mode) {
             case 0:
@@ -42,38 +40,9 @@ public class Enemy extends Entity implements Serializable {
                     if (animCycle > 2) {
                         animCycle = 0;
                     }
-
-                    switch (orientation) {
-                        case 0:
-                            if (!uBlock) {
-                                setLocation(this.getX(), this.getY() - spd);
-                            } else {
-                                this.orientation = rand.nextInt(3);
-                            }
-                            break;
-                        case 1:
-                            if (!rBlock) {
-                                setLocation(this.getX() + spd, this.getY());
-                            } else {
-                                this.orientation = rand.nextInt(3);
-                            }
-                            break;
-                        case 2:
-                            if (!dBlock) {
-                                setLocation(this.getX(), this.getY() + spd);
-                            } else {
-                                this.orientation = rand.nextInt(3);
-                            }
-                            break;
-                        case 3:
-                            if (!lBlock) {
-                                setLocation(this.getX() - spd, this.getY());
-                            } else {
-                                this.orientation = rand.nextInt(3);
-                            }
-                            break;
-                    }
+                    randomWalk();
                 }
+
                 this.setLocation(this.xLoc + rand.nextDouble() - .5, this.yLoc + rand.nextDouble() - .5);
 
                 break;
@@ -86,7 +55,36 @@ public class Enemy extends Entity implements Serializable {
     }
 
     public void randomWalk() {
-
+        switch (orientation) {
+            case 0:
+                if (!uBlock) {
+                    setLocation(this.getX(), this.getY() - spd);
+                } else {
+                    this.orientation = rand.nextInt(3);
+                }
+                break;
+            case 1:
+                if (!rBlock) {
+                    setLocation(this.getX() + spd, this.getY());
+                } else {
+                    this.orientation = rand.nextInt(3);
+                }
+                break;
+            case 2:
+                if (!dBlock) {
+                    setLocation(this.getX(), this.getY() + spd);
+                } else {
+                    this.orientation = rand.nextInt(3);
+                }
+                break;
+            case 3:
+                if (!lBlock) {
+                    setLocation(this.getX() - spd, this.getY());
+                } else {
+                    this.orientation = rand.nextInt(3);
+                }
+                break;
+        }
     }
 
     public void targetPlayer() {

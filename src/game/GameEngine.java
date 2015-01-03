@@ -16,6 +16,9 @@ import game.Input.Keyboard;
 import game.Input.Mouse;
 import game.Objects.GuiButton;
 import java.awt.Color;
+import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GameEngine implements Serializable {
 
@@ -24,6 +27,9 @@ public class GameEngine implements Serializable {
     Random rand = new Random();
     FloorTile[][] ft = new FloorTile[17][16];
     public Font font;
+    public Mp3Player mu;
+    public MusicThread mt;
+    Thread td;
 
     //=========================
     //   Game State Variables
@@ -92,6 +98,8 @@ public class GameEngine implements Serializable {
     //==========CONSTRUCTOR========
     //=============================
     public GameEngine() {
+        mt = new MusicThread();
+        td = new Thread(mt);
         this.qt = new QuestionPanel(this);
         pl = new Player(this, "/resources/pl_fem.png", keys);
         for (int w = 0; w < 17; w++) {
@@ -117,7 +125,9 @@ public class GameEngine implements Serializable {
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
         font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         loadRooms();
-        UsefulSnippets.playMusic("/resources/game.mp3");
+//        UsefulSnippets.playMusic("/resources/game.mp3");
+        mu = new Mp3Player("src/resources/game_opening.mp3");
+        td.start();
     }
 
     //=============================
@@ -270,4 +280,16 @@ public class GameEngine implements Serializable {
             buttons.get(l).loadResources();
         }
     }
+
+    public class MusicThread implements Runnable {
+
+        public boolean listening = true;   //listener is always listening
+
+        @Override
+        public void run() {
+            mu.play();
+        }
+
+    }
+
 }

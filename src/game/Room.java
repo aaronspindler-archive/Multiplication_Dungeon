@@ -19,14 +19,15 @@ public class Room implements Serializable {
 
     int[] tiles = new int[width * height];
     int[] spawnTiles = new int[width * height];
-    
+
     int trapDoorX;
     int trapDoorY;
-    
+
     ArrayList<Integer> spawnCoordsX = new ArrayList();
     ArrayList<Integer> spawnCoordsY = new ArrayList();
     FloorTile[] tileArry = new FloorTile[width * height];
     int[] liquidTiles = {4, 6};  //Tiles that are special that need the connecting textures, i.e. water, lava
+    int[] groundTiles = {2, 5};
     GameEngine world;
     SettingsProperties props = new SettingsProperties();
 
@@ -107,84 +108,86 @@ public class Room implements Serializable {
         }
 //
 //        System.out.println(tileArry[5 + 5 * width].TILE_ID);
-        for (int i = 1; i < lvl.getWidth() - 1; i++) {
-            for (int j = 1; j < lvl.getHeight() - 1; j++) {
-                if (tileArry[i + j * width].TILE_ID == 2) {
-                    for (int f = 0; f < liquidTiles.length; f++) {
-                        if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 1;
-                            tileArry[i + j * width].metaDir = 0;
-                        }
-                        if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //right
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 1;
-                            tileArry[i + j * width].metaDir = 1;
-                        }
-                        if (tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 1;
-                            tileArry[i + j * width].metaDir = 2;
-                        }
-                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f]) {  //left
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 1;
-                            tileArry[i + j * width].metaDir = 3;
-                        }
-                        //Corners
-                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up + left
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 2;
-                            tileArry[i + j * width].metaDir = 0;
-                        }
-                        if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up + right
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 2;
-                            tileArry[i + j * width].metaDir = 1;
-                        }
-                        if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down + right
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 2;
-                            tileArry[i + j * width].metaDir = 2;
-                        }
-                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down + left
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 2;
-                            tileArry[i + j * width].metaDir = 3;
-                        }
+        for (int v = 0; v < groundTiles.length; v++) {
+            for (int i = 1; i < lvl.getWidth() - 1; i++) {
+                for (int j = 1; j < lvl.getHeight() - 1; j++) {
+                    if (tileArry[i + j * width].TILE_ID == groundTiles[v]) {
+                        for (int f = 0; f < liquidTiles.length; f++) {
+                            if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 1;
+                                tileArry[i + j * width].metaDir = 0;
+                            }
+                            if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //right
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 1;
+                                tileArry[i + j * width].metaDir = 1;
+                            }
+                            if (tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 1;
+                                tileArry[i + j * width].metaDir = 2;
+                            }
+                            if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f]) {  //left
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 1;
+                                tileArry[i + j * width].metaDir = 3;
+                            }
+                            //Corners
+                            if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up + left
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 2;
+                                tileArry[i + j * width].metaDir = 0;
+                            }
+                            if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f]) {  //up + right
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 2;
+                                tileArry[i + j * width].metaDir = 1;
+                            }
+                            if (tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down + right
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 2;
+                                tileArry[i + j * width].metaDir = 2;
+                            }
+                            if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //down + left
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 2;
+                                tileArry[i + j * width].metaDir = 3;
+                            }
 
-                        //Opposites
-                        if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //up/down
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 3;
-                            tileArry[i + j * width].metaDir = 1;
-                        }
-                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //left/right
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 3;
-                            tileArry[i + j * width].metaDir = 0;
-                        }
+                            //Opposites
+                            if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f]) {  //up/down
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 3;
+                                tileArry[i + j * width].metaDir = 1;
+                            }
+                            if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //left/right
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 3;
+                                tileArry[i + j * width].metaDir = 0;
+                            }
 
-                        //3 Sides (dead end)
-                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //n
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 4;
-                            tileArry[i + j * width].metaDir = 0;
-                        }
-                        if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //backwards "C"
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 4;
-                            tileArry[i + j * width].metaDir = 1;
-                        }
-                        if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //U
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 4;
-                            tileArry[i + j * width].metaDir = 2;
-                        }
-                        if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f]) {  //C
-                            tileArry[i + j * width].metaElement = 1 + f;
-                            tileArry[i + j * width].metaType = 4;
-                            tileArry[i + j * width].metaDir = 3;
+                            //3 Sides (dead end)
+                            if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //n
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 4;
+                                tileArry[i + j * width].metaDir = 0;
+                            }
+                            if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //backwards "C"
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 4;
+                                tileArry[i + j * width].metaDir = 1;
+                            }
+                            if (tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f] && tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i + 1) + j * width].TILE_ID == liquidTiles[f]) {  //U
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 4;
+                                tileArry[i + j * width].metaDir = 2;
+                            }
+                            if (tileArry[i + (j - 1) * width].TILE_ID == liquidTiles[f] && tileArry[i + (j + 1) * width].TILE_ID == liquidTiles[f] && tileArry[(i - 1) + j * width].TILE_ID == liquidTiles[f]) {  //C
+                                tileArry[i + j * width].metaElement = 1 + f;
+                                tileArry[i + j * width].metaType = 4;
+                                tileArry[i + j * width].metaDir = 3;
+                            }
                         }
                     }
                 }
@@ -239,46 +242,7 @@ public class Room implements Serializable {
                                     g.drawImage(world.spritesTex[0][6], i * 50, j * 50, null);
                                     break;
                             }
-                            switch (tileArry[i + j * width].metaType) {
-                                case 1:
-                                    switch (tileArry[i + j * width].metaDir) {
-                                        case 0:
-                                            g.drawImage(world.spritesTex[6][2], i * 50, j * 50, null);
-                                            break;
-                                        case 1:
-                                            g.drawImage(world.spritesTex[8][2], i * 50, j * 50, null);
-                                            break;
-                                        case 2:
-                                            g.drawImage(world.spritesTex[9][2], i * 50, j * 50, null);
-                                            break;
-                                        case 3:
-                                            g.drawImage(world.spritesTex[7][2], i * 50, j * 50, null);
-                                            break;
-                                    }
-                                    break;
-                                case 2:
-                                    switch (tileArry[i + j * width].metaDir) {
-                                        case 0:
-                                            g.drawImage(world.spritesTex[10][2], i * 50, j * 50, null);
-                                            break;
-                                        case 1:
-                                            g.drawImage(world.spritesTex[11][2], i * 50, j * 50, null);
-                                            break;
-                                        case 2:
-                                            g.drawImage(world.spritesTex[12][2], i * 50, j * 50, null);
-                                            break;
-                                        case 3:
-                                            g.drawImage(world.spritesTex[3][2], i * 50, j * 50, null);
-                                            break;
-                                    }
-                                    break;
-                                case 3:
-                                    g.drawImage(world.spritesTex[5 - tileArry[i + j * width].metaDir][2], i * 50, j * 50, null);
-                                    break;
-                                case 4:
-                                    g.drawImage(world.spritesTex[13 + tileArry[i + j * width].metaDir][2], i * 50, j * 50, null);
-                                    break;
-                            }
+                            drawEdgedTiles(g, i, j, tileArry[i + j * width].metaType, tileArry[i + j * width].metaDir, 2);
                         }
                         if (tileArry[i + (j - 1) * width].TILE_ID != 2 && tileArry[i + (j - 1) * width].TILE_ID != 4 && tileArry[i + (j - 1) * width].TILE_ID != 6 && tileArry[i + (j - 1) * width].metaElement == 0) {
                             g.drawImage(world.spritesTex[3][0], i * 50, j * 50, null);
@@ -307,7 +271,31 @@ public class Room implements Serializable {
                         }
                         break;
                     case 5:
-                        g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][5], i * 50, j * 50, null);
+                        if (tileArry[i + j * width].metaDir == -1) {
+                            g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][5], i * 50, j * 50, null);
+                        } else {
+                            switch (tileArry[i + j * width].metaElement) {
+                                case 1:
+                                    g.drawImage(world.spritesTex[0][4], i * 50, j * 50, null);
+                                    break;
+                                case 2:
+                                    g.drawImage(world.spritesTex[0][6], i * 50, j * 50, null);
+                                    break;
+                            }
+                            drawEdgedTiles(g, i, j, tileArry[i + j * width].metaType, tileArry[i + j * width].metaDir, 5);
+                        }
+                        if (tileArry[i + (j - 1) * width].TILE_ID != 5 && tileArry[i + (j - 1) * width].TILE_ID != 4 && tileArry[i + (j - 1) * width].TILE_ID != 6 && tileArry[i + (j - 1) * width].metaElement == 0) {
+                            g.drawImage(world.spritesTex[3][0], i * 50, j * 50, null);
+                        }
+                        if (tileArry[(i + 1) + j * width].TILE_ID != 5 && tileArry[(i + 1) + j * width].TILE_ID != 4 && tileArry[(i + 1) + j * width].TILE_ID != 6 && tileArry[(i + 1) + j * width].metaElement == 0) {
+                            g.drawImage(world.spritesTex[4][0], i * 50, j * 50, null);
+                        }
+                        if (tileArry[i + (j + 1) * width].TILE_ID != 5 && tileArry[i + (j + 1) * width].TILE_ID != 4 && tileArry[i + (j + 1) * width].TILE_ID != 6 && tileArry[i + (j + 1) * width].metaElement == 0) {
+                            g.drawImage(world.spritesTex[5][0], i * 50, j * 50, null);
+                        }
+                        if (tileArry[(i - 1) + j * width].TILE_ID != 5 && tileArry[(i - 1) + j * width].TILE_ID != 4 && tileArry[(i - 1) + j * width].TILE_ID != 6 && tileArry[(i - 1) + j * width].metaElement == 0) {
+                            g.drawImage(world.spritesTex[6][0], i * 50, j * 50, null);
+                        }
                         break;
                     case 6:
                         drawCycle++;
@@ -334,7 +322,7 @@ public class Room implements Serializable {
                         g.drawImage(world.spritesTex[0][11], i * 50, j * 50, null);
                         break;
                 }
-                
+
                 if (tileArry[i + j * width].isSpawn) {
                     g.drawImage(world.spritesTex[0][10], i * 50, j * 50, null);
                 }
@@ -364,6 +352,49 @@ public class Room implements Serializable {
 //                    g.setColor(Color.white);
 //                }
             }
+        }
+    }
+
+    public void drawEdgedTiles(Graphics g, int x, int y, int metaType, int metaDir, int material) {
+        switch (metaType) {
+            case 1:
+                switch (metaDir) {
+                    case 0:
+                        g.drawImage(world.spritesTex[6][material], x * 50, y * 50, null);
+                        break;
+                    case 1:
+                        g.drawImage(world.spritesTex[8][material], x * 50, y * 50, null);
+                        break;
+                    case 2:
+                        g.drawImage(world.spritesTex[9][material], x * 50, y * 50, null);
+                        break;
+                    case 3:
+                        g.drawImage(world.spritesTex[7][material], x * 50, y * 50, null);
+                        break;
+                }
+                break;
+            case 2:
+                switch (metaDir) {
+                    case 0:
+                        g.drawImage(world.spritesTex[10][material], x * 50, y * 50, null);
+                        break;
+                    case 1:
+                        g.drawImage(world.spritesTex[11][material], x * 50, y * 50, null);
+                        break;
+                    case 2:
+                        g.drawImage(world.spritesTex[12][material], x * 50, y * 50, null);
+                        break;
+                    case 3:
+                        g.drawImage(world.spritesTex[3][material], x * 50, y * 50, null);
+                        break;
+                }
+                break;
+            case 3:
+                g.drawImage(world.spritesTex[5 - metaDir][material], x * 50, y * 50, null);
+                break;
+            case 4:
+                g.drawImage(world.spritesTex[13 + metaDir][material], x * 50, y * 50, null);
+                break;
         }
     }
 
