@@ -16,9 +16,6 @@ import game.Input.Keyboard;
 import game.Input.Mouse;
 import game.Objects.GuiButton;
 import java.awt.Color;
-import static java.lang.Thread.sleep;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GameEngine implements Serializable {
 
@@ -26,7 +23,7 @@ public class GameEngine implements Serializable {
 
     Random rand = new Random();
     FloorTile[][] ft = new FloorTile[17][16];
-    public Font font;
+    public Font[] font = new Font[2];
     public Mp3Player mu;
     public MusicThread mt;
     Thread td;
@@ -123,7 +120,8 @@ public class GameEngine implements Serializable {
         play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
         play_Glow = UsefulSnippets.loadImage("/resources/Play_WithGlow.png");
         buttons.add(new GuiButton("/resources/Play_NoGlow.png", "/resources/Play_WithGlow.png", "game", 350, 335, 500, 390, this));
-        font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
+        font[0] = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
+        font[1] = UsefulSnippets.loadFont("/resources/RODUSreg300.otf");
         loadRooms();
 //        UsefulSnippets.playMusic("/resources/game.mp3");
         mu = new Mp3Player("src/resources/game_opening.mp3");
@@ -243,7 +241,7 @@ public class GameEngine implements Serializable {
                 int alpha = Math.min(255, Math.max(0, (int) (256 * (((-0.002 * (Math.pow((transitionProg + 1000) - 1000, 2))) / 2000) + 1))));
                 g.setColor(new Color(0, 0, 0, alpha));
                 g.fillRect(0, 0, 1000, 1000);
-                g.setFont(font);
+                g.setFont(font[0]);
                 g.setColor(new Color(50, 50, 50, alpha));
                 g.drawString("Stratum " + stratum, 105, 105);
                 g.setColor(new Color(255, 255 - (70 * stratum), 255 - (70 * stratum), alpha));
@@ -255,7 +253,7 @@ public class GameEngine implements Serializable {
 
     public void loadResources() {  //Called on loadstate, reloads all transient resources into gameEngine
         pl.loadResources("/resources/pl_fem.png");
-        font = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
+        font[0] = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         spritesTex = new BufferedImage[texCols][texRows];
         spriteSheetTex = UsefulSnippets.loadImage(spritePaths[spritePaths.length - 1]);
         for (int i = 0; i < texCols; i++) {

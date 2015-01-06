@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import static java.lang.Math.abs;
@@ -56,11 +57,11 @@ public class GamePanel extends JPanel {
                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         }
 
-        ge.font = ge.font.deriveFont(26.0f);
-        g.setFont(ge.font);
+        ge.font[0] = ge.font[0].deriveFont(26.0f);
+        g.setFont(ge.font[0]);
 
         if (ge.intro) {
-            g.setColor(Color.WHITE);
+            g.setColor(Color.GRAY);
             g.fillRect(0, 0, 1000, 1000);
             g.setColor(Color.BLACK);
             g.fillRect(ge.loadingBarProg, 20, 10, 10);
@@ -71,6 +72,10 @@ public class GamePanel extends JPanel {
                 ge.intro = false;
                 ge.mainMenu = true;
             }
+            g.setColor(Color.ORANGE);
+            ge.font[1] = ge.font[1].deriveFont(Font.BOLD, (float) (15*((float)Math.sin(0.01*ge.loadingBarProg))+57));
+            g.setFont(ge.font[1]);
+            g.drawString("AWESOMESOFT", (int) Math.pow(0.99, ge.loadingBarProg - 800)+50, 200);
         }
 
         if (ge.mainMenu) {

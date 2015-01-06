@@ -8,7 +8,7 @@ public class SettingsProperties implements Serializable{
     public static String gameName = "Multiplication Dungeon";
     public static boolean programSound = true;
     public static boolean aaronsLaptop = true;
-    public static boolean antiAlisaingText = false;
+    public static boolean antiAlisaingText = true;
     public static boolean antiAlisaingGraphics = false;
     
 }

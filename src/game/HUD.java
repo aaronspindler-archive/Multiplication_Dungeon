@@ -19,7 +19,7 @@ public class HUD implements Serializable {
         g.drawString("Score: " + world.pl.score, 52, 52);
         g.drawString("Lives: " + world.pl.lives, 52, 102);
         g.setColor(Color.WHITE);
-        g.setFont(world.font);
+        g.setFont(world.font[0]);
         g.drawString("Score: " + world.pl.score, 50, 50);
         g.drawString("Lives: " + world.pl.lives, 50, 100);
 
