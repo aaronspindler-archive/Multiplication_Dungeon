@@ -38,6 +38,8 @@ public class GameEngine implements Serializable {
     public boolean frozen = false;
     public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
     public int introTime = 100;
+    public boolean incStratumTime = false;
+    public int transitionCoolDown = 1000;
 
     //=========================
     //      Input Variables
@@ -181,12 +183,18 @@ public class GameEngine implements Serializable {
             qt.tick();
         }
 
-        if (transitionProg == 0 && transitionDir == 4) {
+        if (transitionProg == 0 && transitionDir == 4 && transitionCoolDown == 0) {
             currentRoomX = 0;
             currentRoomY = 0;
             stratum++;
+            transitionCoolDown = 1000;
             loadRooms();
+        } else {
+            if (transitionCoolDown > 0){
+                transitionCoolDown--;
+            }
         }
+
         if (transitionProg > 1000) {
             transitioning = false;
             transitionProg = -1000;
