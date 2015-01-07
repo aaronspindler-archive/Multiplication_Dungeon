@@ -105,7 +105,6 @@ public class UsefulSnippets implements Serializable {
     public void addHighScore(String username, int score) {
         Connection connect = null;
         Statement statement = null;
-        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
@@ -116,7 +115,6 @@ public class UsefulSnippets implements Serializable {
 
             connect.close();
             statement.close();
-            preparedStatement.close();
             resultSet.close();
 
         } catch (Exception e) {
