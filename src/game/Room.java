@@ -214,7 +214,6 @@ public class Room implements Serializable {
             tileArry[212].TILE_ID = 1;
             tileArry[213].TILE_ID = 1;
         }
-
     }
 
     public void draw(Graphics g) {
@@ -262,7 +261,7 @@ public class Room implements Serializable {
                         break;
                     case 4:
                         drawCycle++;
-                        if (drawCycle > 10) {
+                        if (drawCycle > 30) {
                             tileArry[i + j * width].metaAnim = UsefulSnippets.generateRandomNumber(3);
                             drawCycle = 0;
                             g.drawImage(world.spritesTex[tileArry[i + j * width].metaAnim][4], i * 50, j * 50, null);
@@ -299,7 +298,7 @@ public class Room implements Serializable {
                         break;
                     case 6:
                         drawCycle++;
-                        if (drawCycle > 10) {
+                        if (drawCycle > 30) {
                             tileArry[i + j * width].metaAnim = UsefulSnippets.generateRandomNumber(3);
                             drawCycle = 0;
                             g.drawImage(world.spritesTex[tileArry[i + j * width].metaAnim][6], i * 50, j * 50, null);
@@ -314,7 +313,15 @@ public class Room implements Serializable {
                         g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][8], i * 50, j * 50, null);
                         break;
                     case 9:
-                        g.drawImage(world.spritesTex[tileArry[(i + j * width) + 1].metaElement][tileArry[(i + j * width) + 1].TILE_ID], i * 50, j * 50, null);
+                        switch (world.stratum){
+                            case 1: g.drawImage(world.spritesTex[1][2], i * 50, j * 50, null);
+                                break;
+                            case 2: g.drawImage(world.spritesTex[0][5], i * 50, j * 50, null);
+                                break;
+                            case 3: g.drawImage(world.spritesTex[1][2], i * 50, j * 50, null);
+                                break;                                
+                        }
+                        g.drawImage(world.spritesTex[2][0], i * 50, j * 50, null);
                         g.drawImage(world.spritesTex[0][9], i * 50, j * 50, null);
                         break;
                     case 10:

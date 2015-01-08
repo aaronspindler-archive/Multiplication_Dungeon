@@ -216,6 +216,11 @@ public class GamePanel extends JPanel {
             ge.qt.draw(g);
             ge.pl.graceTimer = 1000;
         }
+        
+        if (ge.paused){
+            g.setColor(new Color(180,180,180,150));
+            g.fill3DRect(200, 200, this.getHeight()-400, this.getWidth()-400, true);
+        }
 
         if (ge.transitioning) {
             if (ge.transitionDir == 4) {

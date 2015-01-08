@@ -36,6 +36,7 @@ public class GameEngine implements Serializable {
     public boolean gameScreen = false;
     public boolean battle = false;
     public boolean frozen = false;
+    public boolean paused = false;
     public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
     public int introTime = 100;
     public boolean incStratumTime = false;
@@ -136,6 +137,7 @@ public class GameEngine implements Serializable {
         for (int x = 0; x < rooms.length; x++) {
             for (int y = 0; y < rooms[0].length; y++) {
                 String mapNum = form.format(rand.nextInt(11) + 1);
+//                String mapNum = form.format(6);
                 rooms[x][y] = new Room(this,
                         "/resources/Levels/Level_" + mapNum + "_" + stratum + ".png",
                         "/resources/Levels/Spawn_Map_" + mapNum + ".png",
@@ -164,6 +166,15 @@ public class GameEngine implements Serializable {
                 buttons.get(i).tick();
             }
         }
+        
+        if (keys.isKeyDown("Escape") && gameScreen) {
+            if (!paused) {
+                paused = true;
+            } else {
+                paused = false;
+            }
+        }
+        
         if (gameScreen && !frozen) {
             pl.tick();
             for (int i = 0; i < rooms[currentRoomX][currentRoomY].en_arry.size(); i++) {
@@ -190,9 +201,13 @@ public class GameEngine implements Serializable {
             transitionCoolDown = 1000;
             loadRooms();
         } else {
-            if (transitionCoolDown > 0){
+            if (transitionCoolDown > 0) {
                 transitionCoolDown--;
             }
+        }
+
+        if (paused) {
+            frozen = true;
         }
 
         if (transitionProg > 1000) {

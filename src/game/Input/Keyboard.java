@@ -80,6 +80,9 @@ public class Keyboard implements KeyListener, Serializable {
                 if (s.equals("Backspace")) {
                     return keys[KeyEvent.VK_BACK_SPACE];
                 }
+                if (s.equals("Escape")){
+                    return keys[KeyEvent.VK_ESCAPE];
+                }
             }
         }
         return false;
