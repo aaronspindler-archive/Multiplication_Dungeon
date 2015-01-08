@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import javax.swing.UIManager;
 import java.io.BufferedWriter;
@@ -21,7 +22,7 @@ import resources.SettingsProperties;
 public class SchoolProjectForm extends javax.swing.JFrame {
 
     public SchoolProjectForm() {
-        this.setLocationRelativeTo(null);
+        //this.setLocationRelativeTo(null);
         initComponents();
         this.setSize(855, 700);
         if (SettingsProperties.aaronsLaptop == true) {
@@ -53,6 +54,11 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(null);
@@ -150,6 +156,14 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         loadState();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        int lebar = this.getWidth() / 2;
+        int tinggi = this.getHeight() / 2;
+        int x = (Toolkit.getDefaultToolkit().getScreenSize().width / 2) - lebar;
+        int y = (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - tinggi;
+        this.setLocation(x, y);
+    }//GEN-LAST:event_formWindowOpened
 
     public void saveState() {
         FileWriter fw = null;
