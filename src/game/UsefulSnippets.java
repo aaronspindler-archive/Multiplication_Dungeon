@@ -10,7 +10,10 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -98,23 +101,36 @@ public class UsefulSnippets implements Serializable {
         }
         return connection;
     }
-    
-    public void addHighScore(String username, int score)
-    {
-        
+
+    public void addHighScore(String username, int score) {
+        Connection connect = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connect = makeMySQLConnection();
+            statement = connect.createStatement();
+            String query = String.format("Insert into (Username, Score) values ('%s','%s');", username, score);
+            resultSet = statement.executeQuery(query);
+
+            connect.close();
+            statement.close();
+            resultSet.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
-    public int getNumScores()
-    {
+
+    public int getNumScores() {
         int numScores = 0;
-        
+
         return numScores;
     }
-    
-    public String[][] getHighScoreList()
-    {
+
+    public String[][] getHighScoreList() {
         String[][] highScoreList = new String[getNumScores()][getNumScores()];
-        
+
         return highScoreList;
     }
 
