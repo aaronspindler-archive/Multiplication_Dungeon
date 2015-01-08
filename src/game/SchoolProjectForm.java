@@ -21,6 +21,7 @@ import resources.SettingsProperties;
 public class SchoolProjectForm extends javax.swing.JFrame {
 
     public SchoolProjectForm() {
+        this.setLocationRelativeTo(null);
         initComponents();
         this.setSize(855, 700);
         if (SettingsProperties.aaronsLaptop == true) {
