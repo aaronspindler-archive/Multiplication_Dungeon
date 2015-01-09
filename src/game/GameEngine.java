@@ -58,7 +58,7 @@ public class GameEngine implements Serializable {
     int en_index; //the enemy that the player has collided with
 
     //=========================
-    //    Question Variables
+    //    Quest ion Variables
     //=========================
     public QuestionPanel qt;
 
@@ -137,7 +137,7 @@ public class GameEngine implements Serializable {
         for (int x = 0; x < rooms.length; x++) {
             for (int y = 0; y < rooms[0].length; y++) {
                 String mapNum = form.format(rand.nextInt(11) + 1);
-//                String mapNum = form.format(6);
+//                String mapNum = form.format(9);
                 rooms[x][y] = new Room(this,
                         "/resources/Levels/Level_" + mapNum + "_" + stratum + ".png",
                         "/resources/Levels/Spawn_Map_" + mapNum + ".png",

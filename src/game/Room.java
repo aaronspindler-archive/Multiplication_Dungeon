@@ -283,16 +283,16 @@ public class Room implements Serializable {
                             }
                             drawEdgedTiles(g, i, j, tileArry[i + j * width].metaType, tileArry[i + j * width].metaDir, 5);
                         }
-                        if (tileArry[i + (j - 1) * width].TILE_ID != 5 && tileArry[i + (j - 1) * width].TILE_ID != 4 && tileArry[i + (j - 1) * width].TILE_ID != 6 && tileArry[i + (j - 1) * width].metaElement == 0) {
+                        if (tileArry[i + (j - 1) * width].TILE_ID != 5 && tileArry[i + (j - 1) * width].TILE_ID != 4 && tileArry[i + (j - 1) * width].TILE_ID != 6) {
                             g.drawImage(world.spritesTex[3][0], i * 50, j * 50, null);
                         }
-                        if (tileArry[(i + 1) + j * width].TILE_ID != 5 && tileArry[(i + 1) + j * width].TILE_ID != 4 && tileArry[(i + 1) + j * width].TILE_ID != 6 && tileArry[(i + 1) + j * width].metaElement == 0) {
+                        if (tileArry[(i + 1) + j * width].TILE_ID != 5 && tileArry[(i + 1) + j * width].TILE_ID != 4 && tileArry[(i + 1) + j * width].TILE_ID != 6) {
                             g.drawImage(world.spritesTex[4][0], i * 50, j * 50, null);
                         }
-                        if (tileArry[i + (j + 1) * width].TILE_ID != 5 && tileArry[i + (j + 1) * width].TILE_ID != 4 && tileArry[i + (j + 1) * width].TILE_ID != 6 && tileArry[i + (j + 1) * width].metaElement == 0) {
+                        if (tileArry[i + (j + 1) * width].TILE_ID != 5 && tileArry[i + (j + 1) * width].TILE_ID != 4 && tileArry[i + (j + 1) * width].TILE_ID != 6) {
                             g.drawImage(world.spritesTex[5][0], i * 50, j * 50, null);
                         }
-                        if (tileArry[(i - 1) + j * width].TILE_ID != 5 && tileArry[(i - 1) + j * width].TILE_ID != 4 && tileArry[(i - 1) + j * width].TILE_ID != 6 && tileArry[(i - 1) + j * width].metaElement == 0) {
+                        if (tileArry[(i - 1) + j * width].TILE_ID != 5 && tileArry[(i - 1) + j * width].TILE_ID != 4 && tileArry[(i - 1) + j * width].TILE_ID != 6) {
                             g.drawImage(world.spritesTex[6][0], i * 50, j * 50, null);
                         }
                         break;
