@@ -29,7 +29,7 @@ public class QuestionPanel implements Serializable {
     final int delaySet = 25;
     final int answerLength = 3;
     int timer = 0;
-    int maxTimer = 1000;
+    int maxTimer = 2000;
     int clock;
 
     public QuestionPanel(GameEngine ge) {
@@ -117,7 +117,7 @@ public class QuestionPanel implements Serializable {
         }
 
         timer++;
-        if (timer > maxTimer) {
+        if (timer > maxTimer && !answerRight) {
             System.out.println(world.pl.lives);
             world.pl.loseLife();
             if (world.pl.lives <= 0) {
@@ -171,7 +171,9 @@ public class QuestionPanel implements Serializable {
         g.drawString(currentNumber, this.xLoc + 220 - (currentNumber.length() * 3), this.yLoc + 150);
 //        g.drawString("This now works try it!", this.xLoc + 100, this.yLoc + 200);
         g.setColor(new Color(0,0,0, 125));
-        g.fillArc(577, 112, 60, 60, 0, clock - 2);
+        if(timer < maxTimer){
+            g.fillArc(577, 112, 60, 60, 0, clock - 2);
+        }
         if(clock < (360 / 3)){
             g.setColor(Color.red);
         }
@@ -181,7 +183,7 @@ public class QuestionPanel implements Serializable {
         if(clock > (360 / 3) * 2){
             g.setColor(Color.green);
         }
-        if(timer != 0){
+        if(timer != 0 && timer < maxTimer){
            
             g.fillArc(575, 110, 60, 60, 0, clock);
             g.setColor(Color.BLACK);
