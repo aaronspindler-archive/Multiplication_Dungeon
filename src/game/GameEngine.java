@@ -38,6 +38,7 @@ public class GameEngine implements Serializable {
     public boolean battle = false;
     public boolean frozen = false;
     public boolean paused = false;
+    public boolean gameover = false;
     public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
     public int introTime = 100;
     public boolean incStratumTime = false;
@@ -216,6 +217,10 @@ public class GameEngine implements Serializable {
             transitionProg = -1000;
             pl.graceTimer = 100;
         }
+        
+        if(gameover){
+        
+        }
     }
 
     public void switchTo(String mode) {
@@ -223,19 +228,30 @@ public class GameEngine implements Serializable {
             this.mainMenu = true;
             this.gameScreen = false;
             this.battle = false;
+            this.gameover = false;
         }
         if (mode.equals("game")) {
             this.mainMenu = false;
             this.gameScreen = true;
             this.battle = false;
             this.frozen = false;
+            this.gameover = false;
         }
         if (mode.equals("battle")) {
             this.mainMenu = false;
             this.gameScreen = true;
             this.battle = true;
             this.qt.startNewEquation();
+            this.gameover = false;
         }
+        
+        if (mode.equals("gameover")) {
+            this.mainMenu = false;
+            this.gameScreen = false;
+            this.battle = false;
+            this.gameover = true;
+        }
+        
     }
 
     public Keyboard getKeyboard() {

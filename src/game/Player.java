@@ -15,7 +15,7 @@ public class Player extends Entity implements Serializable {
     public Player(GameEngine ge, String sp, Keyboard k) {
         super(ge, sp);
         keys = k;
-
+        lives = 3;
         this.xLoc = 400;
         this.yLoc = 50;
     }
@@ -190,5 +190,13 @@ public class Player extends Entity implements Serializable {
 
         }
         ge.transitionDir = i;
+    }
+    
+    public void loseLife(){
+        lives--;
+    }
+    
+    public void gainLife(){
+        lives++;
     }
 }

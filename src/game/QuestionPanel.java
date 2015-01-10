@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Random;
@@ -21,12 +22,15 @@ public class QuestionPanel implements Serializable {
     int mX = -1;
     int mY = -1;
     int delay = 0;
-    int timer = 150;
+    int winDelay = 150;
     int xButtonsOffset = 209;
     String currentNumber = "";
     boolean answerRight = false;
     final int delaySet = 25;
     final int answerLength = 3;
+    int timer = 0;
+    int maxTimer = 1000;
+    int clock;
 
     public QuestionPanel(GameEngine ge) {
         equation = makeEquation();
@@ -38,6 +42,8 @@ public class QuestionPanel implements Serializable {
         mY = world.mouse.getY();
         //System.out.println(mX + ", " + mY);
         //209 351
+        double d = ((double)timer / (double)maxTimer);
+        clock = (int) (360 - (d * 360));
         if (((world.mouse.isMousePressed() && answerRight == false) || (world.keys.isKeyPressed() && answerRight == false)) && (delay == 0)) {
             if (currentNumber.length() < answerLength) {
                 if ((buttonBounds(209, 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("1"))) {
@@ -94,20 +100,32 @@ public class QuestionPanel implements Serializable {
         }
         if (currentNumber != "" && Integer.parseInt(currentNumber) == product) {
             answerRight = true;
-            if (timer == 0) {
+            if (winDelay == 0) {
                 world.switchTo("game");
                 world.rooms[world.currentRoomX][world.currentRoomY].en_arry.remove(world.en_index);
                 world.pl.score = world.pl.score + 200;
             } else {
-                timer--;
-                if (timer < 0) {
-                    timer = 0;
+                winDelay--;
+                if (winDelay < 0) {
+                    winDelay = 0;
                 }
             }
         }
         delay--;
         if (delay < 0) {
             delay = 0;
+        }
+
+        timer++;
+        if (timer > maxTimer) {
+            System.out.println(world.pl.lives);
+            world.pl.loseLife();
+            if (world.pl.lives <= 0) {
+                world.switchTo("gameover");
+            } else {
+                world.switchTo("game");
+                world.rooms[world.currentRoomX][world.currentRoomY].en_arry.remove(world.en_index);
+            }
         }
     }
 
@@ -124,10 +142,11 @@ public class QuestionPanel implements Serializable {
     }
 
     public final String makeEquation() {
+        timer = 0;
         String eq = "";
         answerRight = false;
         currentNumber = "";
-        timer = 150;
+        winDelay = 150;
         int multiplicand = gen.nextInt(QUESTION_RANGE) + 1;
         int multiplier = gen.nextInt(QUESTION_RANGE) + 1;
         this.product = multiplicand * multiplier;
@@ -135,7 +154,8 @@ public class QuestionPanel implements Serializable {
         return eq;
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g1) {
+        Graphics2D g = (Graphics2D)g1;
         g.drawImage(BG, this.xLoc, this.yLoc, null);
         g.drawImage(Boxes, this.xLoc, this.yLoc, null);
         g.drawImage(Numbers, this.xLoc, this.yLoc, null);
@@ -150,6 +170,23 @@ public class QuestionPanel implements Serializable {
         }
         g.drawString(currentNumber, this.xLoc + 220 - (currentNumber.length() * 3), this.yLoc + 150);
 //        g.drawString("This now works try it!", this.xLoc + 100, this.yLoc + 200);
+        g.setColor(new Color(0,0,0, 125));
+        g.fillArc(577, 112, 60, 60, 0, clock - 2);
+        if(clock < (360 / 3)){
+            g.setColor(Color.red);
+        }
+        if(clock >= (360 / 3)){
+            g.setColor(Color.yellow);
+        }
+        if(clock > (360 / 3) * 2){
+            g.setColor(Color.green);
+        }
+        if(timer != 0){
+           
+            g.fillArc(575, 110, 60, 60, 0, clock);
+            g.setColor(Color.BLACK);
+            g.drawArc(575, 110, 60, 60, 0, clock);
+        }
     }
 
     public void loadResources() {

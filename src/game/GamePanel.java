@@ -234,6 +234,10 @@ public class GamePanel extends JPanel {
             }
 
         }
+        
+        if(ge.gameover){
+        
+        }
     }
 
     public class ListenerThread implements Runnable {
