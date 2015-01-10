@@ -65,6 +65,11 @@ public class GameEngine implements Serializable {
     public QuestionPanel qt;
 
     //=========================
+    //    Load Variables
+    //=========================
+    int loadTimer = 0;
+
+    //=========================
     //      Menu Variables
     //=========================
     transient BufferedImage menuScreen;
@@ -151,7 +156,21 @@ public class GameEngine implements Serializable {
 
     public void tick() {
         if (intro) {
-
+            if (AnimationTimer > 5) {
+                ImageScroll++;
+                if (ImageScroll >= 850) {
+                    ImageScroll = 0;
+                }
+                AnimationTimer = 0;
+            } else {
+                AnimationTimer++;
+            }
+            if (UsefulSnippets.generateRandomNumber(100) > 70) {
+                loadTimer++;
+                if (loadTimer >= 30) {
+                    loadTimer = 0;
+                }
+            }
         }
         if (mainMenu) {
             if (AnimationTimer > 5) {
@@ -168,7 +187,7 @@ public class GameEngine implements Serializable {
                 buttons.get(i).tick();
             }
         }
-        
+
         if (keys.isKeyDown("Escape") && gameScreen) {
             if (!paused) {
                 paused = true;
@@ -176,7 +195,7 @@ public class GameEngine implements Serializable {
                 paused = false;
             }
         }
-        
+
         if (gameScreen && !frozen) {
             pl.tick();
             for (int i = 0; i < rooms[currentRoomX][currentRoomY].en_arry.size(); i++) {
@@ -217,9 +236,9 @@ public class GameEngine implements Serializable {
             transitionProg = -1000;
             pl.graceTimer = 100;
         }
-        
-        if(gameover){
-        
+
+        if (gameover) {
+
         }
     }
 
@@ -244,14 +263,14 @@ public class GameEngine implements Serializable {
             this.qt.startNewEquation();
             this.gameover = false;
         }
-        
+
         if (mode.equals("gameover")) {
             this.mainMenu = false;
             this.gameScreen = false;
             this.battle = false;
             this.gameover = true;
         }
-        
+
     }
 
     public Keyboard getKeyboard() {
@@ -325,7 +344,7 @@ public class GameEngine implements Serializable {
 
         @Override
         public void run() {
-            if(SettingsProperties.programSound){
+            if (SettingsProperties.programSound) {
                 mu.play();
             }
         }
