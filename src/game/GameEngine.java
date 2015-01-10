@@ -16,6 +16,7 @@ import game.Input.Keyboard;
 import game.Input.Mouse;
 import game.Objects.GuiButton;
 import java.awt.Color;
+import resources.SettingsProperties;
 
 public class GameEngine implements Serializable {
 
@@ -308,7 +309,9 @@ public class GameEngine implements Serializable {
 
         @Override
         public void run() {
-            mu.play();
+            if(SettingsProperties.programSound){
+                mu.play();
+            }
         }
 
     }
