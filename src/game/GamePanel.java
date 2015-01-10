@@ -61,6 +61,7 @@ public class GamePanel extends JPanel {
         g.setFont(ge.font[0]);
 
         if (ge.intro) {
+            g.rotate(Math.random());
             g.setColor(Color.GRAY);
             g.fillRect(0, 0, 1000, 1000);
             g.setColor(Color.BLACK);
