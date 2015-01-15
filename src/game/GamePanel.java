@@ -232,8 +232,12 @@ public class GamePanel extends JPanel {
         }
         
         if (ge.paused){
-            g.setColor(new Color(180,180,180,150));
-            g.fill3DRect(200, 200, this.getHeight()-400, this.getWidth()-400, true);
+            g.setColor(new Color(180,180,180,190));
+            g.fill3DRect(200, 200, (this.getWidth()-400), (this.getHeight()-400), true);
+            g.setColor(Color.black);
+            g.drawString("Save state", this.getWidth()/3, this.getHeight()/3+50);
+            g.drawString("Load state", this.getWidth()/3, this.getHeight()/3+100);
+            g.drawString("Exit state", this.getWidth()/3, this.getHeight()/3+150);
         }
 
         if (ge.transitioning) {

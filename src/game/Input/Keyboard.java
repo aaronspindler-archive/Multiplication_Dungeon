@@ -9,6 +9,7 @@ public class Keyboard implements KeyListener, Serializable {
 
     GameEngine world;
     boolean isKeyPressed = false;
+    private boolean toggle = false;
 
     public Keyboard(GameEngine ge) {
         world = ge;
@@ -46,6 +47,9 @@ public class Keyboard implements KeyListener, Serializable {
             if (s.equals("d")) {
                 return keys[KeyEvent.VK_D];
             }
+            if (s.equals("Escape")) {
+                return keys[KeyEvent.VK_ESCAPE];
+            }
             if (world.battle) {
                 if (s.equals("1")) {
                     return keys[KeyEvent.VK_1];
@@ -80,10 +84,7 @@ public class Keyboard implements KeyListener, Serializable {
                 if (s.equals("Backspace")) {
                     return keys[KeyEvent.VK_BACK_SPACE];
                 }
-                if (s.equals("Escape")){
-                    return keys[KeyEvent.VK_ESCAPE];
-                }
-                if (s.equals("Enter")){
+                if (s.equals("Enter")) {
                     return keys[KeyEvent.VK_ENTER];
                 }
             }

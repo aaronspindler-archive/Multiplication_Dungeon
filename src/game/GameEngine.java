@@ -5,6 +5,7 @@
  */
 package game;
 
+import com.sun.glass.events.KeyEvent;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -43,6 +44,7 @@ public class GameEngine implements Serializable {
     public int introTime = 100;
     public boolean incStratumTime = false;
     public int transitionCoolDown = 1000;
+    public boolean toggle = false;
 
     //=========================
     //      Input Variables
@@ -189,12 +191,12 @@ public class GameEngine implements Serializable {
         }
 
         if (keys.isKeyDown("Escape") && gameScreen) {
-            if (!paused) {
-                paused = true;
+            if (!frozen) {
                 frozen = true;
+                paused = true;
             } else {
-                paused = false;
                 frozen = false;
+                paused = false;
             }
         }
 
@@ -306,6 +308,16 @@ public class GameEngine implements Serializable {
 
         }
         frozen = false;
+    }
+
+    public boolean toggle(String key, boolean b) {
+        if (keys.isKeyDown(key) && !toggle) {
+            b = !b;
+            toggle = true;
+        } else if (!keys.isKeyDown(key) && toggle) {
+            toggle = false;
+        }
+        return b;
     }
 
     public void loadResources() {  //Called on loadstate, reloads all transient resources into gameEngine
