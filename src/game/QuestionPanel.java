@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Random;
@@ -21,14 +22,16 @@ public class QuestionPanel implements Serializable {
     int mX = -1;
     int mY = -1;
     int delay = 0;
-    int timer = 150;
+    int winDelay = 150;
     int xButtonsOffset = 209;
     String currentNumber = "";
     boolean answerRight = false;
     boolean answerIncorrect = false;
     final int delaySet = 25;
     final int answerLength = 3;
-    public boolean showStatus = false;
+    int timer = 0;
+    int maxTimer = 2000;
+    int clock;
 
     public QuestionPanel(GameEngine ge) {
         equation = makeEquation();
@@ -40,6 +43,8 @@ public class QuestionPanel implements Serializable {
         mY = world.mouse.getY();
         //System.out.println(mX + ", " + mY);
         //209 351
+        double d = ((double)timer / (double)maxTimer);
+        clock = (int) (360 - (d * 360));
         if (((world.mouse.isMousePressed() && answerRight == false) || (world.keys.isKeyPressed() && answerRight == false)) && (delay == 0)) {
             if (currentNumber.length() < answerLength) {
                 if ((buttonBounds(209, 351, 40, 40, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("1"))) {
@@ -110,6 +115,18 @@ public class QuestionPanel implements Serializable {
         if (delay < 0) {
             delay = 0;
         }
+
+        timer++;
+        if (timer > maxTimer && !answerRight) {
+            System.out.println(world.pl.lives);
+            world.pl.loseLife();
+            if (world.pl.lives <= 0) {
+                world.switchTo("gameover");
+            } else {
+                world.switchTo("game");
+                world.rooms[world.currentRoomX][world.currentRoomY].en_arry.remove(world.en_index);
+            }
+        }
     }
 
     public boolean buttonBounds(int x, int y, int l, int h, int mx, int my) {
@@ -125,10 +142,11 @@ public class QuestionPanel implements Serializable {
     }
 
     public final String makeEquation() {
+        timer = 0;
         String eq = "";
         answerRight = false;
         currentNumber = "";
-        timer = 150;
+        winDelay = 150;
         int multiplicand = gen.nextInt(QUESTION_RANGE) + 1;
         int multiplier = gen.nextInt(QUESTION_RANGE) + 1;
         this.product = multiplicand * multiplier;
@@ -136,7 +154,8 @@ public class QuestionPanel implements Serializable {
         return eq;
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g1) {
+        Graphics2D g = (Graphics2D)g1;
         g.drawImage(BG, this.xLoc, this.yLoc, null);
         g.drawImage(Boxes, this.xLoc, this.yLoc, null);
         g.drawImage(Numbers, this.xLoc, this.yLoc, null);

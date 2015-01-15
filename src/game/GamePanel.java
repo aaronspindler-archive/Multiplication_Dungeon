@@ -61,21 +61,35 @@ public class GamePanel extends JPanel {
         g.setFont(ge.font[0]);
 
         if (ge.intro) {
-            g.setColor(Color.GRAY);
-            g.fillRect(0, 0, 1000, 1000);
-            g.setColor(Color.BLACK);
-            g.fillRect(ge.loadingBarProg, 20, 10, 10);
+            g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
+            g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
+            g.setColor(new Color(0,0,0,125));
+            
+            g.fill3DRect(ge.loadingBarProg, 630, 210, 12, true);
             ge.loadingBarProg++;
-            g.fillRect(abs((int) (this.getWidth() * Math.sin(0.01 * ge.loadingBarProg))), 0, (int) (this.getWidth() / 2 * Math.sin(0.02 * ge.loadingBarProg - Math.PI)), 20);
             if (ge.loadingBarProg > (2 * (Math.PI / .01))) {
                 ge.loadingBarProg = 0;
                 ge.intro = false;
                 ge.mainMenu = true;
             }
-            g.setColor(Color.ORANGE);
-            ge.font[1] = ge.font[1].deriveFont(Font.BOLD, (float) (15*((float)Math.sin(0.01*ge.loadingBarProg))+57));
-            g.setFont(ge.font[1]);
-            g.drawString("AWESOMESOFT", (int) Math.pow(0.99, ge.loadingBarProg - 800)+50, 200);
+            if(ge.loadTimer <= 10){
+                g.setColor(Color.BLACK);
+                g.drawString("Loading.", 365, 325);
+                g.setColor(Color.WHITE);
+                g.drawString("Loading.", 364, 324);  
+            }
+            if(ge.loadTimer > 10){
+                g.setColor(Color.BLACK);
+                g.drawString("Loading..", 365, 325);
+                g.setColor(Color.WHITE);
+                g.drawString("Loading..", 364, 324);  
+            }
+            if(ge.loadTimer > 20){
+                g.setColor(Color.BLACK);
+                g.drawString("Loading...", 365, 325);
+                g.setColor(Color.WHITE);
+                g.drawString("Loading...", 364, 324);  
+            }
         }
 
         if (ge.mainMenu) {
@@ -233,6 +247,10 @@ public class GamePanel extends JPanel {
                 ge.drawTransition(ge.transitionDir, g);
             }
 
+        }
+        
+        if(ge.gameover){
+        
         }
     }
 
