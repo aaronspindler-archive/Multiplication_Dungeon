@@ -45,6 +45,7 @@ public class GameEngine implements Serializable {
     public boolean incStratumTime = false;
     public int transitionCoolDown = 1000;
     public boolean toggle = false;
+    public long startMillis = 0;
 
     //=========================
     //      Input Variables
@@ -238,7 +239,7 @@ public class GameEngine implements Serializable {
         }
 
         if (gameover) {
-
+            
         }
     }
 

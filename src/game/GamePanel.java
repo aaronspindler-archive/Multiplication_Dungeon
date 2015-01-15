@@ -254,7 +254,9 @@ public class GamePanel extends JPanel {
         }
         
         if(ge.gameover){
-        
+            g.setColor(Color.darkGray);
+            g.drawString("Game Over", this.getWidth()/3, this.getHeight()/3);
+            g.drawString("You got "+ge.pl.score+" points!", this.getWidth()/3, this.getHeight()/3+75);
         }
     }
 
