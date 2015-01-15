@@ -26,7 +26,6 @@ public class QuestionPanel implements Serializable {
     int xButtonsOffset = 209;
     String currentNumber = "";
     boolean answerRight = false;
-    boolean answerIncorrect = false;
     final int delaySet = 25;
     final int answerLength = 3;
     int timer = 0;
@@ -88,7 +87,6 @@ public class QuestionPanel implements Serializable {
                     delay = delaySet;
                 }
             }
-            
             if ((buttonBounds(xButtonsOffset + 306, 293, 50, 50, mX, mY) && world.mouse.isMousePressed()) || (world.keys.isKeyDown("Backspace"))) {
                 if (currentNumber.length() > 1) {
                     currentNumber = currentNumber.substring(0, currentNumber.length() - 1);
@@ -97,19 +95,21 @@ public class QuestionPanel implements Serializable {
                 }
                 delay = delaySet;
             }
-
-            if (world.keys.isKeyDown("Enter")) {
-                showStatus = true;
-                if (Integer.parseInt(currentNumber) == product) {
-                    answerRight = true;
-                } else {
-                    answerIncorrect = true;
-                }
-                delay = delaySet;
-            }
-
             world.mouse.unPress();
             world.keys.unPress();
+        }
+        if (currentNumber != "" && Integer.parseInt(currentNumber) == product) {
+            answerRight = true;
+            if (winDelay == 0) {
+                world.switchTo("game");
+                world.rooms[world.currentRoomX][world.currentRoomY].en_arry.remove(world.en_index);
+                world.pl.score = world.pl.score + 200;
+            } else {
+                winDelay--;
+                if (winDelay < 0) {
+                    winDelay = 0;
+                }
+            }
         }
         delay--;
         if (delay < 0) {
@@ -162,25 +162,32 @@ public class QuestionPanel implements Serializable {
         g.setColor(Color.black);
         g.drawString("Multiplication Question", this.xLoc + 10, this.yLoc + 30);
         g.drawString(equation, this.xLoc + 200, this.yLoc + 100);
-        g.drawString(currentNumber, this.xLoc + 220 - (currentNumber.length() * 3), this.yLoc + 150);
-        if (showStatus) {
-            timer--;
-            if (answerRight) {
-                g.setColor(Color.GREEN);
-                g.drawString("Correct!", this.xLoc + 100, this.yLoc + 200);
-            }
-            if (answerIncorrect) {
-                g.setColor(Color.BLACK);
-                g.drawString("Incorrect", this.xLoc + 100, this.yLoc + 200);
-            }
+        if (answerRight) {
+            g.setColor(Color.GREEN);
+            g.drawString("Correct!", this.xLoc + 100, this.yLoc + 200);
+        } else {
+            g.setColor(Color.BLACK);
         }
-        if (timer == 0) {
-            showStatus = false;
-            answerRight = false;
-            answerIncorrect = false;
-            world.battle = false;
-            world.gameScreen = true;
-            world.frozen = false;
+        g.drawString(currentNumber, this.xLoc + 220 - (currentNumber.length() * 3), this.yLoc + 150);
+//        g.drawString("This now works try it!", this.xLoc + 100, this.yLoc + 200);
+        g.setColor(new Color(0,0,0, 125));
+        if(timer < maxTimer){
+            g.fillArc(577, 112, 60, 60, 0, clock - 2);
+        }
+        if(clock < (360 / 3)){
+            g.setColor(Color.red);
+        }
+        if(clock >= (360 / 3)){
+            g.setColor(Color.yellow);
+        }
+        if(clock > (360 / 3) * 2){
+            g.setColor(Color.green);
+        }
+        if(timer != 0 && timer < maxTimer){
+           
+            g.fillArc(575, 110, 60, 60, 0, clock);
+            g.setColor(Color.BLACK);
+            g.drawArc(575, 110, 60, 60, 0, clock);
         }
     }
 
