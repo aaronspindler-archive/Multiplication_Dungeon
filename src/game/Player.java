@@ -53,7 +53,7 @@ public class Player extends Entity implements Serializable {
                 if (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid()) {
                     this.uBlock = true;
                     dTu = ((int) this.yLocFeet - (50 * (this.tileLocY)));
-                }   //Down
+                    }   //Down
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -232,6 +232,7 @@ public class Room implements Serializable {
                     case 2:
                         if (tileArry[i + j * width].metaDir == -1) {
                             g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][2], i * 50, j * 50, null);
+                            drawEdgeShadows(g, i, j, 2);
                         } else {
                             switch (tileArry[i + j * width].metaElement) {
                                 case 1:
@@ -242,18 +243,7 @@ public class Room implements Serializable {
                                     break;
                             }
                             drawEdgedTiles(g, i, j, tileArry[i + j * width].metaType, tileArry[i + j * width].metaDir, 2);
-                        }
-                        if (tileArry[i + (j - 1) * width].TILE_ID != 2 && tileArry[i + (j - 1) * width].TILE_ID != 4 && tileArry[i + (j - 1) * width].TILE_ID != 6 && tileArry[i + (j - 1) * width].metaElement == 0) {
-                            g.drawImage(world.spritesTex[3][0], i * 50, j * 50, null);
-                        }
-                        if (tileArry[(i + 1) + j * width].TILE_ID != 2 && tileArry[(i + 1) + j * width].TILE_ID != 4 && tileArry[(i + 1) + j * width].TILE_ID != 6 && tileArry[(i + 1) + j * width].metaElement == 0) {
-                            g.drawImage(world.spritesTex[4][0], i * 50, j * 50, null);
-                        }
-                        if (tileArry[i + (j + 1) * width].TILE_ID != 2 && tileArry[i + (j + 1) * width].TILE_ID != 4 && tileArry[i + (j + 1) * width].TILE_ID != 6 && tileArry[i + (j + 1) * width].metaElement == 0) {
-                            g.drawImage(world.spritesTex[5][0], i * 50, j * 50, null);
-                        }
-                        if (tileArry[(i - 1) + j * width].TILE_ID != 2 && tileArry[(i - 1) + j * width].TILE_ID != 4 && tileArry[(i - 1) + j * width].TILE_ID != 6 && tileArry[(i - 1) + j * width].metaElement == 0) {
-                            g.drawImage(world.spritesTex[6][0], i * 50, j * 50, null);
+                            drawEdgeShadows(g, i, j, 2);
                         }
                         break;
                     case 3:
@@ -272,6 +262,7 @@ public class Room implements Serializable {
                     case 5:
                         if (tileArry[i + j * width].metaDir == -1) {
                             g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][5], i * 50, j * 50, null);
+                            drawEdgeShadows(g, i, j, 5);
                         } else {
                             switch (tileArry[i + j * width].metaElement) {
                                 case 1:
@@ -282,18 +273,7 @@ public class Room implements Serializable {
                                     break;
                             }
                             drawEdgedTiles(g, i, j, tileArry[i + j * width].metaType, tileArry[i + j * width].metaDir, 5);
-                        }
-                        if (tileArry[i + (j - 1) * width].TILE_ID != 5 && tileArry[i + (j - 1) * width].TILE_ID != 4 && tileArry[i + (j - 1) * width].TILE_ID != 6) {
-                            g.drawImage(world.spritesTex[3][0], i * 50, j * 50, null);
-                        }
-                        if (tileArry[(i + 1) + j * width].TILE_ID != 5 && tileArry[(i + 1) + j * width].TILE_ID != 4 && tileArry[(i + 1) + j * width].TILE_ID != 6) {
-                            g.drawImage(world.spritesTex[4][0], i * 50, j * 50, null);
-                        }
-                        if (tileArry[i + (j + 1) * width].TILE_ID != 5 && tileArry[i + (j + 1) * width].TILE_ID != 4 && tileArry[i + (j + 1) * width].TILE_ID != 6) {
-                            g.drawImage(world.spritesTex[5][0], i * 50, j * 50, null);
-                        }
-                        if (tileArry[(i - 1) + j * width].TILE_ID != 5 && tileArry[(i - 1) + j * width].TILE_ID != 4 && tileArry[(i - 1) + j * width].TILE_ID != 6) {
-                            g.drawImage(world.spritesTex[6][0], i * 50, j * 50, null);
+                            drawEdgeShadows(g, i, j, 5);
                         }
                         break;
                     case 6:
@@ -313,13 +293,16 @@ public class Room implements Serializable {
                         g.drawImage(world.spritesTex[tileArry[i + j * width].metaElement][8], i * 50, j * 50, null);
                         break;
                     case 9:
-                        switch (world.stratum){
-                            case 1: g.drawImage(world.spritesTex[1][2], i * 50, j * 50, null);
+                        switch (world.stratum) {
+                            case 1:
+                                g.drawImage(world.spritesTex[1][2], i * 50, j * 50, null);
                                 break;
-                            case 2: g.drawImage(world.spritesTex[0][5], i * 50, j * 50, null);
+                            case 2:
+                                g.drawImage(world.spritesTex[0][5], i * 50, j * 50, null);
                                 break;
-                            case 3: g.drawImage(world.spritesTex[1][2], i * 50, j * 50, null);
-                                break;                                
+                            case 3:
+                                g.drawImage(world.spritesTex[1][2], i * 50, j * 50, null);
+                                break;
                         }
                         g.drawImage(world.spritesTex[2][0], i * 50, j * 50, null);
                         g.drawImage(world.spritesTex[0][9], i * 50, j * 50, null);
@@ -402,6 +385,21 @@ public class Room implements Serializable {
             case 4:
                 g.drawImage(world.spritesTex[13 + metaDir][material], x * 50, y * 50, null);
                 break;
+        }
+    }
+
+    public void drawEdgeShadows(Graphics g, int x, int y, int material) {
+        if (tileArry[x + (y - 1) * width].TILE_ID != material && tileArry[x + (y - 1) * width].TILE_ID != 4 && tileArry[x + (y - 1) * width].TILE_ID != 6) {
+            g.drawImage(world.spritesTex[3][0], x * 50, y * 50, null);
+        }
+        if (tileArry[(x + 1) + y * width].TILE_ID != material && tileArry[(x + 1) + y * width].TILE_ID != 4 && tileArry[(x + 1) + y * width].TILE_ID != 6) {
+            g.drawImage(world.spritesTex[4][0], x * 50, y * 50, null);
+        }
+        if (tileArry[x + (y + 1) * width].TILE_ID != material && tileArry[x + (y + 1) * width].TILE_ID != 4 && tileArry[x + (y + 1) * width].TILE_ID != 6) {
+            g.drawImage(world.spritesTex[5][0], x * 50, y * 50, null);
+        }
+        if (tileArry[(x - 1) + y * width].TILE_ID != material && tileArry[(x - 1) + y * width].TILE_ID != 4 && tileArry[(x - 1) + y * width].TILE_ID != 6) {
+            g.drawImage(world.spritesTex[6][0], x * 50, y * 50, null);
         }
     }
 

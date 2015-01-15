@@ -170,8 +170,10 @@ public class GameEngine implements Serializable {
         if (keys.isKeyDown("Escape") && gameScreen) {
             if (!paused) {
                 paused = true;
+                frozen = true;
             } else {
                 paused = false;
+                frozen = false;
             }
         }
         
@@ -204,10 +206,6 @@ public class GameEngine implements Serializable {
             if (transitionCoolDown > 0) {
                 transitionCoolDown--;
             }
-        }
-
-        if (paused) {
-            frozen = true;
         }
 
         if (transitionProg > 1000) {
@@ -310,7 +308,5 @@ public class GameEngine implements Serializable {
         public void run() {
             mu.play();
         }
-
     }
-
 }

@@ -83,6 +83,9 @@ public class Keyboard implements KeyListener, Serializable {
                 if (s.equals("Escape")){
                     return keys[KeyEvent.VK_ESCAPE];
                 }
+                if (s.equals("Enter")){
+                    return keys[KeyEvent.VK_ENTER];
+                }
             }
         }
         return false;
