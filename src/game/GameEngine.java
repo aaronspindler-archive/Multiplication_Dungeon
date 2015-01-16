@@ -26,9 +26,9 @@ public class GameEngine implements Serializable {
     Random rand = new Random();
     FloorTile[][] ft = new FloorTile[17][16];
     public Font[] font = new Font[2];
-    public Mp3Player mu;
-    public MusicThread mt;
-    Thread td;
+    transient public Mp3Player mu;
+    transient public MusicThread mt;
+    transient public Thread td;
 
     //=========================
     //   Game State Variables
@@ -210,12 +210,6 @@ public class GameEngine implements Serializable {
         if (battle) {
             qt.tick();
         }
-        
-        if(paused){
-            if(mouse.getX() > 280 && mouse.getX() < 430 && mouse.getY() > 245 && mouse.getY() < 265 && mouse.isMousePressed()){
-                
-            }
-        }
 
         if (transitionProg == 0 && transitionDir == 4 && transitionCoolDown == 0) {
             currentRoomX = 0;
@@ -223,6 +217,7 @@ public class GameEngine implements Serializable {
             stratum++;
             transitionCoolDown = 1000;
             loadRooms();
+            pl.setLocation(400, 50);
         } else {
             if (transitionCoolDown > 0) {
                 transitionCoolDown--;
@@ -299,9 +294,9 @@ public class GameEngine implements Serializable {
                 g.fillRect(0, 0, 1000, 1000);
                 g.setFont(font[0]);
                 g.setColor(new Color(50, 50, 50, alpha));
-                g.drawString("Stratum " + stratum, 105, 105);
+                g.drawString("Stratum " + stratum, 305, 105);
                 g.setColor(new Color(255, 255 - (70 * stratum), 255 - (70 * stratum), alpha));
-                g.drawString("Stratum " + stratum, 100, 100);
+                g.drawString("Stratum " + stratum, 300, 100);
 
         }
         frozen = false;

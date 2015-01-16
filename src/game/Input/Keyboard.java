@@ -100,10 +100,12 @@ public class Keyboard implements KeyListener, Serializable {
     @Override
     public void keyPressed(KeyEvent e) {
         keys[e.getKeyCode()] = true;
-                switch (e.getKeyCode()) {
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
-                world.paused = !world.paused;
-                world.frozen = !world.frozen;
+                if (!world.transitioning) {
+                    world.paused = !world.paused;
+                    world.frozen = !world.frozen;
+                }
                 break;
         }
     }

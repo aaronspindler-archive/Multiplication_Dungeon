@@ -99,11 +99,12 @@ public class QuestionPanel implements Serializable {
             world.keys.unPress();
         }
         if (currentNumber != "" && Integer.parseInt(currentNumber) == product) {
+            int addScore = clock;
             answerRight = true;
             if (winDelay == 0) {
                 world.switchTo("game");
                 world.rooms[world.currentRoomX][world.currentRoomY].en_arry.remove(world.en_index);
-                world.pl.score = world.pl.score + 200;
+                world.pl.score = world.pl.score + 500*(addScore/360);
             } else {
                 winDelay--;
                 if (winDelay < 0) {

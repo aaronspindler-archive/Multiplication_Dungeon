@@ -19,9 +19,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import resources.SettingsProperties;
 
-public class SchoolProjectForm extends javax.swing.JFrame {
+public class MultiplicationDungeonForm extends javax.swing.JFrame {
 
-    public SchoolProjectForm() {
+    public MultiplicationDungeonForm() {
         initComponents();
         this.setSize(860, 682);
         if (SettingsProperties.aaronsLaptop == true) {
@@ -30,13 +30,13 @@ public class SchoolProjectForm extends javax.swing.JFrame {
             this.setResizable(false);
         }
         this.setTitle(SettingsProperties.gameName);
+        gamePanel.setParent(this);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSpinner1 = new javax.swing.JSpinner();
         gamePanel = new game.GamePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,12 +108,12 @@ public class SchoolProjectForm extends javax.swing.JFrame {
             bw.close();
             //MD5 checksum, for integrity verification on transport
         } catch (IOException ex) {
-            Logger.getLogger(SchoolProjectForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MultiplicationDungeonForm.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 fw.close();
             } catch (IOException ex) {
-                Logger.getLogger(SchoolProjectForm.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MultiplicationDungeonForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -194,32 +194,37 @@ public class SchoolProjectForm extends javax.swing.JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SchoolProjectForm.class
+            java.util.logging.Logger.getLogger(MultiplicationDungeonForm.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SchoolProjectForm.class
+            java.util.logging.Logger.getLogger(MultiplicationDungeonForm.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SchoolProjectForm.class
+            java.util.logging.Logger.getLogger(MultiplicationDungeonForm.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SchoolProjectForm.class
+            java.util.logging.Logger.getLogger(MultiplicationDungeonForm.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SchoolProjectForm().setVisible(true);
+                new MultiplicationDungeonForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private game.GamePanel gamePanel;
-    private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
 
 }

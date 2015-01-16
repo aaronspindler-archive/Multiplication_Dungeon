@@ -16,6 +16,7 @@ public class GamePanel extends JPanel {
 
     public GameEngine ge = new GameEngine();
     public GamePanel.ListenerThread lt;
+    public MultiplicationDungeonForm parent;
     Thread th;
 
     public GamePanel() {
@@ -28,6 +29,10 @@ public class GamePanel extends JPanel {
     }
 
     public void newThread() {
+        if (th != null) {
+            lt.listening = false;
+        }
+
         lt = new GamePanel.ListenerThread();
         th = new Thread(lt);
         th.start();
@@ -43,7 +48,7 @@ public class GamePanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g1) {
-        
+
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
         if (SettingsProperties.antiAlisaingGraphics) {
@@ -60,12 +65,12 @@ public class GamePanel extends JPanel {
 
         ge.font[0] = ge.font[0].deriveFont(26.0f);
         g.setFont(ge.font[0]);
-      
+
         if (ge.intro) {
             g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
             g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
-            g.setColor(new Color(0,0,0,125));
-            
+            g.setColor(new Color(0, 0, 0, 125));
+
             g.fill3DRect(ge.loadingBarProg, 630, 210, 12, true);
             ge.loadingBarProg++;
             if (ge.loadingBarProg > (2 * (Math.PI / .01))) {
@@ -73,23 +78,23 @@ public class GamePanel extends JPanel {
                 ge.intro = false;
                 ge.mainMenu = true;
             }
-            if(ge.loadTimer <= 10){
+            if (ge.loadTimer <= 10) {
                 g.setColor(Color.BLACK);
                 g.drawString("Loading.", 365, 325);
                 g.setColor(Color.WHITE);
-                g.drawString("Loading.", 364, 324);  
+                g.drawString("Loading.", 364, 324);
             }
-            if(ge.loadTimer > 10){
+            if (ge.loadTimer > 10) {
                 g.setColor(Color.BLACK);
                 g.drawString("Loading..", 365, 325);
                 g.setColor(Color.WHITE);
-                g.drawString("Loading..", 364, 324);  
+                g.drawString("Loading..", 364, 324);
             }
-            if(ge.loadTimer > 20){
+            if (ge.loadTimer > 20) {
                 g.setColor(Color.BLACK);
                 g.drawString("Loading...", 365, 325);
                 g.setColor(Color.WHITE);
-                g.drawString("Loading...", 364, 324);  
+                g.drawString("Loading...", 364, 324);
             }
         }
 
@@ -231,16 +236,32 @@ public class GamePanel extends JPanel {
             ge.qt.draw(g);
             ge.pl.graceTimer = 1000;
         }
-        
-        if (ge.paused){
-            g.setColor(new Color(0,0,0,190));
+
+        if (ge.paused) {
+            g.setColor(new Color(0, 0, 0, 190));
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
-            g.setColor(new Color(180,180,180,190));
-            g.fill3DRect(200, 200, (this.getWidth()-400), (this.getHeight()-400), true);
+            g.setColor(new Color(180, 180, 180, 190));
+            g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 400), true);
             g.setColor(Color.black);
-            g.drawString("Save state", this.getWidth()/3, this.getHeight()/3+50);
-            g.drawString("Load state", this.getWidth()/3, this.getHeight()/3+100);
-            g.drawString("Exit state", this.getWidth()/3, this.getHeight()/3+150);
+            g.drawString("Save state", this.getWidth() / 3, this.getHeight() / 3 + 50);
+            g.drawString("Load state", this.getWidth() / 3, this.getHeight() / 3 + 100);
+            g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
+            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 240 && ge.mouse.getY() < 270 && ge.mouse.isMousePressed()) {
+                this.parent.saveState();
+            }
+            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 290 && ge.mouse.getY() < 320 && ge.mouse.isMousePressed()) {
+                this.parent.loadState();
+            }
+            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 340 && ge.mouse.getY() < 370 && ge.mouse.isMousePressed()) {
+//                ge.mainMenu = true;
+//                ge.gameScreen = false;
+//                ge.battle = false;
+//                ge.gameover = false;
+//                ge.paused = false;
+                ge = new GameEngine();
+                this.reloadEngine();
+
+            }
         }
 
         if (ge.transitioning) {
@@ -255,14 +276,18 @@ public class GamePanel extends JPanel {
             }
 
         }
-        
-        if(ge.gameover){
+
+        if (ge.gameover) {
             g.setColor(Color.darkGray);
-            g.drawString("Game Over", this.getWidth()/3, this.getHeight()/3);
-            g.drawString("You got "+ge.pl.score+" points!", this.getWidth()/3, this.getHeight()/3+75);
+            g.drawString("Game Over", this.getWidth() / 3, this.getHeight() / 3);
+            g.drawString("You got " + ge.pl.score + " points!", this.getWidth() / 3, this.getHeight() / 3 + 75);
         }
         g.setColor(Color.red);
-        g.drawString(ge.mouse.getX() + " - "+ge.mouse.getY(), 100,100);
+        g.drawString(ge.mouse.getX() + " - " + ge.mouse.getY(), 100, 100);
+    }
+
+    public void setParent(MultiplicationDungeonForm p) {
+        parent = p;
     }
 
     public class ListenerThread implements Runnable {
