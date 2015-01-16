@@ -44,7 +44,7 @@ public class GameEngine implements Serializable {
     public int introTime = 100;
     public boolean incStratumTime = false;
     public int transitionCoolDown = 1000;
-    public boolean toggle = false;
+    public boolean unPauseCheck = false;
     public long startMillis = 0;
 
     //=========================
@@ -158,6 +158,7 @@ public class GameEngine implements Serializable {
     }
 
     public void tick() {
+        
         if (intro) {
             if (AnimationTimer > 5) {
                 ImageScroll++;
@@ -190,17 +191,7 @@ public class GameEngine implements Serializable {
                 buttons.get(i).tick();
             }
         }
-
-        if (keys.isKeyDown("Escape") && gameScreen) {
-            if (!frozen) {
-                frozen = true;
-                paused = true;
-            } else {
-                frozen = false;
-                paused = false;
-            }
-        }
-
+        
         if (gameScreen && !frozen) {
             pl.tick();
             for (int i = 0; i < rooms[currentRoomX][currentRoomY].en_arry.size(); i++) {
@@ -218,6 +209,12 @@ public class GameEngine implements Serializable {
 
         if (battle) {
             qt.tick();
+        }
+        
+        if(paused){
+            if(mouse.getX() > 280 && mouse.getX() < 430 && mouse.getY() > 245 && mouse.getY() < 265 && mouse.isMousePressed()){
+                
+            }
         }
 
         if (transitionProg == 0 && transitionDir == 4 && transitionCoolDown == 0) {
@@ -239,7 +236,7 @@ public class GameEngine implements Serializable {
         }
 
         if (gameover) {
-            
+
         }
     }
 
@@ -264,7 +261,6 @@ public class GameEngine implements Serializable {
             this.qt.startNewEquation();
             this.gameover = false;
         }
-
         if (mode.equals("gameover")) {
             this.mainMenu = false;
             this.gameScreen = false;
@@ -309,16 +305,6 @@ public class GameEngine implements Serializable {
 
         }
         frozen = false;
-    }
-
-    public boolean toggle(String key, boolean b) {
-        if (keys.isKeyDown(key) && !toggle) {
-            b = !b;
-            toggle = true;
-        } else if (!keys.isKeyDown(key) && toggle) {
-            toggle = false;
-        }
-        return b;
     }
 
     public void loadResources() {  //Called on loadstate, reloads all transient resources into gameEngine

@@ -23,7 +23,7 @@ public class SchoolProjectForm extends javax.swing.JFrame {
 
     public SchoolProjectForm() {
         initComponents();
-        this.setSize(855, 700);
+        this.setSize(860, 682);
         if (SettingsProperties.aaronsLaptop == true) {
             this.setResizable(true);
         } else {
@@ -38,14 +38,6 @@ public class SchoolProjectForm extends javax.swing.JFrame {
 
         jSpinner1 = new javax.swing.JSpinner();
         gamePanel = new game.GamePanel();
-        menuBar = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
-        saveStateBtn = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        exitMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        documentationBtn = new javax.swing.JMenuItem();
-        aboutbtn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(910, 710));
@@ -76,85 +68,12 @@ public class SchoolProjectForm extends javax.swing.JFrame {
         getContentPane().add(gamePanel);
         gamePanel.setBounds(0, 0, 850, 650);
 
-        fileMenu.setMnemonic('f');
-        fileMenu.setText("File");
-
-        saveStateBtn.setText("Save State");
-        saveStateBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveStateBtnActionPerformed(evt);
-            }
-        });
-        fileMenu.add(saveStateBtn);
-
-        jMenuItem1.setText("Load State");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        fileMenu.add(jMenuItem1);
-
-        exitMenuItem.setMnemonic('x');
-        exitMenuItem.setText("Exit");
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
-            }
-        });
-        fileMenu.add(exitMenuItem);
-
-        menuBar.add(fileMenu);
-
-        jMenu1.setText("Help");
-
-        documentationBtn.setText("Documentation");
-        documentationBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                documentationBtnActionPerformed(evt);
-            }
-        });
-        jMenu1.add(documentationBtn);
-
-        aboutbtn.setText("About");
-        aboutbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutbtnActionPerformed(evt);
-            }
-        });
-        jMenu1.add(aboutbtn);
-
-        menuBar.add(jMenu1);
-
-        setJMenuBar(menuBar);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
 
     }//GEN-LAST:event_formComponentResized
-
-    private void aboutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutbtnActionPerformed
-
-    }//GEN-LAST:event_aboutbtnActionPerformed
-
-    private void documentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentationBtnActionPerformed
-        UsefulSnippets.openWebpage("https://github.com/xNovax/Multiplication_Dungeon/wiki");
-        System.out.println("Opened webpage");
-    }//GEN-LAST:event_documentationBtnActionPerformed
-
-    private void saveStateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStateBtnActionPerformed
-        saveState();
-    }//GEN-LAST:event_saveStateBtnActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        loadState();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         int lebar = this.getWidth() / 2;
@@ -299,16 +218,8 @@ public class SchoolProjectForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutbtn;
-    private javax.swing.JMenuItem documentationBtn;
-    private javax.swing.JMenuItem exitMenuItem;
-    private javax.swing.JMenu fileMenu;
     private game.GamePanel gamePanel;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem saveStateBtn;
     // End of variables declaration//GEN-END:variables
 
 }

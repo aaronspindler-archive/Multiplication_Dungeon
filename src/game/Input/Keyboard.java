@@ -9,7 +9,6 @@ public class Keyboard implements KeyListener, Serializable {
 
     GameEngine world;
     boolean isKeyPressed = false;
-    private boolean toggle = false;
 
     public Keyboard(GameEngine ge) {
         world = ge;
@@ -101,7 +100,12 @@ public class Keyboard implements KeyListener, Serializable {
     @Override
     public void keyPressed(KeyEvent e) {
         keys[e.getKeyCode()] = true;
-        isKeyPressed = true;
+                switch (e.getKeyCode()) {
+            case KeyEvent.VK_ESCAPE:
+                world.paused = !world.paused;
+                world.frozen = !world.frozen;
+                break;
+        }
     }
 
     @Override

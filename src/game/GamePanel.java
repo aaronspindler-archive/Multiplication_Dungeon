@@ -43,6 +43,7 @@ public class GamePanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g1) {
+        
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
         if (SettingsProperties.antiAlisaingGraphics) {
@@ -59,7 +60,7 @@ public class GamePanel extends JPanel {
 
         ge.font[0] = ge.font[0].deriveFont(26.0f);
         g.setFont(ge.font[0]);
-
+      
         if (ge.intro) {
             g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
             g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
@@ -232,6 +233,8 @@ public class GamePanel extends JPanel {
         }
         
         if (ge.paused){
+            g.setColor(new Color(0,0,0,190));
+            g.fillRect(0, 0, this.getWidth(), this.getHeight());
             g.setColor(new Color(180,180,180,190));
             g.fill3DRect(200, 200, (this.getWidth()-400), (this.getHeight()-400), true);
             g.setColor(Color.black);
@@ -258,6 +261,8 @@ public class GamePanel extends JPanel {
             g.drawString("Game Over", this.getWidth()/3, this.getHeight()/3);
             g.drawString("You got "+ge.pl.score+" points!", this.getWidth()/3, this.getHeight()/3+75);
         }
+        g.setColor(Color.red);
+        g.drawString(ge.mouse.getX() + " - "+ge.mouse.getY(), 100,100);
     }
 
     public class ListenerThread implements Runnable {
