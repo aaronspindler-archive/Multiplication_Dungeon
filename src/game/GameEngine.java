@@ -33,13 +33,18 @@ public class GameEngine implements Serializable {
     //=========================
     //   Game State Variables
     //=========================
+    
+    //Screens
     public boolean intro = true;
     public boolean mainMenu = false;
+    public boolean mainSettings = false;
     public boolean gameScreen = false;
     public boolean battle = false;
     public boolean frozen = false;
     public boolean paused = false;
-    public boolean gameover = false;
+    public boolean gameOver = false;
+    
+    
     public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
     public int introTime = 100;
     public boolean incStratumTime = false;
@@ -190,6 +195,16 @@ public class GameEngine implements Serializable {
             for (int i = 0; i < buttons.size(); i++) {
                 buttons.get(i).tick();
             }
+            
+            if (mouse.getX() > 10 && mouse.getX() < 40 && mouse.getY() > 610 && mouse.getY() < 630 && mouse.isMousePressed()){
+                mainSettings = true;
+            }
+        }
+        
+        if (mainSettings){
+            if (mouse.getX() > 10 && mouse.getX() < 40 && mouse.getY() > 610 && mouse.getY() < 630 && mouse.isMousePressed()){
+                mainSettings = true;
+            }
         }
         
         if (gameScreen && !frozen) {
@@ -199,10 +214,10 @@ public class GameEngine implements Serializable {
             }
 
             if (currentRoomX == rooms.length - 1 && currentRoomY == rooms[0].length - 1) {
-                if ((pl.xLocFeet > rooms[currentRoomX][currentRoomY].trapDoorX * 50) && (pl.xLocFeet < rooms[currentRoomX][currentRoomY].trapDoorX * 50 + 50) && (pl.yLocFeet > rooms[currentRoomX][currentRoomY].trapDoorY * 50) && (pl.yLocFeet < rooms[currentRoomX][currentRoomY].trapDoorY * 50 + 50)) {
-                    frozen = true;
+                if ((pl.xLocFeet > rooms[currentRoomX][currentRoomY].tdx * 50) && (pl.xLocFeet < rooms[currentRoomX][currentRoomY].tdx * 50 + 50) && (pl.yLocFeet > rooms[currentRoomX][currentRoomY].tdy * 50) && (pl.yLocFeet < rooms[currentRoomX][currentRoomY].tdy * 50 + 50)) {
                     transitionDir = 4;
                     transitioning = true;
+                    frozen = true;
                 }
             }
         }
@@ -210,11 +225,23 @@ public class GameEngine implements Serializable {
         if (battle) {
             qt.tick();
         }
+        
+        if (transitioning||battle){
+            frozen = true;
+        } else {
+            frozen = false;
+        }
 
         if (transitionProg == 0 && transitionDir == 4 && transitionCoolDown == 0) {
+            frozen = true;
             currentRoomX = 0;
             currentRoomY = 0;
-            stratum++;
+            if (stratum == 3){
+                gameScreen = false;
+                gameOver = true;
+            } else {
+                stratum++;
+            }
             transitionCoolDown = 1000;
             loadRooms();
             pl.setLocation(400, 50);
@@ -230,7 +257,7 @@ public class GameEngine implements Serializable {
             pl.graceTimer = 100;
         }
 
-        if (gameover) {
+        if (gameOver) {
 
         }
     }
@@ -240,27 +267,27 @@ public class GameEngine implements Serializable {
             this.mainMenu = true;
             this.gameScreen = false;
             this.battle = false;
-            this.gameover = false;
+            this.gameOver = false;
         }
         if (mode.equals("game")) {
             this.mainMenu = false;
             this.gameScreen = true;
             this.battle = false;
             this.frozen = false;
-            this.gameover = false;
+            this.gameOver = false;
         }
         if (mode.equals("battle")) {
             this.mainMenu = false;
             this.gameScreen = true;
             this.battle = true;
             this.qt.startNewEquation();
-            this.gameover = false;
+            this.gameOver = false;
         }
         if (mode.equals("gameover")) {
             this.mainMenu = false;
             this.gameScreen = false;
             this.battle = false;
-            this.gameover = true;
+            this.gameOver = true;
         }
 
     }

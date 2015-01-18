@@ -99,23 +99,28 @@ public class GamePanel extends JPanel {
         }
 
         if (ge.mainMenu) {
+            if (ge.mainSettings) {
+                g.setColor(new Color(0, 0, 0, 190));
+                g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g.setColor(new Color(180, 180, 180, 190));
+                g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 400), true);
+                g.setColor(Color.black);
+                g.drawString("Player", this.getWidth() / 3, this.getHeight() / 3 + 50);
+                g.drawString("Difficulty", this.getWidth() / 3, this.getHeight() / 3 + 100);
+                g.drawString("Room dimension", this.getWidth() / 3, this.getHeight() / 3 + 150);
+                g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 200);
+            } else {
+                g.drawImage(ge.menuTitle, 0, 0, null);
+                for (int i = 0; i < ge.buttons.size(); i++) {
+                    ge.buttons.get(i).draw(g1);
+                }
+            }
             g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
             g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
-            g.drawImage(ge.menuTitle, 0, 0, null);
-            for (int i = 0; i < ge.buttons.size(); i++) {
-                ge.buttons.get(i).draw(g1);
-            }
         }
         if (ge.gameScreen) {
             ge.rooms[ge.currentRoomX][ge.currentRoomY].draw(g);
 
-//            for (int i = 0; i < mouse.Xcoords.size() - 1; i++) {
-//                int x = (int) mouse.Xcoords.get(i);
-//                int y = (int) mouse.Ycoords.get(i);
-//                int x1 = (int) mouse.Xcoords.get(i + 1);
-//                int y1 = (int) mouse.Ycoords.get(i + 1);
-//                g.drawLine(x, y, x1, y1);
-//            }
             g.setColor(Color.red);
 
             ge.mouse.x1 = (int) ge.pl.xLoc + 32;
@@ -210,9 +215,6 @@ public class GamePanel extends JPanel {
             } else {
                 ge.pl.distToMove = 0;
             }
-            if (SettingsProperties.debugModeG == true) {
-//                g.drawString("pl_pos: " + pl.xLocFeet + ", " + pl.yLocFeet, 50, 60);
-            }
 
             for (int i = 0; i < ge.rooms[ge.currentRoomX][ge.currentRoomY].en_arry.size(); i++) {
                 ge.rooms[ge.currentRoomX][ge.currentRoomY].en_arry.get(i).draw(g);
@@ -253,11 +255,6 @@ public class GamePanel extends JPanel {
                 this.parent.loadState();
             }
             if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 340 && ge.mouse.getY() < 370 && ge.mouse.isMousePressed()) {
-//                ge.mainMenu = true;
-//                ge.gameScreen = false;
-//                ge.battle = false;
-//                ge.gameover = false;
-//                ge.paused = false;
                 ge = new GameEngine();
                 this.reloadEngine();
 
@@ -277,7 +274,7 @@ public class GamePanel extends JPanel {
 
         }
 
-        if (ge.gameover) {
+        if (ge.gameOver) {
             g.setColor(Color.darkGray);
             g.drawString("Game Over", this.getWidth() / 3, this.getHeight() / 3);
             g.drawString("You got " + ge.pl.score + " points!", this.getWidth() / 3, this.getHeight() / 3 + 75);

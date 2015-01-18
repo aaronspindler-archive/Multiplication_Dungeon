@@ -20,8 +20,10 @@ public class Room implements Serializable {
     int[] tiles = new int[width * height];
     int[] spawnTiles = new int[width * height];
 
-    int trapDoorX;
-    int trapDoorY;
+    int [] trapDoorX = {7, 9, 1, 15, 1, 15, 7, 9};
+    int [] trapDoorY = {1, 1, 5, 5, 7, 7, 11, 11};
+    int tdx;
+    int tdy;
 
     ArrayList<Integer> spawnCoordsX = new ArrayList();
     ArrayList<Integer> spawnCoordsY = new ArrayList();
@@ -102,9 +104,10 @@ public class Room implements Serializable {
         }
 
         if (xNum == world.rooms.length - 1 && yNum == world.rooms[0].length - 1) {
-            trapDoorX = UsefulSnippets.generateRandomNumber(width);
-            trapDoorY = UsefulSnippets.generateRandomNumber(height);
-            tileArry[trapDoorX + trapDoorY * width].setTile(10);
+            int rng = UsefulSnippets.generateRandomNumber(8);
+            tdx = trapDoorX[rng];
+            tdy = trapDoorY[rng];
+            tileArry[trapDoorX[rng] + trapDoorY[rng] * width].setTile(10);
         }
 //
 //        System.out.println(tileArry[5 + 5 * width].TILE_ID);
