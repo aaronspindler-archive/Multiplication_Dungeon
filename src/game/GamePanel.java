@@ -99,24 +99,39 @@ public class GamePanel extends JPanel {
         }
 
         if (ge.mainMenu) {
+            g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
+            g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
             if (ge.mainSettings) {
-                g.setColor(new Color(0, 0, 0, 190));
+                g.setColor(new Color(0, 0, 0, 150));
                 g.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g.setColor(new Color(180, 180, 180, 190));
                 g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 400), true);
-                g.setColor(Color.black);
+
+                g.setColor(Color.DARK_GRAY);
                 g.drawString("Player", this.getWidth() / 3, this.getHeight() / 3 + 50);
                 g.drawString("Difficulty", this.getWidth() / 3, this.getHeight() / 3 + 100);
                 g.drawString("Room dimension", this.getWidth() / 3, this.getHeight() / 3 + 150);
                 g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 200);
+
+                g.setColor(Color.black);
+                g.drawString("Player", this.getWidth() / 3, this.getHeight() / 3 + 52);
+                g.drawString("Difficulty", this.getWidth() / 3, this.getHeight() / 3 + 102);
+                g.drawString("Room dimension", this.getWidth() / 3, this.getHeight() / 3 + 152);
+                g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 202);
+
+                if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 395 && ge.mouse.getY() < 420) {
+                    if (ge.mouse.isMousePressed()) {
+                        ge.mainSettings = false;
+                    }
+                }
+
             } else {
                 g.drawImage(ge.menuTitle, 0, 0, null);
                 for (int i = 0; i < ge.buttons.size(); i++) {
                     ge.buttons.get(i).draw(g1);
                 }
             }
-            g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
-            g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
+
         }
         if (ge.gameScreen) {
             ge.rooms[ge.currentRoomX][ge.currentRoomY].draw(g);
@@ -240,24 +255,44 @@ public class GamePanel extends JPanel {
         }
 
         if (ge.paused) {
-            g.setColor(new Color(0, 0, 0, 190));
+            g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
             g.setColor(new Color(180, 180, 180, 190));
             g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 400), true);
+
+            g.setColor(Color.DARK_GRAY);
+            g.drawString("Save state", this.getWidth() / 3 + 5, this.getHeight() / 3 + 52);
+            g.drawString("Load state", this.getWidth() / 3 + 5, this.getHeight() / 3 + 102);
+            g.drawString("Exit", this.getWidth() / 3 + 5, this.getHeight() / 3 + 152);
+
             g.setColor(Color.black);
             g.drawString("Save state", this.getWidth() / 3, this.getHeight() / 3 + 50);
             g.drawString("Load state", this.getWidth() / 3, this.getHeight() / 3 + 100);
             g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
-            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 240 && ge.mouse.getY() < 270 && ge.mouse.isMousePressed()) {
-                this.parent.saveState();
-            }
-            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 290 && ge.mouse.getY() < 320 && ge.mouse.isMousePressed()) {
-                this.parent.loadState();
-            }
-            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 340 && ge.mouse.getY() < 370 && ge.mouse.isMousePressed()) {
-                ge = new GameEngine();
-                this.reloadEngine();
 
+            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 240 && ge.mouse.getY() < 270) {
+                if (ge.mouse.isMousePressed()) {
+                    this.parent.saveState();
+                    ge.paused = false;
+                }
+                g.setColor(Color.WHITE);
+                g.drawString("Save state", this.getWidth() / 3, this.getHeight() / 3 + 50);
+            }
+            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 290 && ge.mouse.getY() < 320) {
+                if (ge.mouse.isMousePressed()) {
+                    this.parent.loadState();
+                    ge.paused = false;
+                }
+                g.setColor(Color.WHITE);
+                g.drawString("Load state", this.getWidth() / 3, this.getHeight() / 3 + 100);
+            }
+            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 340 && ge.mouse.getY() < 370) {
+                if (ge.mouse.isMousePressed()) {
+                    ge = new GameEngine();
+                    this.reloadEngine();
+                }
+                g.setColor(Color.WHITE);
+                g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
             }
         }
 
@@ -275,12 +310,27 @@ public class GamePanel extends JPanel {
         }
 
         if (ge.gameOver) {
+            ge.endMillis = System.currentTimeMillis();
+            
             g.setColor(Color.darkGray);
             g.drawString("Game Over", this.getWidth() / 3, this.getHeight() / 3);
             g.drawString("You got " + ge.pl.score + " points!", this.getWidth() / 3, this.getHeight() / 3 + 75);
         }
         g.setColor(Color.red);
         g.drawString(ge.mouse.getX() + " - " + ge.mouse.getY(), 100, 100);
+
+        g.drawString("Exit", this.getWidth() / 3 + 5, this.getHeight() / 3 + 152);
+        g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
+
+        
+        if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 340 && ge.mouse.getY() < 370) {
+            if (ge.mouse.isMousePressed()) {
+                ge = new GameEngine();
+                this.reloadEngine();
+            }
+            g.setColor(Color.WHITE);
+            g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
+        }
     }
 
     public void setParent(MultiplicationDungeonForm p) {

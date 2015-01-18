@@ -51,6 +51,7 @@ public class GameEngine implements Serializable {
     public int transitionCoolDown = 1000;
     public boolean unPauseCheck = false;
     public long startMillis = 0;
+    public long endMillis = 0;
 
     //=========================
     //      Input Variables
@@ -202,9 +203,7 @@ public class GameEngine implements Serializable {
         }
         
         if (mainSettings){
-            if (mouse.getX() > 10 && mouse.getX() < 40 && mouse.getY() > 610 && mouse.getY() < 630 && mouse.isMousePressed()){
-                mainSettings = true;
-            }
+
         }
         
         if (gameScreen && !frozen) {

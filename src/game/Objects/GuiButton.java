@@ -58,6 +58,7 @@ public class GuiButton implements Serializable {
             hover = true;
             if (m.isMousePressed()) {
                 g.switchTo(mode);
+                g.startMillis = System.currentTimeMillis();
                 m.unPress();
             }
         } else {
