@@ -45,13 +45,14 @@ public class GameEngine implements Serializable {
     public boolean gameOver = false;
     
     
-    public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
+    public int stratum = 3; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
     public int introTime = 100;
     public boolean incStratumTime = false;
     public int transitionCoolDown = 1000;
     public boolean unPauseCheck = false;
     public long startMillis = 0;
     public long endMillis = 0;
+
 
     //=========================
     //      Input Variables
@@ -117,7 +118,7 @@ public class GameEngine implements Serializable {
         mt = new MusicThread();
         td = new Thread(mt);
         this.qt = new QuestionPanel(this);
-        pl = new Player(this, "/resources/pl_fem.png", keys);
+        pl = new Player(this, "/resources/pl_male.png", keys);
         for (int w = 0; w < 17; w++) {
             for (int h = 0; h < 15; h++) {
                 if (w == 0 || w == 16 || h == 0 || h == 12) {
@@ -203,7 +204,9 @@ public class GameEngine implements Serializable {
         }
         
         if (mainSettings){
-
+            if (mouse.getX() > 10 && mouse.getX() < 40 && mouse.getY() > 610 && mouse.getY() < 630 && mouse.isMousePressed()){
+                mainSettings = true;
+            }
         }
         
         if (gameScreen && !frozen) {
@@ -238,6 +241,7 @@ public class GameEngine implements Serializable {
             if (stratum == 3){
                 gameScreen = false;
                 gameOver = true;
+                endMillis = System.currentTimeMillis();
             } else {
                 stratum++;
             }
@@ -257,7 +261,7 @@ public class GameEngine implements Serializable {
         }
 
         if (gameOver) {
-
+            
         }
     }
 
