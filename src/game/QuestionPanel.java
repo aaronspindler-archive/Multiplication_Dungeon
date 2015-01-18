@@ -31,6 +31,7 @@ public class QuestionPanel implements Serializable {
     int timer = 0;
     int maxTimer = 2000;
     int clock;
+    double addScore = 0.0;
 
     public QuestionPanel(GameEngine ge) {
         equation = makeEquation();
@@ -99,12 +100,19 @@ public class QuestionPanel implements Serializable {
             world.keys.unPress();
         }
         if (currentNumber != "" && Integer.parseInt(currentNumber) == product) {
-            int addScore = clock;
             answerRight = true;
+            
             if (winDelay == 0) {
+                if (addScore == 0){
+                    addScore = ((double) ((double)clock/360)*1000);
+                    world.pl.score = world.pl.score + (int) addScore;
+                    System.out.println(addScore + " - " + clock);
+                }
+            
                 world.switchTo("game");
                 world.rooms[world.currentRoomX][world.currentRoomY].en_arry.remove(world.en_index);
-                world.pl.score = world.pl.score + 500*(addScore/360);
+                addScore = 0.0;
+                
             } else {
                 winDelay--;
                 if (winDelay < 0) {
@@ -126,6 +134,7 @@ public class QuestionPanel implements Serializable {
             } else {
                 world.switchTo("game");
                 world.rooms[world.currentRoomX][world.currentRoomY].en_arry.remove(world.en_index);
+                addScore = 0.0;
             }
         }
     }

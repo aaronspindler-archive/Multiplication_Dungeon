@@ -16,6 +16,7 @@ public class Player extends Entity implements Serializable {
         super(ge, sp);
         keys = k;
         lives = 3;
+        score=  0;
         this.xLoc = 400;
         this.yLoc = 50;
     }

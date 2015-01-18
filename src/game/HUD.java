@@ -7,8 +7,6 @@ import java.io.Serializable;
 public class HUD implements Serializable {
 
     GameEngine world;
-    int lives;
-    int score;
 
     public HUD(GameEngine ge) {
         world = ge;
