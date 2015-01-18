@@ -1,6 +1,5 @@
 package game;
 
-import com.mysql.jdbc.Connection;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -9,10 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,42 +79,8 @@ public class UsefulSnippets implements Serializable {
         return f;
     }
 
-    public static Connection makeMySQLConnection() {
-        String serverIP = ("50.87.144.85");
-        String port = ("3306");
-        String databaseName = ("xnovax_school");
-        String username = ("xnovax_school");
-        String password = ("Temp123@");
-
-        String url = String.format("jdbc:mysql://%s:%s/%s", serverIP, port, databaseName);
-        System.out.println(url);
-        Connection connection = null;
-        try {
-            connection = (Connection) DriverManager.getConnection(url, username, password);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return connection;
-    }
-
     public void addHighScore(String username, int score) {
-        Connection connect = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
 
-        try {
-            connect = makeMySQLConnection();
-            statement = connect.createStatement();
-            String query = String.format("Insert into (Username, Score) values ('%s','%s');", username, score);
-            resultSet = statement.executeQuery(query);
-
-            connect.close();
-            statement.close();
-            resultSet.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public int getNumScores() {
