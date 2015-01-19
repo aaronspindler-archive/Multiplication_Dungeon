@@ -33,7 +33,6 @@ public class GameEngine implements Serializable {
     //=========================
     //   Game State Variables
     //=========================
-    
     //Screens
     public boolean intro = true;
     public boolean mainMenu = false;
@@ -43,8 +42,7 @@ public class GameEngine implements Serializable {
     public boolean frozen = false;
     public boolean paused = false;
     public boolean gameOver = false;
-    
-    
+
     public int stratum = 3; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
     public int introTime = 100;
     public boolean incStratumTime = false;
@@ -52,7 +50,6 @@ public class GameEngine implements Serializable {
     public boolean unPauseCheck = false;
     public long startMillis = 0;
     public long endMillis = 0;
-
 
     //=========================
     //      Input Variables
@@ -165,7 +162,7 @@ public class GameEngine implements Serializable {
     }
 
     public void tick() {
-        
+
         if (intro) {
             if (AnimationTimer > 5) {
                 ImageScroll++;
@@ -194,21 +191,23 @@ public class GameEngine implements Serializable {
                 AnimationTimer++;
             }
 
-            for (int i = 0; i < buttons.size(); i++) {
-                buttons.get(i).tick();
+            if (!mainSettings) {
+                for (int i = 0; i < buttons.size(); i++) {
+                    buttons.get(i).tick();
+                }
             }
-            
-            if (mouse.getX() > 10 && mouse.getX() < 40 && mouse.getY() > 610 && mouse.getY() < 630 && mouse.isMousePressed()){
+
+            if (mouse.getX() > 10 && mouse.getX() < 40 && mouse.getY() > 610 && mouse.getY() < 630 && mouse.isMousePressed()) {
                 mainSettings = true;
             }
         }
-        
-        if (mainSettings){
-            if (mouse.getX() > 10 && mouse.getX() < 40 && mouse.getY() > 610 && mouse.getY() < 630 && mouse.isMousePressed()){
+
+        if (mainSettings) {
+            if (mouse.getX() > 10 && mouse.getX() < 40 && mouse.getY() > 610 && mouse.getY() < 630 && mouse.isMousePressed()) {
                 mainSettings = true;
             }
         }
-        
+
         if (gameScreen && !frozen) {
             pl.tick();
             for (int i = 0; i < rooms[currentRoomX][currentRoomY].en_arry.size(); i++) {
@@ -227,8 +226,8 @@ public class GameEngine implements Serializable {
         if (battle) {
             qt.tick();
         }
-        
-        if (transitioning||battle){
+
+        if (transitioning || battle) {
             frozen = true;
         } else {
             frozen = false;
@@ -238,7 +237,7 @@ public class GameEngine implements Serializable {
             frozen = true;
             currentRoomX = 0;
             currentRoomY = 0;
-            if (stratum == 3){
+            if (stratum == 3) {
                 gameScreen = false;
                 gameOver = true;
                 endMillis = System.currentTimeMillis();
@@ -261,7 +260,7 @@ public class GameEngine implements Serializable {
         }
 
         if (gameOver) {
-            
+
         }
     }
 

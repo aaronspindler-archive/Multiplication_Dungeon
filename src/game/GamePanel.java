@@ -310,27 +310,27 @@ public class GamePanel extends JPanel {
         }
 
         if (ge.gameOver) {
-            ge.endMillis = System.currentTimeMillis();
-            
             g.setColor(Color.darkGray);
             g.drawString("Game Over", this.getWidth() / 3, this.getHeight() / 3);
             g.drawString("You got " + ge.pl.score + " points!", this.getWidth() / 3, this.getHeight() / 3 + 75);
+            g.drawString("Completed in " + (ge.endMillis - ge.startMillis) + " milliseconds!", this.getWidth() / 3, this.getHeight() / 3 + 100);
+            g.setColor(Color.DARK_GRAY);
+            g.drawString("Exit", this.getWidth() / 3 + 2, this.getHeight() / 3 + 152);
+            g.setColor(Color.black);
+            g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
+            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 340 && ge.mouse.getY() < 370) {
+                if (ge.mouse.isMousePressed()) {
+                    ge = new GameEngine();
+                    this.reloadEngine();
+                }
+                g.setColor(Color.WHITE);
+                g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
+            }
+
         }
         g.setColor(Color.red);
         g.drawString(ge.mouse.getX() + " - " + ge.mouse.getY(), 100, 100);
 
-        g.drawString("Exit", this.getWidth() / 3 + 5, this.getHeight() / 3 + 152);
-        g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
-
-        
-        if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 340 && ge.mouse.getY() < 370) {
-            if (ge.mouse.isMousePressed()) {
-                ge = new GameEngine();
-                this.reloadEngine();
-            }
-            g.setColor(Color.WHITE);
-            g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
-        }
     }
 
     public void setParent(MultiplicationDungeonForm p) {
