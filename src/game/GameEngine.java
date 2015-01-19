@@ -34,6 +34,8 @@ public class GameEngine implements Serializable {
     //   Game State Variables
     //=========================
     //Screens
+    public int playerSp = 0;
+    
     public boolean intro = true;
     public boolean mainMenu = false;
     public boolean mainSettings = false;
@@ -43,7 +45,7 @@ public class GameEngine implements Serializable {
     public boolean paused = false;
     public boolean gameOver = false;
 
-    public int stratum = 3; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
+    public int stratum = 1; //"depth" of rooms: 1 - normal, 2 - ice, 3 - lava, 4 - ???
     public int introTime = 100;
     public boolean incStratumTime = false;
     public int transitionCoolDown = 1000;
@@ -61,6 +63,7 @@ public class GameEngine implements Serializable {
     //    Player Variables
     //=========================
     String[] spritePaths = {"/resources/en1_sprite.png", "/resources/en2_sprite.png", "/resources/en3_sprite.png", "/resources/textures.png"};
+    String[] playerSpritePaths = {"/resources/pl_male.png", "/resources/pl_fem.png"};
     Player pl;
     HUD hud = new HUD(this); //heads up display
     int numEnemies = 5;
@@ -115,7 +118,7 @@ public class GameEngine implements Serializable {
         mt = new MusicThread();
         td = new Thread(mt);
         this.qt = new QuestionPanel(this);
-        pl = new Player(this, "/resources/pl_male.png", keys);
+        pl = new Player(this, playerSpritePaths[playerSp], keys);
         for (int w = 0; w < 17; w++) {
             for (int h = 0; h < 15; h++) {
                 if (w == 0 || w == 16 || h == 0 || h == 12) {
@@ -256,7 +259,7 @@ public class GameEngine implements Serializable {
         if (transitionProg > 1000) {
             transitioning = false;
             transitionProg = -1000;
-            pl.graceTimer = 100;
+            pl.graceTimer = 50;
         }
 
         if (gameOver) {
@@ -332,7 +335,7 @@ public class GameEngine implements Serializable {
     }
 
     public void loadResources() {  //Called on loadstate, reloads all transient resources into gameEngine
-        pl.loadResources("/resources/pl_fem.png");
+        pl.loadResources(playerSpritePaths[playerSp]);
         font[0] = UsefulSnippets.loadFont("/resources/Deadhead Rough.ttf");
         spritesTex = new BufferedImage[texCols][texRows];
         spriteSheetTex = UsefulSnippets.loadImage(spritePaths[spritePaths.length - 1]);

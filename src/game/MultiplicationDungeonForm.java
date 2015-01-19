@@ -23,7 +23,7 @@ public class MultiplicationDungeonForm extends javax.swing.JFrame {
 
     public MultiplicationDungeonForm() {
         initComponents();
-        this.setSize(860, 682);
+        this.setSize(855, 679);
         if (SettingsProperties.aaronsLaptop == true) {
             this.setResizable(true);
         } else {

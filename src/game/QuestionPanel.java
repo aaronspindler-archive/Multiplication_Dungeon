@@ -29,7 +29,7 @@ public class QuestionPanel implements Serializable {
     final int delaySet = 25;
     final int answerLength = 3;
     int timer = 0;
-    int maxTimer = 2000;
+    int maxTimer = 2000000;
     int clock;
     double addScore = 0.0;
 
@@ -130,6 +130,7 @@ public class QuestionPanel implements Serializable {
             System.out.println(world.pl.lives);
             world.pl.loseLife();
             if (world.pl.lives <= 0) {
+                world.endMillis = System.currentTimeMillis();
                 world.switchTo("gameover");
             } else {
                 world.switchTo("game");
