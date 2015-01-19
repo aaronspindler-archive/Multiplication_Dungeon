@@ -33,7 +33,6 @@ public class GamePanel extends JPanel {
         if (th != null) {
             lt.listening = false;
         }
-
         lt = new GamePanel.ListenerThread();
         th = new Thread(lt);
         th.start();
@@ -115,13 +114,13 @@ public class GamePanel extends JPanel {
                 g.setColor(Color.DARK_GRAY);
                 g.drawString("Player model - " + ge.playerSp, this.getWidth() / 3, this.getHeight() / 3 + 50);
                 g.drawString("Difficulty", this.getWidth() / 3, this.getHeight() / 3 + 100);
-                g.drawString("Room dimension", this.getWidth() / 3, this.getHeight() / 3 + 150);
+                g.drawString("Room dimension - < "+ge.rooms.length+" > x < "+ge.rooms[0].length + " >", this.getWidth() / 3, this.getHeight() / 3 + 150);
                 g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 200);
 
                 g.setColor(Color.black);
                 g.drawString("Player model - " + ge.playerSp, this.getWidth() / 3 + 2, this.getHeight() / 3 + 52);
                 g.drawString("Difficulty", this.getWidth() / 3 + 2, this.getHeight() / 3 + 102);
-                g.drawString("Room dimension", this.getWidth() / 3 + 2, this.getHeight() / 3 + 152);
+                g.drawString("Room dimension - "+ge.rooms.length+" x "+ge.rooms[0].length, this.getWidth() / 3 + 2, this.getHeight() / 3 + 152);
                 g.drawString("Back", this.getWidth() / 3 + 2, this.getHeight() / 3 + 202);
 
                 if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 245 && ge.mouse.getY() < 270) {
@@ -149,7 +148,7 @@ public class GamePanel extends JPanel {
                         ge.mainSettings = false;
                     }
                     g.setColor(Color.WHITE);
-                    g.drawString("Room dimension", this.getWidth() / 3, this.getHeight() / 3 + 152);
+                    g.drawString("Room dimension - "+ge.rooms.length+" x "+ge.rooms[0].length, this.getWidth() / 3, this.getHeight() / 3 + 152);
                 }
                 if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 395 && ge.mouse.getY() < 420) {
                     if (ge.mouse.isMousePressed()) {
