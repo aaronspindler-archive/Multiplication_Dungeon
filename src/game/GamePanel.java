@@ -363,7 +363,7 @@ public class GamePanel extends JPanel {
         }
         g.setColor(Color.red);
         
-//        g.drawString(ge.mouse.getX() + " - " + ge.mouse.getY(), 100, 100);
+        g.drawString(ge.pl.getX() + " - " + ge.pl.getY(), 100, 100);
 
     }
 

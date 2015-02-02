@@ -16,7 +16,7 @@ public class Player extends Entity implements Serializable {
         super(ge, sp);
         keys = k;
         lives = 3;
-        score=  0;
+        score = 0;
         this.xLoc = 400;
         this.yLoc = 50;
     }
@@ -54,7 +54,7 @@ public class Player extends Entity implements Serializable {
                 if (ge.rooms[ge.currentRoomX][ge.currentRoomY].tileArry[this.tileLocX + (this.tileLocY - 1) * ge.rooms[ge.currentRoomX][ge.currentRoomY].width].isSolid()) {
                     this.uBlock = true;
                     dTu = ((int) this.yLocFeet - (50 * (this.tileLocY)));
-                    }   //Down
+                }   //Down
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,35 +67,35 @@ public class Player extends Entity implements Serializable {
             checkCollision();
         }
 
-        if (this.yLocFeet < 40 && ge.currentRoomY > 0) {
+        if (this.yLocFeet < 40 && ge.currentRoomY > 0) {    //up
             nextRoom(0);
             if (ge.transitionProg > 0) {
                 this.xLoc = 400;
-                this.yLoc = 550;
+                this.yLoc = 527;
 //                uBlock = false;
 //                dBlock = false;
             }
         }
-        if (this.yLocFeet > 625 && ge.currentRoomY < ge.rooms.length - 1) {
+        if (this.yLocFeet > 625 && ge.currentRoomY < ge.rooms.length - 1) { //down
             nextRoom(2);
             if (ge.transitionProg > 0) {
                 this.xLoc = 400;
-                this.yLoc = 50;
+                this.yLoc = 25;
             }
         }
-        if (this.xLocFeet > 825 && ge.currentRoomX < ge.rooms[0].length - 1) {
+        if (this.xLocFeet > 825 && ge.currentRoomX < ge.rooms[0].length - 1) {  //left
             nextRoom(1);
             if (ge.transitionProg > 0) {
                 this.xLoc = 50;
-                this.yLoc = 300;
+                this.yLoc = 270;
                 rBlock = false;
             }
         }
-        if (this.xLocFeet < 40 && ge.currentRoomX > 0) {
+        if (this.xLocFeet < 40 && ge.currentRoomX > 0) {    //right
             nextRoom(3);
             if (ge.transitionProg > 0) {
                 this.xLoc = 750;
-                this.yLoc = 300;
+                this.yLoc = 270;
                 lBlock = false;
             }
         }
@@ -192,12 +192,12 @@ public class Player extends Entity implements Serializable {
         }
         ge.transitionDir = i;
     }
-    
-    public void loseLife(){
+
+    public void loseLife() {
         lives--;
     }
-    
-    public void gainLife(){
+
+    public void gainLife() {
         lives++;
     }
 }
