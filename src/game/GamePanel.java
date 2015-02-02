@@ -48,8 +48,8 @@ public class GamePanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g1) {
-        
-        if (coolDown > 0){
+
+        if (coolDown > 0) {
             coolDown--;
         }
 
@@ -109,19 +109,21 @@ public class GamePanel extends JPanel {
                 g.setColor(new Color(0, 0, 0, 150));
                 g.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g.setColor(new Color(180, 180, 180, 190));
-                g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 400), true);
+                g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 300), true);
 
                 g.setColor(Color.DARK_GRAY);
                 g.drawString("Player model - " + ge.playerSp, this.getWidth() / 3, this.getHeight() / 3 + 50);
                 g.drawString("Difficulty", this.getWidth() / 3, this.getHeight() / 3 + 100);
-                g.drawString("Room dimension - < "+ge.rooms.length+" > x < "+ge.rooms[0].length + " >", this.getWidth() / 3, this.getHeight() / 3 + 150);
-                g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 200);
+                g.drawString("Room dimension - < " + ge.rooms.length + " > x < " + ge.rooms[0].length + " >", this.getWidth() / 3, this.getHeight() / 3 + 150);
+                g.drawString("Help", this.getWidth() / 3, this.getHeight() / 3 + 200);
+                g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 250);
 
                 g.setColor(Color.black);
                 g.drawString("Player model - " + ge.playerSp, this.getWidth() / 3 + 2, this.getHeight() / 3 + 52);
                 g.drawString("Difficulty", this.getWidth() / 3 + 2, this.getHeight() / 3 + 102);
-                g.drawString("Room dimension - "+ge.rooms.length+" x "+ge.rooms[0].length, this.getWidth() / 3 + 2, this.getHeight() / 3 + 152);
-                g.drawString("Back", this.getWidth() / 3 + 2, this.getHeight() / 3 + 202);
+                g.drawString("Room dimension - < " + ge.rooms.length + " > x < " + ge.rooms[0].length + " >", this.getWidth() / 3 + 2, this.getHeight() / 3 + 152);
+                g.drawString("Help", this.getWidth() / 3 + 2, this.getHeight() / 3 + 202);
+                g.drawString("Back", this.getWidth() / 3 + 2, this.getHeight() / 3 + 252);
 
                 if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 245 && ge.mouse.getY() < 270) {
                     if (ge.mouse.isMousePressed() && coolDown <= 0) {
@@ -148,14 +150,22 @@ public class GamePanel extends JPanel {
                         ge.mainSettings = false;
                     }
                     g.setColor(Color.WHITE);
-                    g.drawString("Room dimension - "+ge.rooms.length+" x "+ge.rooms[0].length, this.getWidth() / 3, this.getHeight() / 3 + 152);
+                    g.drawString("Room dimension - " + ge.rooms.length + " x " + ge.rooms[0].length, this.getWidth() / 3, this.getHeight() / 3 + 152);
                 }
                 if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 395 && ge.mouse.getY() < 420) {
+                    if (ge.mouse.isMousePressed() && coolDown <= 0) {
+                        UsefulSnippets.openWebpage("https://github.com/xNovax/Multiplication_Dungeon");
+                        coolDown = 200;
+                    }
+                    g.setColor(Color.WHITE);
+                    g.drawString("Help", this.getWidth() / 3, this.getHeight() / 3 + 202);
+                }
+                if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 445 && ge.mouse.getY() < 470) {
                     if (ge.mouse.isMousePressed()) {
                         ge.mainSettings = false;
                     }
                     g.setColor(Color.WHITE);
-                    g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 202);
+                    g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 252);
                 }
 
             } else {
@@ -362,9 +372,8 @@ public class GamePanel extends JPanel {
 
         }
         g.setColor(Color.red);
-        
-//        g.drawString(ge.pl.getX() + " - " + ge.pl.getY(), 100, 100);
 
+//        g.drawString(ge.pl.getX() + " - " + ge.pl.getY(), 100, 100);
     }
 
     public void setParent(MultiplicationDungeonForm p) {
