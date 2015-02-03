@@ -116,9 +116,12 @@ public class GameEngine implements Serializable {
     int numSettingsBtns = 4;
     int navBtnH = 50;
     int navBtnW = 400;
-    int settingsBtnLMargin = 200;
+    int menuBtnLMargin = 200;
     NavBtn[] settingsBtns = new NavBtn[numSettingsBtns];
     String[] settingsBtnStrings = {"Player Model - " + playerSp, "Room dimension - " + rooms.length + " x " + rooms[0].length, "Help", "Back"};
+    
+    NavBtn[] pauseBtns = new NavBtn[numSettingsBtns];
+    String[] pauseBtnStrings = {"Save State", "Load State", "Back", "Exit Level"};
     int navBtnYSpacing = 3;
 
     //=============================
@@ -147,9 +150,7 @@ public class GameEngine implements Serializable {
             }
         }
 
-        for (int b = 0; b < numSettingsBtns; b++) {
-            settingsBtns[b] = new NavBtn(200, 200 + (navBtnYSpacing + navBtnH) * b, navBtnW, navBtnH, settingsBtnStrings[b]);
-        }
+        updateBtns();
 
         menuScreen = UsefulSnippets.loadImage("/resources/JustBG.png");
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
@@ -177,6 +178,15 @@ public class GameEngine implements Serializable {
                         x,
                         y);
             }
+        }
+    }
+    
+    public void updateBtns(){
+        settingsBtnStrings = new String[] {"Player Model - " + playerSp, "Room dimension - " + rooms.length + " x " + rooms[0].length, "Help", "Back"};
+        for (int b = 0; b < numSettingsBtns; b++) {
+            settingsBtns[b] = new NavBtn(200, 200 + (navBtnYSpacing + navBtnH) * b, navBtnW, navBtnH, settingsBtnStrings[b]);
+            pauseBtns[b] = new NavBtn(200, 200 + (navBtnYSpacing + navBtnH) * b, navBtnW, navBtnH, pauseBtnStrings[b]);
+            
         }
     }
 
@@ -217,7 +227,7 @@ public class GameEngine implements Serializable {
                 AnimationTimer++;
             }
 
-            if (!mainSettings) {
+            if (!mainSettings && coolDown == 0) {
                 for (int i = 0; i < buttons.size(); i++) {
                     buttons.get(i).tick();
                 }

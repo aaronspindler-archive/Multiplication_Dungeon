@@ -18,6 +18,7 @@ public class NavBtn implements Serializable{
     int width;
     int height;
     String label = "";
+    boolean isMouseOver = false;
 
     public NavBtn(int x, int y, int w, int h, String s) {
         xLoc = x;

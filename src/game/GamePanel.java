@@ -52,7 +52,7 @@ public class GamePanel extends JPanel {
         if (coolDown > 0) {
             coolDown--;
         }
-        if (coolDown < 0){
+        if (coolDown < 0) {
             coolDown = 0;
         }
 
@@ -109,51 +109,50 @@ public class GamePanel extends JPanel {
             g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
             g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
             if (ge.mainSettings) {
-//                g.setColor(new Color(0, 0, 0, 150));
-//                g.fillRect(0, 0, this.getWidth(), this.getHeight());
-//                g.setColor(new Color(180, 180, 180, 190));
-//                g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 300), true);
 
                 for (int i = 0; i < ge.settingsBtns.length; i++) {
-                    g.setColor(Color.DARK_GRAY);
-                    g.fill3DRect(ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc, this.getWidth() - 400, ge.settingsBtns[i].height, true);
-                    g.setColor(Color.black);
-                    g.drawString(ge.settingsBtns[i].label, findStringMid(g, this.getWidth(), ge.settingsBtns[i].label) + ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc + 33);
-                }
-                if (ge.mouse.getX() > ge.settingsBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.settingsBtnLMargin && ge.mouse.getY() > ge.settingsBtnLMargin && ge.mouse.getY() < 250) {
-                    if (ge.mouse.isMousePressed() && coolDown <= 0) {
-                        if (ge.playerSp > 0) {
-                            ge.playerSp = 0;
-                        } else {
-                            ge.playerSp++;
+                    if (ge.mouse.getX() > ge.menuBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.menuBtnLMargin && ge.mouse.getY() > ge.settingsBtns[i].yLoc && ge.mouse.getY() < ge.settingsBtns[i].yLoc + 50) {
+                        g.setColor(Color.DARK_GRAY);
+                        g.fill3DRect(ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc, this.getWidth() - 400, ge.settingsBtns[i].height, true);
+                        ge.settingsBtns[i].isMouseOver = true;
+                        g.setColor(Color.WHITE);
+                        g.drawString(ge.settingsBtns[i].label, findStringMid(g, this.getWidth(), ge.settingsBtns[i].label) + ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc + 33);
+                    } else {
+                        g.setColor(Color.LIGHT_GRAY);
+                        g.fill3DRect(ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc, this.getWidth() - 400, ge.settingsBtns[i].height, true);
+                        ge.settingsBtns[i].isMouseOver = false;
+                        g.setColor(Color.BLACK);
+                        g.drawString(ge.settingsBtns[i].label, findStringMid(g, this.getWidth(), ge.settingsBtns[i].label) + ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc + 33);
+                    }
+
+                    if (ge.mouse.isMousePressed() && ge.settingsBtns[i].isMouseOver && coolDown <= 0) {
+                        switch (i) {
+                            case 0:
+                                if (ge.playerSp > 0) {
+                                    ge.playerSp = 0;
+                                } else {
+                                    ge.playerSp++;
+                                }
+                                ge.pl = new Player(ge, ge.playerSpritePaths[ge.playerSp], ge.keys);
+                                coolDown = 200;
+                                ge.updateBtns();
+                                break;
+                            case 1:
+                                ge.mainSettings = false;
+                                ge.coolDown = 200;
+                                ge.updateBtns();
+                                break;
+                            case 2:
+                                UsefulSnippets.openWebpage("https://github.com/xNovax/Multiplication_Dungeon");
+                                coolDown = 200;
+                                break;
+                            case 3:
+                                ge.mainSettings = false;
+                                ge.coolDown = 100;
+                                break;
+
                         }
-                        ge.pl = new Player(ge, ge.playerSpritePaths[ge.playerSp], ge.keys);
-                        coolDown = 200;
                     }
-                    g.setColor(Color.WHITE);
-                    g.drawString("Player model - " + ge.playerSp, findStringMid(g, this.getWidth(), "Player model - " + ge.playerSp) + ge.settingsBtnLMargin, ge.settingsBtnLMargin + 33);
-                }
-                if (ge.mouse.getX() > ge.settingsBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.settingsBtnLMargin && ge.mouse.getY() > 253 && ge.mouse.getY() < 303) {
-                    if (ge.mouse.isMousePressed()) {
-                        ge.mainSettings = false;
-                    }
-                    g.setColor(Color.WHITE);
-                    g.drawString("Room dimension - " + ge.rooms.length + " x " + ge.rooms[0].length, findStringMid(g, this.getWidth(), "Room dimension - " + ge.rooms.length + " x " + ge.rooms[0].length) + ge.settingsBtnLMargin, 253 + 33);
-                }
-                if (ge.mouse.getX() > ge.settingsBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.settingsBtnLMargin && ge.mouse.getY() > 306 && ge.mouse.getY() < 356) {
-                    if (ge.mouse.isMousePressed() && coolDown <= 0) {
-                        UsefulSnippets.openWebpage("https://github.com/xNovax/Multiplication_Dungeon");
-                        coolDown = 200;
-                    }
-                    g.setColor(Color.WHITE);
-                    g.drawString("Help", findStringMid(g, this.getWidth(), "Help") + ge.settingsBtnLMargin, 306 + 33);
-                }
-                if (ge.mouse.getX() > ge.settingsBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.settingsBtnLMargin && ge.mouse.getY() > 359 && ge.mouse.getY() < 409) {
-                    if (ge.mouse.isMousePressed()) {
-                        ge.mainSettings = false;
-                    }
-                    g.setColor(Color.WHITE);
-                    g.drawString("Back", findStringMid(g, this.getWidth(), "Back") + ge.settingsBtnLMargin, 359 + 33);
                 }
 
             } else {
@@ -288,42 +287,42 @@ public class GamePanel extends JPanel {
         if (ge.paused) {
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
-            g.setColor(new Color(180, 180, 180, 190));
-            g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 400), true);
 
-            g.setColor(Color.DARK_GRAY);
-            g.drawString("Save state", this.getWidth() / 3 + 2, this.getHeight() / 3 + 52);
-            g.drawString("Load state", this.getWidth() / 3 + 2, this.getHeight() / 3 + 102);
-            g.drawString("Exit", this.getWidth() / 3 + 2, this.getHeight() / 3 + 152);
+            for (int i = 0; i < ge.pauseBtns.length; i++) {
+                if (ge.mouse.getX() > ge.menuBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.menuBtnLMargin && ge.mouse.getY() > ge.pauseBtns[i].yLoc && ge.mouse.getY() < ge.pauseBtns[i].yLoc + 50) {
+                    g.setColor(Color.DARK_GRAY);
+                    g.fill3DRect(ge.pauseBtns[i].xLoc, ge.pauseBtns[i].yLoc, this.getWidth() - 400, ge.pauseBtns[i].height, true);
+                    ge.pauseBtns[i].isMouseOver = true;
+                    g.setColor(Color.WHITE);
+                    g.drawString(ge.pauseBtns[i].label, findStringMid(g, this.getWidth(), ge.pauseBtns[i].label) + ge.pauseBtns[i].xLoc, ge.pauseBtns[i].yLoc + 33);
+                } else {
+                    g.setColor(Color.LIGHT_GRAY);
+                    g.fill3DRect(ge.pauseBtns[i].xLoc, ge.pauseBtns[i].yLoc, this.getWidth() - 400, ge.pauseBtns[i].height, true);
+                    ge.pauseBtns[i].isMouseOver = false;
+                    g.setColor(Color.BLACK);
+                    g.drawString(ge.pauseBtns[i].label, findStringMid(g, this.getWidth(), ge.pauseBtns[i].label) + ge.pauseBtns[i].xLoc, ge.pauseBtns[i].yLoc + 33);
+                }
 
-            g.setColor(Color.black);
-            g.drawString("Save state", this.getWidth() / 3, this.getHeight() / 3 + 50);
-            g.drawString("Load state", this.getWidth() / 3, this.getHeight() / 3 + 100);
-            g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
+                if (ge.mouse.isMousePressed() && ge.pauseBtns[i].isMouseOver && coolDown <= 0) {
+                    switch (i) {
+                        case 0:
+                            this.parent.saveState();
+                            ge.paused = false;
+                            break;
+                        case 1:
+                            this.parent.loadState();
+                            ge.paused = false;
+                            break;
+                        case 2:
+                            ge.paused = false;
+                            break;
+                        case 3:
+                            ge = new GameEngine();
+                            this.reloadEngine();
+                            break;
 
-            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 240 && ge.mouse.getY() < 270) {
-                if (ge.mouse.isMousePressed()) {
-                    this.parent.saveState();
-                    ge.paused = false;
+                    }
                 }
-                g.setColor(Color.WHITE);
-                g.drawString("Save state", this.getWidth() / 3, this.getHeight() / 3 + 50);
-            }
-            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 290 && ge.mouse.getY() < 320) {
-                if (ge.mouse.isMousePressed()) {
-                    this.parent.loadState();
-                    ge.paused = false;
-                }
-                g.setColor(Color.WHITE);
-                g.drawString("Load state", this.getWidth() / 3, this.getHeight() / 3 + 100);
-            }
-            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 340 && ge.mouse.getY() < 370) {
-                if (ge.mouse.isMousePressed()) {
-                    ge = new GameEngine();
-                    this.reloadEngine();
-                }
-                g.setColor(Color.WHITE);
-                g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
             }
         }
 
