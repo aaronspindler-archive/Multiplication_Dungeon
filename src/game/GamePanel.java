@@ -52,6 +52,9 @@ public class GamePanel extends JPanel {
         if (coolDown > 0) {
             coolDown--;
         }
+        if (coolDown < 0){
+            coolDown = 0;
+        }
 
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
@@ -106,26 +109,18 @@ public class GamePanel extends JPanel {
             g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
             g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
             if (ge.mainSettings) {
-                g.setColor(new Color(0, 0, 0, 150));
-                g.fillRect(0, 0, this.getWidth(), this.getHeight());
-                g.setColor(new Color(180, 180, 180, 190));
-                g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 300), true);
+//                g.setColor(new Color(0, 0, 0, 150));
+//                g.fillRect(0, 0, this.getWidth(), this.getHeight());
+//                g.setColor(new Color(180, 180, 180, 190));
+//                g.fill3DRect(200, 200, (this.getWidth() - 400), (this.getHeight() - 300), true);
 
-                g.setColor(Color.DARK_GRAY);
-                g.drawString("Player model - " + ge.playerSp, this.getWidth() / 3, this.getHeight() / 3 + 50);
-                g.drawString("Difficulty", this.getWidth() / 3, this.getHeight() / 3 + 100);
-                g.drawString("Room dimension - < " + ge.rooms.length + " > x < " + ge.rooms[0].length + " >", this.getWidth() / 3, this.getHeight() / 3 + 150);
-                g.drawString("Help", this.getWidth() / 3, this.getHeight() / 3 + 200);
-                g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 250);
-
-                g.setColor(Color.black);
-                g.drawString("Player model - " + ge.playerSp, this.getWidth() / 3 + 2, this.getHeight() / 3 + 52);
-                g.drawString("Difficulty", this.getWidth() / 3 + 2, this.getHeight() / 3 + 102);
-                g.drawString("Room dimension - < " + ge.rooms.length + " > x < " + ge.rooms[0].length + " >", this.getWidth() / 3 + 2, this.getHeight() / 3 + 152);
-                g.drawString("Help", this.getWidth() / 3 + 2, this.getHeight() / 3 + 202);
-                g.drawString("Back", this.getWidth() / 3 + 2, this.getHeight() / 3 + 252);
-
-                if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 245 && ge.mouse.getY() < 270) {
+                for (int i = 0; i < ge.settingsBtns.length; i++) {
+                    g.setColor(Color.DARK_GRAY);
+                    g.fill3DRect(ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc, this.getWidth() - 400, ge.settingsBtns[i].height, true);
+                    g.setColor(Color.black);
+                    g.drawString(ge.settingsBtns[i].label, findStringMid(g, this.getWidth(), ge.settingsBtns[i].label) + ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc + 33);
+                }
+                if (ge.mouse.getX() > ge.settingsBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.settingsBtnLMargin && ge.mouse.getY() > ge.settingsBtnLMargin && ge.mouse.getY() < 250) {
                     if (ge.mouse.isMousePressed() && coolDown <= 0) {
                         if (ge.playerSp > 0) {
                             ge.playerSp = 0;
@@ -136,36 +131,29 @@ public class GamePanel extends JPanel {
                         coolDown = 200;
                     }
                     g.setColor(Color.WHITE);
-                    g.drawString("Player model - " + ge.playerSp, this.getWidth() / 3, this.getHeight() / 3 + 52);
+                    g.drawString("Player model - " + ge.playerSp, findStringMid(g, this.getWidth(), "Player model - " + ge.playerSp) + ge.settingsBtnLMargin, ge.settingsBtnLMargin + 33);
                 }
-                if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 295 && ge.mouse.getY() < 320) {
+                if (ge.mouse.getX() > ge.settingsBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.settingsBtnLMargin && ge.mouse.getY() > 253 && ge.mouse.getY() < 303) {
                     if (ge.mouse.isMousePressed()) {
                         ge.mainSettings = false;
                     }
                     g.setColor(Color.WHITE);
-                    g.drawString("Difficulty", this.getWidth() / 3, this.getHeight() / 3 + 102);
+                    g.drawString("Room dimension - " + ge.rooms.length + " x " + ge.rooms[0].length, findStringMid(g, this.getWidth(), "Room dimension - " + ge.rooms.length + " x " + ge.rooms[0].length) + ge.settingsBtnLMargin, 253 + 33);
                 }
-                if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 345 && ge.mouse.getY() < 370) {
-                    if (ge.mouse.isMousePressed()) {
-                        ge.mainSettings = false;
-                    }
-                    g.setColor(Color.WHITE);
-                    g.drawString("Room dimension - " + ge.rooms.length + " x " + ge.rooms[0].length, this.getWidth() / 3, this.getHeight() / 3 + 152);
-                }
-                if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 395 && ge.mouse.getY() < 420) {
+                if (ge.mouse.getX() > ge.settingsBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.settingsBtnLMargin && ge.mouse.getY() > 306 && ge.mouse.getY() < 356) {
                     if (ge.mouse.isMousePressed() && coolDown <= 0) {
                         UsefulSnippets.openWebpage("https://github.com/xNovax/Multiplication_Dungeon");
                         coolDown = 200;
                     }
                     g.setColor(Color.WHITE);
-                    g.drawString("Help", this.getWidth() / 3, this.getHeight() / 3 + 202);
+                    g.drawString("Help", findStringMid(g, this.getWidth(), "Help") + ge.settingsBtnLMargin, 306 + 33);
                 }
-                if (ge.mouse.getX() > 280 && ge.mouse.getX() < 350 && ge.mouse.getY() > 445 && ge.mouse.getY() < 470) {
+                if (ge.mouse.getX() > ge.settingsBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.settingsBtnLMargin && ge.mouse.getY() > 359 && ge.mouse.getY() < 409) {
                     if (ge.mouse.isMousePressed()) {
                         ge.mainSettings = false;
                     }
                     g.setColor(Color.WHITE);
-                    g.drawString("Back", this.getWidth() / 3, this.getHeight() / 3 + 252);
+                    g.drawString("Back", findStringMid(g, this.getWidth(), "Back") + ge.settingsBtnLMargin, 359 + 33);
                 }
 
             } else {
@@ -378,6 +366,12 @@ public class GamePanel extends JPanel {
 
     public void setParent(MultiplicationDungeonForm p) {
         parent = p;
+    }
+
+    public int findStringMid(Graphics g, int width, String s) {
+        int stringLen = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+        int start = (width - 400) / 2 - stringLen / 2;
+        return start;
     }
 
     public class ListenerThread implements Runnable {

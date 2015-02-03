@@ -35,7 +35,7 @@ public class GameEngine implements Serializable {
     //=========================
     //Screens
     public int playerSp = 0;
-    
+
     public boolean intro = true;
     public boolean mainMenu = false;
     public boolean mainSettings = false;
@@ -52,7 +52,10 @@ public class GameEngine implements Serializable {
     public boolean unPauseCheck = false;
     public long startMillis = 0;
     public long endMillis = 0;
-
+    
+    
+    public int coolDown = 0;        //a generic coolDown timer that decreases every tick; can be accessed by any method universally
+    
     //=========================
     //      Input Variables
     //=========================
@@ -80,21 +83,6 @@ public class GameEngine implements Serializable {
     int loadTimer = 0;
 
     //=========================
-    //      Menu Variables
-    //=========================
-    transient BufferedImage menuScreen;
-    transient BufferedImage menuTitle;
-    transient BufferedImage play_NoGlow;
-    transient BufferedImage play_Glow;
-
-    int AnimationTimer = 0;
-    int ImageScroll = 0;
-    int loadingBarX = 0;
-    int loadingBarW = 0;
-    int loadingBarProg = 0;
-    ArrayList<GuiButton> buttons = new ArrayList();
-
-    //=========================
     //      Room Variables
     //=========================
     public Room[][] rooms = new Room[5][5];
@@ -109,6 +97,29 @@ public class GameEngine implements Serializable {
     int texRows = 20;
     int texCols = 20;
     int texD = 50;
+
+    //=========================
+    //      Menu Variables
+    //=========================
+    transient BufferedImage menuScreen;
+    transient BufferedImage menuTitle;
+    transient BufferedImage play_NoGlow;
+    transient BufferedImage play_Glow;
+
+    int AnimationTimer = 0;
+    int ImageScroll = 0;
+    int loadingBarX = 0;
+    int loadingBarW = 0;
+    int loadingBarProg = 0;
+    ArrayList<GuiButton> buttons = new ArrayList();
+
+    int numSettingsBtns = 4;
+    int navBtnH = 50;
+    int navBtnW = 400;
+    int settingsBtnLMargin = 200;
+    NavBtn[] settingsBtns = new NavBtn[numSettingsBtns];
+    String[] settingsBtnStrings = {"Player Model - " + playerSp, "Room dimension - " + rooms.length + " x " + rooms[0].length, "Help", "Back"};
+    int navBtnYSpacing = 3;
 
     //=============================
     //=============================
@@ -135,6 +146,11 @@ public class GameEngine implements Serializable {
                 spritesTex[i][j] = spriteSheetTex.getSubimage(i * texD, j * texD, texD, texD);
             }
         }
+
+        for (int b = 0; b < numSettingsBtns; b++) {
+            settingsBtns[b] = new NavBtn(200, 200 + (navBtnYSpacing + navBtnH) * b, navBtnW, navBtnH, settingsBtnStrings[b]);
+        }
+
         menuScreen = UsefulSnippets.loadImage("/resources/JustBG.png");
         menuTitle = UsefulSnippets.loadImage("/resources/MenuTitle.png");
         play_NoGlow = UsefulSnippets.loadImage("/resources/Play_NoGlow.png");
@@ -165,6 +181,13 @@ public class GameEngine implements Serializable {
     }
 
     public void tick() {
+
+        if (coolDown > 0) {
+            coolDown--;
+        }
+        if (coolDown < 0) {
+            coolDown = 0;
+        }
 
         if (intro) {
             if (AnimationTimer > 5) {
