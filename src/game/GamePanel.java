@@ -109,7 +109,7 @@ public class GamePanel extends JPanel {
             g.drawImage(ge.menuScreen, 0 - ge.ImageScroll, 0, 850, 650, null);
             g.drawImage(ge.menuScreen, 850 - ge.ImageScroll, 0, 850, 650, null);
             if (ge.mainSettings) {
-
+//                System.out.println(ge.gameScreen);
                 for (int i = 0; i < ge.settingsBtns.length; i++) {
                     if (ge.mouse.getX() > ge.menuBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.menuBtnLMargin && ge.mouse.getY() > ge.settingsBtns[i].yLoc && ge.mouse.getY() < ge.settingsBtns[i].yLoc + 50) {
                         g.setColor(Color.DARK_GRAY);
@@ -117,6 +117,19 @@ public class GamePanel extends JPanel {
                         ge.settingsBtns[i].isMouseOver = true;
                         g.setColor(Color.WHITE);
                         g.drawString(ge.settingsBtns[i].label, findStringMid(g, this.getWidth(), ge.settingsBtns[i].label) + ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc + 33);
+
+                        if (i == 1) {
+                            g.setColor(Color.LIGHT_GRAY);
+                            g.fill3DRect(500, 253, 45, 12, true);
+                            g.fill3DRect(545, 253, 45, 12, true);
+                            g.fill3DRect(500, 290, 45, 12, true);
+                            g.fill3DRect(545, 290, 45, 12, true);
+                            g.setColor(Color.BLACK);
+                            g.drawString("+", 517, 269);
+                            g.drawString("+", 562, 269);
+                            g.drawString("-", 517, 306);
+                            g.drawString("-", 562, 306);
+                        }
                     } else {
                         g.setColor(Color.LIGHT_GRAY);
                         g.fill3DRect(ge.settingsBtns[i].xLoc, ge.settingsBtns[i].yLoc, this.getWidth() - 400, ge.settingsBtns[i].height, true);
@@ -138,8 +151,19 @@ public class GamePanel extends JPanel {
                                 ge.updateBtns();
                                 break;
                             case 1:
-                                ge.mainSettings = false;
-                                ge.coolDown = 200;
+                                if (ge.mouse.getX() > 500 && ge.mouse.getX() < 545 && ge.mouse.getY() > 253 && ge.mouse.getY() < 270 && ge.roomSizeX < ge.roomXUpLimit) {
+                                    ge.roomSizeX++;
+                                }
+                                if (ge.mouse.getX() > 545 && ge.mouse.getX() < 590 && ge.mouse.getY() > 253 && ge.mouse.getY() < 270 && ge.roomSizeY < ge.roomYUpLimit) {
+                                    ge.roomSizeY++;
+                                }
+                                if (ge.mouse.getX() > 500 && ge.mouse.getX() < 545 && ge.mouse.getY() > 290 && ge.mouse.getY() < 302 && ge.roomSizeX > ge.roomXLowLimit) {
+                                    ge.roomSizeX--;
+                                }
+                                if (ge.mouse.getX() > 545 && ge.mouse.getX() < 590 && ge.mouse.getY() > 290 && ge.mouse.getY() < 302 && ge.roomSizeY > ge.roomYLowLimit) {
+                                    ge.roomSizeY--;
+                                }
+                                coolDown = 50;
                                 ge.updateBtns();
                                 break;
                             case 2:
@@ -147,8 +171,11 @@ public class GamePanel extends JPanel {
                                 coolDown = 200;
                                 break;
                             case 3:
+                                ge.coolDown = 200;
                                 ge.mainSettings = false;
-                                ge.coolDown = 100;
+                                ge.mainMenu = true;
+                                ge.rooms = new Room[ge.roomSizeX][ge.roomSizeY];
+                                ge.loadRooms();
                                 break;
 
                         }
@@ -340,26 +367,35 @@ public class GamePanel extends JPanel {
         }
 
         if (ge.gameOver) {
+            String[] endMsg = new String[3];
+            endMsg[0] = "Game Over";
+            endMsg[1] = "You got " + ge.pl.score + " points!";
+            endMsg[2] = "Completed in " + (long) ((ge.endMillis - ge.startMillis) / 1000) / 60 + " minutes and " + (int) ((ge.endMillis - ge.startMillis) / 1000) % 60 + " seconds";
             g.setColor(Color.darkGray);
-            g.drawString("Game Over", this.getWidth() / 3, this.getHeight() / 3);
-            g.drawString("You got " + ge.pl.score + " points!", this.getWidth() / 3, this.getHeight() / 3 + 75);
-            g.drawString("Completed in " + (long) ((ge.endMillis - ge.startMillis) / 1000) / 60 + " minutes and " + (int) ((ge.endMillis - ge.startMillis) / 1000) % 60 + " seconds", this.getWidth() / 3, this.getHeight() / 3 + 100);
-            g.setColor(Color.DARK_GRAY);
-            g.drawString("Exit", this.getWidth() / 3 + 2, this.getHeight() / 3 + 152);
-            g.setColor(Color.black);
-            g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
-            if (ge.mouse.getX() > 280 && ge.mouse.getX() < 425 && ge.mouse.getY() > 340 && ge.mouse.getY() < 370) {
+            for (int i = 0; i < endMsg.length; i++) {
+                g.drawString(endMsg[i], findStringMid(g, this.getWidth(), endMsg[i]) + 200, 200 + 50 * i);
+            }
+
+            if (ge.mouse.getX() > ge.menuBtnLMargin && ge.mouse.getX() < (this.getWidth() - 400) + ge.menuBtnLMargin && ge.mouse.getY() > 500 && ge.mouse.getY() < 550) {
                 if (ge.mouse.isMousePressed()) {
                     ge = new GameEngine();
                     this.reloadEngine();
                 }
+                g.setColor(Color.DARK_GRAY);
+                g.fill3DRect(ge.menuBtnLMargin, 500, this.getWidth() - 400, 50, true);
                 g.setColor(Color.WHITE);
-                g.drawString("Exit", this.getWidth() / 3, this.getHeight() / 3 + 150);
+                g.drawString("Exit", findStringMid(g, this.getWidth(), "Exit") + ge.menuBtnLMargin, 500 + 33);
+            } else {
+                g.setColor(Color.LIGHT_GRAY);
+                g.fill3DRect(ge.menuBtnLMargin, 500, this.getWidth() - 400, 50, true);
+                g.setColor(Color.BLACK);
+                g.drawString("Exit", findStringMid(g, this.getWidth(), "Exit") + ge.menuBtnLMargin, 500 + 33);
             }
-
         }
+
         g.setColor(Color.red);
 
+//        g.drawString(ge.mouse.getX() + " - " + ge.mouse.getY(), 100, 100);
 //        g.drawString(ge.pl.getX() + " - " + ge.pl.getY(), 100, 100);
     }
 

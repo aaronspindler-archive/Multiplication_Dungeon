@@ -106,7 +106,7 @@ public class QuestionPanel implements Serializable {
                 if (addScore == 0){
                     addScore = ((double) ((double)clock/360)*1000);
                     world.pl.score = world.pl.score + (int) addScore;
-                    System.out.println(addScore + " - " + clock);
+//                    System.out.println(addScore + " - " + clock);
                 }
             
                 world.switchTo("game");

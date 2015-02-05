@@ -53,7 +53,6 @@ public class GameEngine implements Serializable {
     public long startMillis = 0;
     public long endMillis = 0;
     
-    
     public int coolDown = 0;        //a generic coolDown timer that decreases every tick; can be accessed by any method universally
     
     //=========================
@@ -73,7 +72,7 @@ public class GameEngine implements Serializable {
     int en_index; //the enemy that the player has collided with
 
     //=========================
-    //    Quest ion Variables
+    //    Question Variables
     //=========================
     public QuestionPanel qt;
 
@@ -85,9 +84,17 @@ public class GameEngine implements Serializable {
     //=========================
     //      Room Variables
     //=========================
-    public Room[][] rooms = new Room[5][5];
-    int currentRoomX = 4;
-    int currentRoomY = 4;
+    int roomSizeX = 5;  //Default dimensions
+    int roomSizeY = 5;
+    
+    int roomXUpLimit = 20;
+    int roomXLowLimit = 1;
+    int roomYUpLimit = 20;
+    int roomYLowLimit = 1;
+    
+    public Room[][] rooms = new Room[roomSizeX][roomSizeY];
+    int currentRoomX = 0;
+    int currentRoomY = 0;
     int transitionProg = -1000;
     int transitionDir = -1;
     public boolean transitioning = false;
@@ -118,7 +125,7 @@ public class GameEngine implements Serializable {
     int navBtnW = 400;
     int menuBtnLMargin = 200;
     NavBtn[] settingsBtns = new NavBtn[numSettingsBtns];
-    String[] settingsBtnStrings = {"Player Model - " + playerSp, "Room dimension - " + rooms.length + " x " + rooms[0].length, "Help", "Back"};
+    String[] settingsBtnStrings = {"Player Model - " + playerSp, "Room dimension - <" + roomSizeX + "> x <" + roomSizeY+">", "Help", "Back"};
     
     NavBtn[] pauseBtns = new NavBtn[numSettingsBtns];
     String[] pauseBtnStrings = {"Save State", "Load State", "Back", "Exit Level"};
@@ -182,7 +189,7 @@ public class GameEngine implements Serializable {
     }
     
     public void updateBtns(){
-        settingsBtnStrings = new String[] {"Player Model - " + playerSp, "Room dimension - " + rooms.length + " x " + rooms[0].length, "Help", "Back"};
+        settingsBtnStrings = new String[] {"Player Model - " + playerSp, "Room dimension - <" + roomSizeX + "> x <" + roomSizeY+">", "Help", "Back"};
         for (int b = 0; b < numSettingsBtns; b++) {
             settingsBtns[b] = new NavBtn(200, 200 + (navBtnYSpacing + navBtnH) * b, navBtnW, navBtnH, settingsBtnStrings[b]);
             pauseBtns[b] = new NavBtn(200, 200 + (navBtnYSpacing + navBtnH) * b, navBtnW, navBtnH, pauseBtnStrings[b]);
